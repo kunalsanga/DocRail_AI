@@ -44,7 +44,7 @@ export default function LoginPage() {
 
   const handleGoogleLogin = () => {
     // For demo purposes, simulate Google login
-    setEmail("demo@kmrl.com");
+    setEmail("demo@docrail.ai");
     setPassword("demo123");
   };
 
@@ -58,8 +58,8 @@ export default function LoginPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">KMRL Document Hub</h1>
-          <p className="text-gray-600">Kochi Metro Rail Limited</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">DocRail AI</h1>
+          <p className="text-gray-600">Intelligent Document Management System</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">

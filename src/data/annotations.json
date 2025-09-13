@@ -1,0 +1,170 @@
+[
+  {
+    "id": "ann_001",
+    "documentId": "doc_safety_protocols_v32",
+    "author": {
+      "id": "user_001",
+      "name": "Safety Officer",
+      "email": "safety@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 50,
+        "text": "Emergency Response Procedures for Metro Rail Operations"
+      }
+    },
+    "content": "Updated emergency response procedures for Line 1 and Line 2 operations. Includes new protocols for tunnel evacuation and station crowd management.",
+    "tags": ["@Operations", "@Engineering", "#safety", "#emergency", "#protocols"],
+    "createdAt": "2024-01-15T10:30:00Z",
+    "updatedAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "id": "ann_002",
+    "documentId": "doc_station_design_phase2",
+    "author": {
+      "id": "user_002",
+      "name": "Chief Architect",
+      "email": "architect@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 40,
+        "text": "Station Design Specifications for Phase 2 Extension"
+      }
+    },
+    "content": "Comprehensive design specifications for 8 new stations including accessibility features, crowd flow management, and integration with existing infrastructure.",
+    "tags": ["@Architecture & Planning", "@Engineering", "#design", "#accessibility", "#infrastructure"],
+    "createdAt": "2024-01-14T14:20:00Z",
+    "updatedAt": "2024-01-14T14:20:00Z"
+  },
+  {
+    "id": "ann_003",
+    "documentId": "doc_compliance_annual",
+    "author": {
+      "id": "user_003",
+      "name": "Compliance Manager",
+      "email": "compliance@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 35,
+        "text": "Annual Safety Compliance Report 2024"
+      }
+    },
+    "content": "Comprehensive compliance report covering all safety regulations, audit findings, and corrective actions taken throughout 2024.",
+    "tags": ["@Operations", "@Corporate Affairs", "#compliance", "#safety", "#audit"],
+    "createdAt": "2024-01-13T09:15:00Z",
+    "updatedAt": "2024-01-13T09:15:00Z"
+  },
+  {
+    "id": "ann_004",
+    "documentId": "doc_eia_report_2024",
+    "author": {
+      "id": "user_004",
+      "name": "Environmental Officer",
+      "email": "environment@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 45,
+        "text": "Environmental Impact Assessment for Phase 2 Extension"
+      }
+    },
+    "content": "Detailed environmental impact assessment covering noise pollution, air quality, and ecological considerations for the new metro line extension.",
+    "tags": ["@Environment", "@Architecture & Planning", "#environment", "#impact", "#assessment"],
+    "createdAt": "2024-01-12T16:45:00Z",
+    "updatedAt": "2024-01-12T16:45:00Z"
+  },
+  {
+    "id": "ann_005",
+    "documentId": "doc_maintenance_contract",
+    "author": {
+      "id": "user_005",
+      "name": "Procurement Officer",
+      "email": "procurement@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 30,
+        "text": "Maintenance Service Contract Renewal"
+      }
+    },
+    "content": "Contract renewal for rolling stock maintenance services with ABC Engineering. Includes updated terms for preventive maintenance and emergency repairs.",
+    "tags": ["@Commercial", "@Project Management", "#contract", "#maintenance", "#procurement"],
+    "createdAt": "2024-01-11T11:30:00Z",
+    "updatedAt": "2024-01-11T11:30:00Z"
+  },
+  {
+    "id": "ann_006",
+    "documentId": "doc_financial_audit",
+    "author": {
+      "id": "user_006",
+      "name": "Finance Director",
+      "email": "finance@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 25,
+        "text": "Q4 Financial Audit Report"
+      }
+    },
+    "content": "Quarterly financial audit report showing budget performance, cost overruns, and financial projections for the next quarter.",
+    "tags": ["@Finance", "@Corporate Affairs", "#finance", "#audit", "#budget"],
+    "createdAt": "2024-01-10T08:20:00Z",
+    "updatedAt": "2024-01-10T08:20:00Z"
+  },
+  {
+    "id": "ann_007",
+    "documentId": "doc_hr_policies",
+    "author": {
+      "id": "user_007",
+      "name": "HR Manager",
+      "email": "hr@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 30,
+        "text": "Updated HR Policies and Procedures"
+      }
+    },
+    "content": "Comprehensive update to HR policies including remote work guidelines, safety training requirements, and employee development programs.",
+    "tags": ["@HR", "@Operations", "#hr", "#policies", "#training"],
+    "createdAt": "2024-01-09T13:15:00Z",
+    "updatedAt": "2024-01-09T13:15:00Z"
+  },
+  {
+    "id": "ann_008",
+    "documentId": "doc_it_security",
+    "author": {
+      "id": "user_008",
+      "name": "IT Security Officer",
+      "email": "security@kmrl.co.in"
+    },
+    "target": {
+      "type": "document",
+      "selector": {
+        "start": 0,
+        "end": 35,
+        "text": "Cybersecurity Framework Implementation"
+      }
+    },
+    "content": "Implementation of new cybersecurity framework for protecting critical infrastructure and passenger data. Includes incident response procedures.",
+    "tags": ["@IT", "@Operations", "#security", "#cybersecurity", "#data"],
+    "createdAt": "2024-01-08T15:30:00Z",
+    "updatedAt": "2024-01-08T15:30:00Z"
+  }
+]
