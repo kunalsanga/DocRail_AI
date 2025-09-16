@@ -22,9 +22,13 @@ import {
   Bot,
   Globe,
   Clock,
-  TrendingUp
+  TrendingUp,
+  Upload,
+  Shield,
+  Folder
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import IconBadge from "@/components/ui/IconBadge";
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -84,6 +88,45 @@ export default function SearchPage() {
       priority: "High",
       aiSummary: "Metro service regulations and procedures in Malayalam covering operational guidelines and customer service standards.",
       relevanceScore: 92
+    },
+    {
+      id: 4,
+      title: "CRS Directive – Platform Safety Bulletin 2024-02",
+      content: "Mandatory safety checks and passenger management protocols to be implemented during peak hours across all stations…",
+      department: "Safety",
+      date: "2024-01-16",
+      author: "Commissioner of Metro Rail Safety",
+      type: "Regulatory Directive",
+      language: "English",
+      priority: "High",
+      aiSummary: "CRS mandates immediate adoption of platform safety protocols; includes crowd control and signage updates.",
+      relevanceScore: 97
+    },
+    {
+      id: 5,
+      title: "Infra Upgrade Design Change – Axle Bearing Spec v3.1",
+      content: "Engineering design update affecting rolling stock spare-parts procurement; backward compatibility notes and vendor impacts…",
+      department: "Engineering",
+      date: "2024-01-14",
+      author: "Rolling Stock Engineering",
+      type: "Design Change Note",
+      language: "English",
+      priority: "Medium",
+      aiSummary: "Design change likely impacts current procurement cycle; coordinate with Procurement to avoid duplicate orders.",
+      relevanceScore: 90
+    },
+    {
+      id: 6,
+      title: "രണ്ടുഭാഷാ സുരക്ഷാ അറിയിപ്പ് / Bilingual Safety Notice",
+      content: "ട്രാക്ക്-സൈഡ് പ്രവർത്തനങ്ങൾക്ക് പുതുക്കിയ SOP. Updated SOP for track-side work including night shifts and isolation procedures…",
+      department: "Operations",
+      date: "2024-01-13",
+      author: "Safety Cell",
+      type: "Safety Circular",
+      language: "Bilingual",
+      priority: "High",
+      aiSummary: "Malayalam-English circular with actionable SOP changes for field teams; schedule toolbox talks before implementation.",
+      relevanceScore: 93
     }
   ];
 
@@ -100,7 +143,7 @@ export default function SearchPage() {
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
-        <div className="w-80 bg-white shadow-lg flex flex-col">
+        <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
           {/* Logo Section */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
@@ -115,7 +158,7 @@ export default function SearchPage() {
           </div>
 
           {/* Navigation */}
-          <div className="p-6">
+          <div className="p-6 overflow-y-auto">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
             <nav className="space-y-2">
               <button 
@@ -129,12 +172,19 @@ export default function SearchPage() {
                 onClick={() => router.push("/upload")}
                 className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
               >
-                <Search className="w-5 h-5" />
+                <Upload className="w-5 h-5" />
                 <span>Upload Documents</span>
               </button>
               <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
                 <Search className="w-5 h-5" />
                 <span className="font-medium">Search & Filter</span>
+              </button>
+              <button 
+                onClick={() => router.push("/compliance")}
+                className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
+              >
+                <Shield className="w-5 h-5" />
+                <span>Compliance</span>
               </button>
               <button className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
                 <Bell className="w-5 h-5" />
@@ -142,6 +192,13 @@ export default function SearchPage() {
                 <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                   3
                 </div>
+              </button>
+              <button 
+                onClick={() => router.push("/knowledge-hub")}
+                className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
+              >
+                <Folder className="w-5 h-5" />
+                <span>Knowledge Hub</span>
               </button>
             </nav>
           </div>
@@ -204,8 +261,8 @@ export default function SearchPage() {
           <Card className="mb-8 bg-white shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Bot className="w-5 h-5 text-blue-600 mr-2" />
-                AI-Powered Search
+                <span className="mr-2"><IconBadge color="blue" size="sm"><Bot /></IconBadge></span>
+                <span>AI-Powered Search</span>
               </CardTitle>
               <CardDescription>Search in English or Malayalam with intelligent understanding</CardDescription>
             </CardHeader>

@@ -31,6 +31,7 @@ import {
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import IconBadge from "@/components/ui/IconBadge";
 const BilingualSummary = dynamic(() => import("@/components/translation/BilingualSummary"), { ssr: false, loading: () => null });
 const AnnotationsPanel = dynamic(() => import("@/components/annotations/AnnotationsPanel"), { ssr: false, loading: () => null });
 
@@ -259,24 +260,20 @@ export default function UploadPage() {
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              <CardContent className="p-16 text-center">
-                {/* Upload Icon with Animation */}
-                <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 transition-all duration-200 ${
-                  isDragOver 
-                    ? 'bg-blue-500 scale-110 shadow-lg' 
-                    : 'bg-gradient-to-br from-blue-100 to-blue-200 shadow-md'
-                }`}>
-                  <Upload className={`w-12 h-12 transition-colors duration-200 ${
-                    isDragOver ? 'text-white' : 'text-blue-600'
-                  }`} />
+              <CardContent className="p-8 sm:p-12 text-center">
+                {/* Professional Icon */}
+                <div className="mx-auto mb-6">
+                  <IconBadge color={isDragOver ? "blue" : "slate"} size="md">
+                    <Upload />
+                  </IconBadge>
                 </div>
 
                 {/* Main Text */}
-                <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
                   {isDragOver ? 'Drop Files Here!' : 'Upload Documents'}
                 </h3>
                 
-                <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+                <p className="text-base sm:text-lg text-gray-600 mb-6 max-w-md mx-auto">
                   {isDragOver 
                     ? 'Release to upload your files' 
                     : 'Drag and drop your files here, or click the button below to browse'

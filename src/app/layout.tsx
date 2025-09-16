@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased bg-[var(--background)] text-[var(--foreground)] min-h-screen">
         <AuthProvider>
           <NotificationsProvider>
             {children}

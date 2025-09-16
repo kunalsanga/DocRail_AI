@@ -35,6 +35,7 @@ import {
   Check
 } from "lucide-react";
 import dynamic from "next/dynamic";
+import IconBadge from "@/components/ui/IconBadge";
 const RiskScoring = dynamic(() => import("@/components/risk/RiskScoring"), {
   ssr: false,
   loading: () => null,
@@ -130,6 +131,73 @@ const mockDocuments = [
     status: "Draft",
     department: "IT"
   }
+  ,
+  {
+    id: 9,
+    name: "CRS Directive – Platform Safety Bulletin 2024-02.pdf",
+    type: "PDF",
+    size: "1.2 MB",
+    uploadDate: "2024-01-08",
+    uploadedBy: "CRS Office",
+    category: "Regulatory",
+    status: "Published",
+    department: "Safety & Security"
+  },
+  {
+    id: 10,
+    name: "Rolling Stock Maintenance Job Cards – Aluva Depot.xlsx",
+    type: "XLSX",
+    size: "960 KB",
+    uploadDate: "2024-01-07",
+    uploadedBy: "Depot Manager (Aluva)",
+    category: "Maintenance",
+    status: "Review",
+    department: "Operations"
+  },
+  {
+    id: 11,
+    name: "Procurement – Spare Parts PO & Vendor Invoices.zip",
+    type: "ZIP",
+    size: "12.6 MB",
+    uploadDate: "2024-01-06",
+    uploadedBy: "Procurement Cell",
+    category: "Finance & Procurement",
+    status: "Processing",
+    department: "Finance"
+  },
+  {
+    id: 12,
+    name: "Environmental Impact Study – Phase 2 Corridor.pdf",
+    type: "PDF",
+    size: "6.7 MB",
+    uploadDate: "2024-01-05",
+    uploadedBy: "Environment Team",
+    category: "Environment",
+    status: "Published",
+    department: "Environment"
+  },
+  {
+    id: 13,
+    name: "സുരക്ഷാ സർക്കുലർ – രാത്രികാല പ്രവർത്തനങ്ങൾ (Malayalam).pdf",
+    type: "PDF",
+    size: "1.0 MB",
+    uploadDate: "2024-01-05",
+    uploadedBy: "Safety Cell",
+    category: "Safety",
+    status: "Published",
+    department: "Safety & Security"
+  },
+  {
+    id: 14,
+    name: "Board Meeting Minutes – January 2024.docx",
+    type: "DOCX",
+    size: "420 KB",
+    uploadDate: "2024-01-04",
+    uploadedBy: "Company Secretary",
+    category: "Governance",
+    status: "Approved",
+    department: "Corporate Affairs"
+  }
 ];
 
 export default function Dashboard() {
@@ -142,7 +210,7 @@ export default function Dashboard() {
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
-        <div className="w-80 bg-white shadow-lg flex flex-col">
+        <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
           {/* Logo Section */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
@@ -157,7 +225,7 @@ export default function Dashboard() {
           </div>
 
           {/* Navigation */}
-          <div className="p-6">
+          <div className="p-6 overflow-y-auto">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
             <nav className="space-y-2">
               <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
@@ -297,9 +365,7 @@ export default function Dashboard() {
                       <span className="text-sm text-green-600">+18% this week</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Bot className="w-6 h-6 text-blue-600" />
-                  </div>
+                  <IconBadge color="blue" size="md"><Bot /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -315,9 +381,7 @@ export default function Dashboard() {
                       <span className="text-sm text-green-600">Above target</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-green-600" />
-                  </div>
+                  <IconBadge color="green" size="md"><Shield /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -333,9 +397,7 @@ export default function Dashboard() {
                       <span className="text-sm text-green-600">90% faster</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-orange-600" />
-                  </div>
+                  <IconBadge color="orange" size="md"><Clock /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -351,9 +413,7 @@ export default function Dashboard() {
                       <span className="text-sm text-green-600">Perfect score</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <Check className="w-6 h-6 text-purple-600" />
-                  </div>
+                  <IconBadge color="purple" size="md"><Check /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -461,9 +521,7 @@ export default function Dashboard() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                          <FileText className="w-4 h-4 text-white" />
-                        </div>
+                        <IconBadge color="blue" size="sm"><FileText /></IconBadge>
                         <div>
                           <p className="font-medium text-gray-900">Safety Reports</p>
                           <p className="text-sm text-gray-600">23 documents</p>
@@ -477,9 +535,7 @@ export default function Dashboard() {
                     
                     <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                          <Shield className="w-4 h-4 text-white" />
-                        </div>
+                        <IconBadge color="green" size="sm"><Shield /></IconBadge>
                         <div>
                           <p className="font-medium text-gray-900">Compliance</p>
                           <p className="text-sm text-gray-600">12 documents</p>
@@ -495,9 +551,7 @@ export default function Dashboard() {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center">
-                          <TrendingUp className="w-4 h-4 text-white" />
-                        </div>
+                        <IconBadge color="orange" size="sm"><TrendingUp /></IconBadge>
                         <div>
                           <p className="font-medium text-gray-900">Financial</p>
                           <p className="text-sm text-gray-600">18 documents</p>
@@ -511,9 +565,7 @@ export default function Dashboard() {
                     
                     <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                          <Users className="w-4 h-4 text-white" />
-                        </div>
+                        <IconBadge color="purple" size="sm"><Users /></IconBadge>
                         <div>
                           <p className="font-medium text-gray-900">HR Documents</p>
                           <p className="text-sm text-gray-600">8 documents</p>

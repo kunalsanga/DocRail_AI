@@ -25,6 +25,7 @@ import {
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import IconBadge from "@/components/ui/IconBadge";
 const VersionHistory = dynamic(() => import("@/components/audit/VersionHistory"), { ssr: false, loading: () => null });
 const AuditTrail = dynamic(() => import("@/components/audit/AuditTrail"), { ssr: false, loading: () => null });
 
@@ -44,17 +45,17 @@ export default function CompliancePage() {
   const upcomingDeadlines = [
     {
       id: 1,
-      title: "Safety Audit Report Submission",
+      title: "CRS Compliance Filing – Platform Safety Bulletin 2024-02",
       department: "Safety",
-      dueDate: "2024-02-15",
-      daysRemaining: 15,
+      dueDate: "2024-02-05",
+      daysRemaining: 4,
       priority: "High",
-      status: "On Track",
-      description: "Annual safety audit report for metro operations"
+      status: "In Progress",
+      description: "Acknowledge and implement CRS platform safety directive with station-wise action log"
     },
     {
       id: 2,
-      title: "Environmental Compliance Review",
+      title: "Environmental Compliance Review – Phase 2",
       department: "Environment",
       dueDate: "2024-02-28",
       daysRemaining: 28,
@@ -64,13 +65,13 @@ export default function CompliancePage() {
     },
     {
       id: 3,
-      title: "Financial Statement Audit",
-      department: "Finance",
-      dueDate: "2024-03-10",
-      daysRemaining: 38,
+      title: "Design Change Acknowledgement – Axle Bearing Spec v3.1",
+      department: "Engineering",
+      dueDate: "2024-02-18",
+      daysRemaining: 17,
       priority: "High",
-      status: "In Progress",
-      description: "Annual financial statement preparation and audit"
+      status: "Pending Review",
+      description: "Update maintenance SOP and coordinate with Procurement to align spare-parts orders"
     }
   ];
 
@@ -140,7 +141,7 @@ export default function CompliancePage() {
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
-        <div className="w-80 bg-white shadow-lg flex flex-col">
+        <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
           {/* Logo Section */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
@@ -155,7 +156,7 @@ export default function CompliancePage() {
           </div>
 
           {/* Navigation */}
-          <div className="p-6">
+          <div className="p-6 overflow-y-auto">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
             <nav className="space-y-2">
               <Link prefetch href="/dashboard" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
@@ -259,9 +260,7 @@ export default function CompliancePage() {
                       <span className="text-sm text-green-600">All systems green</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-green-600" />
-                  </div>
+                  <IconBadge color="green" size="md"><Shield /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -277,9 +276,7 @@ export default function CompliancePage() {
                       <span className="text-sm text-blue-600">Next 30 days</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <Calendar className="w-6 h-6 text-blue-600" />
-                  </div>
+                  <IconBadge color="blue" size="md"><Calendar /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -295,9 +292,7 @@ export default function CompliancePage() {
                       <span className="text-sm text-orange-600">Requires attention</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-orange-600" />
-                  </div>
+                  <IconBadge color="orange" size="md"><Clock /></IconBadge>
                 </div>
               </CardContent>
             </Card>
@@ -313,9 +308,7 @@ export default function CompliancePage() {
                       <span className="text-sm text-green-600">All on track</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <CheckCircle className="w-6 h-6 text-green-600" />
-                  </div>
+                  <IconBadge color="green" size="md"><CheckCircle /></IconBadge>
                 </div>
               </CardContent>
             </Card>

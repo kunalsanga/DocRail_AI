@@ -74,6 +74,45 @@ export function NotificationsProvider({ children }: { children: React.ReactNode 
           read: false
         },
         {
+          id: "demo_crs_2024_02",
+          title: "CRS Directive – Platform Safety Bulletin 2024-02",
+          message: "Implement platform crowd management SOP and update signage within 7 days across all stations.",
+          kind: "new_directive",
+          createdAt: new Date().toISOString(),
+          intendedRoles: ["admin", "engineer"],
+          intendedDepartments: ["Operations", "Safety"],
+          documentId: "doc_crs_bulletin_2024_02",
+          channels: ["push", "email", "whatsapp"],
+          readByUserIds: [],
+          read: false
+        },
+        {
+          id: "demo_design_change_axle_v31",
+          title: "Design Change – Axle Bearing Spec v3.1",
+          message: "Engineering design update may impact current procurement POs. Coordinate to avoid duplicate orders.",
+          kind: "department_relevant",
+          createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+          intendedRoles: ["engineer", "admin"],
+          intendedDepartments: ["Engineering", "Finance"],
+          documentId: "doc_design_change_axle_v31",
+          channels: ["push", "email"],
+          readByUserIds: [],
+          read: false
+        },
+        {
+          id: "demo_bilingual_notice",
+          title: "Bilingual Safety Notice – Night Shift SOP",
+          message: "Malayalam-English circular for track-side night operations. Schedule toolbox talks before rollout.",
+          kind: "deadline_approaching",
+          createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+          intendedRoles: ["admin", "engineer"],
+          intendedDepartments: ["Operations"],
+          documentId: "doc_bilingual_safety_notice",
+          channels: ["push"],
+          readByUserIds: [],
+          read: false
+        },
+        {
           id: "demo_2",
           title: "Compliance Deadline Approaching",
           message: "Annual safety compliance report is due in 5 days. Please ensure all required documents are submitted.",

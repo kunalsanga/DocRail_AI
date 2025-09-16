@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import IconBadge from "@/components/ui/IconBadge";
 
 interface KnowledgeNode {
   id: string;
@@ -68,6 +69,9 @@ export default function KnowledgeHubPage() {
             { id: "doc_financial_audit", label: "Financial Audit Q4", type: "document" },
             { id: "doc_hr_policies", label: "HR Policies Update", type: "document" },
             { id: "doc_it_security", label: "IT Security Framework", type: "document" },
+            { id: "doc_crs_bulletin_2024_02", label: "CRS Platform Safety Bulletin 2024-02", type: "document" },
+            { id: "doc_design_change_axle_v31", label: "Design Change – Axle Spec v3.1", type: "document" },
+            { id: "doc_bilingual_safety_notice", label: "Bilingual Safety Notice", type: "document" },
             { id: "dept_Operations", label: "Operations", type: "department" },
             { id: "dept_Engineering", label: "Engineering", type: "department" },
             { id: "dept_Architecture & Planning", label: "Architecture & Planning", type: "department" },
@@ -82,7 +86,9 @@ export default function KnowledgeHubPage() {
             { id: "cat_compliance", label: "Compliance", type: "category" },
             { id: "cat_environment", label: "Environment", type: "category" },
             { id: "cat_finance", label: "Finance", type: "category" },
-            { id: "cat_security", label: "Security", type: "category" }
+            { id: "cat_security", label: "Security", type: "category" },
+            { id: "cat_regulatory", label: "Regulatory", type: "category" },
+            { id: "cat_bilingual", label: "Bilingual", type: "category" }
           ],
           edges: [
             { id: "e1", source: "doc_safety_protocols_v32", target: "dept_Operations", relation: "mentioned_in" },
@@ -100,7 +106,15 @@ export default function KnowledgeHubPage() {
             { id: "e13", source: "doc_financial_audit", target: "cat_finance", relation: "categorized_as" },
             { id: "e14", source: "doc_hr_policies", target: "dept_HR", relation: "mentioned_in" },
             { id: "e15", source: "doc_it_security", target: "dept_IT", relation: "mentioned_in" },
-            { id: "e16", source: "doc_it_security", target: "cat_security", relation: "categorized_as" }
+            { id: "e16", source: "doc_it_security", target: "cat_security", relation: "categorized_as" },
+            { id: "e17", source: "doc_crs_bulletin_2024_02", target: "dept_Operations", relation: "impacts" },
+            { id: "e18", source: "doc_crs_bulletin_2024_02", target: "cat_regulatory", relation: "categorized_as" },
+            { id: "e19", source: "doc_design_change_axle_v31", target: "dept_Engineering", relation: "authored_by" },
+            { id: "e20", source: "doc_design_change_axle_v31", target: "dept_Finance", relation: "impacts" },
+            { id: "e21", source: "doc_design_change_axle_v31", target: "cat_design", relation: "categorized_as" },
+            { id: "e22", source: "doc_bilingual_safety_notice", target: "dept_Operations", relation: "addressed_to" },
+            { id: "e23", source: "doc_bilingual_safety_notice", target: "cat_bilingual", relation: "categorized_as" },
+            { id: "e24", source: "doc_bilingual_safety_notice", target: "cat_safety", relation: "categorized_as" }
           ]
         };
         setGraph(demoGraph);
@@ -259,7 +273,7 @@ export default function KnowledgeHubPage() {
           </div>
 
           {/* Navigation */}
-          <div className="p-6 flex-shrink-0">
+          <div className="p-6 flex-shrink-0 overflow-y-auto">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
             <nav className="space-y-2">
               <Link prefetch href="/dashboard" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
@@ -403,7 +417,7 @@ export default function KnowledgeHubPage() {
               <Card className="bg-white shadow-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <Network className="w-5 h-5" />
+                    <IconBadge color="slate" size="sm"><Network /></IconBadge>
                     <span>Knowledge Graph</span>
                   </CardTitle>
                 </CardHeader>
@@ -421,15 +435,15 @@ export default function KnowledgeHubPage() {
                   </div>
                   <div className="mt-4 flex items-center justify-center space-x-6 text-sm text-gray-500">
                     <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                      <IconBadge color="blue" size="sm"><FileText className="w-4 h-4" /></IconBadge>
                       <span>Documents</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <IconBadge color="green" size="sm"><Building2 className="w-4 h-4" /></IconBadge>
                       <span>Departments</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                      <IconBadge color="orange" size="sm"><Tag className="w-4 h-4" /></IconBadge>
                       <span>Categories</span>
                     </div>
                   </div>
@@ -444,7 +458,7 @@ export default function KnowledgeHubPage() {
                 <Card className="bg-white shadow-sm">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
-                      {getNodeIcon(selectedNode.type)}
+                      <IconBadge color="blue" size="sm">{getNodeIcon(selectedNode.type)}</IconBadge>
                       <span>Selected Node</span>
                     </CardTitle>
                   </CardHeader>
@@ -493,7 +507,7 @@ export default function KnowledgeHubPage() {
               <Card className="bg-white shadow-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <Filter className="w-5 h-5" />
+                    <IconBadge color="slate" size="sm"><Filter /></IconBadge>
                     <span>Filtered Results ({filteredNodes.length})</span>
                   </CardTitle>
                 </CardHeader>
@@ -507,9 +521,7 @@ export default function KnowledgeHubPage() {
                         }`}
                         onClick={() => setSelectedNode(node)}
                       >
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${getNodeColor(node.type)}`}>
-                          {getNodeIcon(node.type)}
-                        </div>
+                        <IconBadge color="slate" size="sm">{getNodeIcon(node.type)}</IconBadge>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-900 truncate">{node.label}</p>
                           <p className="text-xs text-gray-500">{node.type}</p>
