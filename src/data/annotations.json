@@ -16,7 +16,13 @@
       }
     },
     "content": "Updated emergency response procedures for Line 1 and Line 2 operations. Includes new protocols for tunnel evacuation and station crowd management.",
-    "tags": ["@Operations", "@Engineering", "#safety", "#emergency", "#protocols"],
+    "tags": [
+      "@Operations",
+      "@Engineering",
+      "#safety",
+      "#emergency",
+      "#protocols"
+    ],
     "createdAt": "2024-01-15T10:30:00Z",
     "updatedAt": "2024-01-15T10:30:00Z"
   },
@@ -37,7 +43,13 @@
       }
     },
     "content": "Comprehensive design specifications for 8 new stations including accessibility features, crowd flow management, and integration with existing infrastructure.",
-    "tags": ["@Architecture & Planning", "@Engineering", "#design", "#accessibility", "#infrastructure"],
+    "tags": [
+      "@Architecture & Planning",
+      "@Engineering",
+      "#design",
+      "#accessibility",
+      "#infrastructure"
+    ],
     "createdAt": "2024-01-14T14:20:00Z",
     "updatedAt": "2024-01-14T14:20:00Z"
   },
@@ -58,7 +70,13 @@
       }
     },
     "content": "Comprehensive compliance report covering all safety regulations, audit findings, and corrective actions taken throughout 2024.",
-    "tags": ["@Operations", "@Corporate Affairs", "#compliance", "#safety", "#audit"],
+    "tags": [
+      "@Operations",
+      "@Corporate Affairs",
+      "#compliance",
+      "#safety",
+      "#audit"
+    ],
     "createdAt": "2024-01-13T09:15:00Z",
     "updatedAt": "2024-01-13T09:15:00Z"
   },
@@ -79,7 +97,13 @@
       }
     },
     "content": "Detailed environmental impact assessment covering noise pollution, air quality, and ecological considerations for the new metro line extension.",
-    "tags": ["@Environment", "@Architecture & Planning", "#environment", "#impact", "#assessment"],
+    "tags": [
+      "@Environment",
+      "@Architecture & Planning",
+      "#environment",
+      "#impact",
+      "#assessment"
+    ],
     "createdAt": "2024-01-12T16:45:00Z",
     "updatedAt": "2024-01-12T16:45:00Z"
   },
@@ -100,7 +124,13 @@
       }
     },
     "content": "Contract renewal for rolling stock maintenance services with ABC Engineering. Includes updated terms for preventive maintenance and emergency repairs.",
-    "tags": ["@Commercial", "@Project Management", "#contract", "#maintenance", "#procurement"],
+    "tags": [
+      "@Commercial",
+      "@Project Management",
+      "#contract",
+      "#maintenance",
+      "#procurement"
+    ],
     "createdAt": "2024-01-11T11:30:00Z",
     "updatedAt": "2024-01-11T11:30:00Z"
   },
@@ -121,7 +151,13 @@
       }
     },
     "content": "Quarterly financial audit report showing budget performance, cost overruns, and financial projections for the next quarter.",
-    "tags": ["@Finance", "@Corporate Affairs", "#finance", "#audit", "#budget"],
+    "tags": [
+      "@Finance",
+      "@Corporate Affairs",
+      "#finance",
+      "#audit",
+      "#budget"
+    ],
     "createdAt": "2024-01-10T08:20:00Z",
     "updatedAt": "2024-01-10T08:20:00Z"
   },
@@ -142,7 +178,13 @@
       }
     },
     "content": "Comprehensive update to HR policies including remote work guidelines, safety training requirements, and employee development programs.",
-    "tags": ["@HR", "@Operations", "#hr", "#policies", "#training"],
+    "tags": [
+      "@HR",
+      "@Operations",
+      "#hr",
+      "#policies",
+      "#training"
+    ],
     "createdAt": "2024-01-09T13:15:00Z",
     "updatedAt": "2024-01-09T13:15:00Z"
   },
@@ -163,8 +205,31 @@
       }
     },
     "content": "Implementation of new cybersecurity framework for protecting critical infrastructure and passenger data. Includes incident response procedures.",
-    "tags": ["@IT", "@Operations", "#security", "#cybersecurity", "#data"],
+    "tags": [
+      "@IT",
+      "@Operations",
+      "#security",
+      "#cybersecurity",
+      "#data"
+    ],
     "createdAt": "2024-01-08T15:30:00Z",
     "updatedAt": "2024-01-08T15:30:00Z"
+  },
+  {
+    "id": "ann_o6ntsdugv1",
+    "documentId": "demo-doc-1",
+    "author": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "target": {
+      "type": "summary"
+    },
+    "content": "accounts",
+    "tags": [
+      "water bill"
+    ],
+    "createdAt": "2025-09-13T07:47:46.217Z",
+    "updatedAt": "2025-09-13T07:47:46.217Z"
   }
 ]

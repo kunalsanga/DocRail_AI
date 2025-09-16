@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNotifications } from "@/contexts/NotificationsContext";
 import { useRouter } from "next/navigation";
 import { 
   FileText, 
@@ -134,6 +135,7 @@ const mockDocuments = [
 export default function Dashboard() {
   const [selectedTimeFilter, setSelectedTimeFilter] = useState("Today");
   const { user, logout } = useAuth();
+  const { unreadCount } = useNotifications();
   const router = useRouter();
 
   return (
@@ -177,9 +179,11 @@ export default function Dashboard() {
               <Link prefetch href="/notifications" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
                 <Bell className="w-5 h-5" />
                 <span>Notifications</span>
-                <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                  3
-                </div>
+                {unreadCount > 0 && (
+                  <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {unreadCount}
+                  </div>
+                )}
               </Link>
               <Link prefetch href="/knowledge-hub" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Folder className="w-5 h-5" />

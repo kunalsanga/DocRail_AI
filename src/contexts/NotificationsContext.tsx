@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useAuth } from "./AuthContext";
 
-export type NotificationChannel = "in-app" | "email" | "whatsapp" | "telegram";
+export type NotificationChannel = "push" | "email" | "telegram" | "whatsapp";
 
 export type NotificationKind =
   | "new_directive"

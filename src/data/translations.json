@@ -1,2 +1,18 @@
-[]
-
+[
+  {
+    "id": "tr_ao5csd6w1la",
+    "documentId": "demo-doc-1",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "This is an AI-generated summary for the uploaded document.",
+    "translatedText": "This is an AI-generated summary for the uploaded document. [Malayalam]",
+    "createdAt": "2025-09-13T07:47:02.351Z",
+    "createdBy": {
+      "id": "1",
+      "name": "DocRail Officer",
+      "email": "officer@docrail.ai",
+      "role": "engineer",
+      "department": "Engineering"
+    }
+  }
+]

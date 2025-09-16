@@ -26,5 +26,64 @@
       "size": 796953
     },
     "createdAt": "2025-09-13T04:41:55.324Z"
+  },
+  {
+    "id": "aud_ipgv08qmsoh",
+    "documentId": "doc_fk3ie2nnlyr",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "0__cgWPP25djXBauNZ.png",
+      "size": 93914
+    },
+    "createdAt": "2025-09-13T07:46:08.707Z"
+  },
+  {
+    "id": "aud_csy0qae6f3g",
+    "documentId": "doc_hizmmh0t8pu",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "image (1) (1).jpg",
+      "size": 155136
+    },
+    "createdAt": "2025-09-13T07:46:25.647Z"
+  },
+  {
+    "id": "aud_2k8vmqi31gu",
+    "documentId": "demo-doc-1",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer",
+      "email": "officer@docrail.ai",
+      "role": "engineer",
+      "department": "Engineering"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-13T07:47:02.351Z"
+  },
+  {
+    "id": "aud_muz2ofp4lr",
+    "documentId": "doc_ffail3gvto9",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "250-2501985_siks-cbs-datacamp-spark-tutorial-notebook-jupyter-notebook-icon.png",
+      "size": 72566
+    },
+    "createdAt": "2025-09-13T07:48:47.787Z"
   }
 ]
