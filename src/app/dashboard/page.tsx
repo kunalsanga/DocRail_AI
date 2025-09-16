@@ -302,7 +302,7 @@ export default function Dashboard() {
           <div className="mb-8">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Good morning, Kunal</h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Good morning, Admin</h1>
                 <p className="text-gray-600">Here's your document overview for admin</p>
               </div>
               <div className="flex items-center space-x-4">
