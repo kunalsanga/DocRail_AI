@@ -230,11 +230,29 @@ export default function KnowledgeHubPage() {
     setSelectedNode(clickedNode || null);
   };
 
-  const filteredNodes = graph?.nodes.filter(node => {
-    if (filterType !== "all" && node.type !== filterType) return false;
-    if (searchQuery && !node.label.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-    return true;
-  }) || [];
+  const [searchResults, setSearchResults] = useState<KnowledgeNode[]>([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const run = async () => {
+      try {
+        const params = new URLSearchParams();
+        if (searchQuery) params.set("query", searchQuery);
+        if (filterType) params.set("type", filterType);
+        const res = await fetch(`/api/knowledge/search?${params.toString()}`, { signal: controller.signal });
+        if (res.ok) {
+          const data = await res.json();
+          setSearchResults((data.nodes || []).map((n: any) => ({ id: n.id, label: n.label, type: n.type })));
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+    run();
+    return () => controller.abort();
+  }, [searchQuery, filterType]);
+
+  const filteredNodes = searchQuery || filterType !== "all" ? searchResults : (graph?.nodes || []);
 
   const getNodeIcon = (type: string) => {
     switch (type) {

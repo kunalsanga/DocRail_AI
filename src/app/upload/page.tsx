@@ -138,22 +138,11 @@ export default function UploadPage() {
   };
 
   return (
-    <ProtectedRoute>
+    <ProtectedRoute allowedRoles={["engineer", "admin"]}>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
         <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-200 flex-shrink-0">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">DocRail AI</h1>
-                <p className="text-sm text-gray-600">Document Management System</p>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Navigation */}
           <div className="p-6 flex-shrink-0">

@@ -58,5 +58,17 @@
       "name": "DocRail Officer"
     },
     "changeNote": "Initial upload"
+  },
+  {
+    "id": "ver_1prxphqbpt6",
+    "documentId": "doc_n4u1yx3k52a",
+    "version": 1,
+    "summary": "Initial upload for rural-health.jpg",
+    "createdAt": "2025-09-22T11:02:42.451Z",
+    "createdBy": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "changeNote": "Initial upload"
   }
 ]

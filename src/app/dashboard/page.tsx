@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/contexts/NotificationsContext";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   FileText, 
   Upload, 
@@ -36,6 +37,8 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import IconBadge from "@/components/ui/IconBadge";
+import docs from "@/data/docs.json";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 const RiskScoring = dynamic(() => import("@/components/risk/RiskScoring"), {
   ssr: false,
   loading: () => null,
@@ -201,52 +204,55 @@ const mockDocuments = [
 ];
 
 export default function Dashboard() {
-  const [selectedTimeFilter, setSelectedTimeFilter] = useState("Today");
   const { user, logout } = useAuth();
   const { unreadCount } = useNotifications();
   const router = useRouter();
+  const { t } = useLanguage();
+  const [acks, setAcks] = useState<Record<number, boolean>>({});
+  const [follow, setFollow] = useState<Record<number, boolean>>({});
+
+  const greetingText = useMemo(() => {
+    // Compute current time in IST (UTC+5:30)
+    const nowUtc = new Date();
+    const istOffsetMinutes = 5 * 60 + 30;
+    const istTime = new Date(nowUtc.getTime() + (istOffsetMinutes - nowUtc.getTimezoneOffset()) * 60 * 1000);
+    const hour = istTime.getHours();
+    if (hour >= 5 && hour < 12) return t("dash.greet.morning");
+    if (hour >= 12 && hour < 17) return t("dash.greet.afternoon");
+    if (hour >= 17 && hour < 22) return t("dash.greet.evening");
+    return t("dash.greet.night");
+  }, [t]);
 
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
         <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">DocRail AI</h1>
-                <p className="text-sm text-gray-600">Document Management System</p>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Navigation */}
           <div className="p-6 overflow-y-auto">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">{t("sidebar.navigation")}</h3>
             <nav className="space-y-2">
               <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span className="font-medium">Dashboard</span>
+                <span className="font-medium">{t("sidebar.dashboard")}</span>
               </button>
               <Link prefetch href="/upload" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Upload className="w-5 h-5" />
-                <span>Upload Documents</span>
+                <span>{t("sidebar.upload")}</span>
               </Link>
               <Link prefetch href="/search" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Search className="w-5 h-5" />
-                <span>Search & Filter</span>
+                <span>{t("sidebar.search")}</span>
               </Link>
               <Link prefetch href="/compliance" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Shield className="w-5 h-5" />
-                <span>Compliance</span>
+                <span>{t("sidebar.compliance")}</span>
               </Link>
               <Link prefetch href="/notifications" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
                 <Bell className="w-5 h-5" />
-                <span>Notifications</span>
+                <span>{t("sidebar.notifications")}</span>
                 {unreadCount > 0 && (
                   <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                     {unreadCount}
@@ -255,7 +261,7 @@ export default function Dashboard() {
               </Link>
               <Link prefetch href="/knowledge-hub" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Folder className="w-5 h-5" />
-                <span>Knowledge Hub</span>
+                <span>{t("sidebar.knowledge")}</span>
               </Link>
             </nav>
           </div>
@@ -302,54 +308,14 @@ export default function Dashboard() {
           <div className="mb-8">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Good morning, Admin</h1>
-                <p className="text-gray-600">Here's your document overview for admin</p>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">{greetingText}, Admin</h1>
+                <p className="text-gray-600">{t("dash.subtitle")}</p>
               </div>
               <div className="flex items-center space-x-4">
-                <button className="p-2 hover:bg-gray-100 rounded-lg">
-                  <Filter className="w-5 h-5 text-gray-600" />
-                </button>
-                <div className="flex space-x-2">
-                  <button 
-                    onClick={() => setSelectedTimeFilter("Today")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                      selectedTimeFilter === "Today" 
-                        ? "bg-blue-600 text-white" 
-                        : "bg-white text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    Today
-                  </button>
-                  <button 
-                    onClick={() => setSelectedTimeFilter("This Week")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                      selectedTimeFilter === "This Week" 
-                        ? "bg-blue-600 text-white" 
-                        : "bg-white text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    This Week
-                  </button>
-                  <button 
-                    onClick={() => setSelectedTimeFilter("This Month")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                      selectedTimeFilter === "This Month" 
-                        ? "bg-blue-600 text-white" 
-                        : "bg-white text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    This Month
-                  </button>
-                </div>
-                <button 
-                  onClick={() => router.push("/upload")}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700"
-                >
-                  <Upload className="w-4 h-4" />
-                  <span>Upload Document</span>
-                </button>
+              
               </div>
             </div>
+            
           </div>
 
           {/* AI-Powered Summary Cards */}
@@ -358,7 +324,7 @@ export default function Dashboard() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Documents Processed</p>
+                    <p className="text-sm text-gray-600 mb-1">{t("dash.docsProcessed")}</p>
                     <p className="text-3xl font-bold text-gray-900">1,247</p>
                     <div className="flex items-center mt-2">
                       <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -374,7 +340,7 @@ export default function Dashboard() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">AI Accuracy</p>
+                    <p className="text-sm text-gray-600 mb-1">{t("dash.aiAccuracy")}</p>
                     <p className="text-3xl font-bold text-gray-900">95.2%</p>
                     <div className="flex items-center mt-2">
                       <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -390,7 +356,7 @@ export default function Dashboard() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Processing Time</p>
+                    <p className="text-sm text-gray-600 mb-1">{t("dash.processingTime")}</p>
                     <p className="text-3xl font-bold text-gray-900">2.3m</p>
                     <div className="flex items-center mt-2">
                       <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -406,7 +372,7 @@ export default function Dashboard() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Compliance Rate</p>
+                    <p className="text-sm text-gray-600 mb-1">{t("dash.complianceRate")}</p>
                     <p className="text-3xl font-bold text-gray-900">100%</p>
                     <div className="flex items-center mt-2">
                       <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
@@ -427,81 +393,109 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg font-semibold flex items-center">
                     <Bot className="w-5 h-5 text-blue-600 mr-2" />
-                    AI Document Feed
+                    {t("dash.aiFeed")}
                   </CardTitle>
-                  <Badge className="bg-green-100 text-green-800">Live Processing</Badge>
+                  <Badge className="bg-green-100 text-green-800">{t("dash.live")}</Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Safety Protocol Update</h4>
-                      <p className="text-sm text-gray-600">Engineering Department • 2 minutes ago</p>
+                {(docs as any[]).slice(0, 3).map((d) => (
+                  <div key={d.id} className={`border-l-4 pl-4 py-3 rounded ${d.priority === 'High' ? 'bg-red-50/60 border-red-500' : d.department === 'Finance' ? 'bg-orange-50/60 border-orange-500' : 'bg-green-50/60 border-green-500'}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-start gap-3">
+                        <div className="hidden sm:flex w-16 h-20 bg-white/60 border rounded items-center justify-center text-[10px] text-gray-500">Thumb</div>
+                        <div>
+                          <h4 className="font-medium text-gray-900">{d.title}</h4>
+                          <p className="text-sm text-gray-600">{d.department} • {d.date}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {d.priority && (
+                          <Badge className={`${d.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-orange-100 text-orange-800'}`}>{d.priority}</Badge>
+                        )}
+                        {d.dueDate && (
+                          <Badge className="bg-amber-100 text-amber-800">Due {d.dueDate}</Badge>
+                        )}
+                      </div>
                     </div>
-                    <Badge className="bg-red-100 text-red-800">Urgent</Badge>
-                  </div>
-                  <p className="text-sm text-gray-700 mt-1">AI Summary: New safety guidelines for metro operations require immediate review...</p>
-                </div>
-                
-                <div className="border-l-4 border-orange-500 pl-4 py-2 bg-orange-50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Budget Allocation Report</h4>
-                      <p className="text-sm text-gray-600">Finance Department • 15 minutes ago</p>
+                    <p className="text-sm text-gray-700 mt-2">AI Summary: {d.aiSummary}</p>
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-600">
+                      {d.regulator && (<Badge className="bg-white text-gray-700 border">Regulator: {d.regulator}</Badge>)}
+                      {d.sourceChannel && (<Badge className="bg-white text-gray-700 border">Source: {d.sourceChannel}</Badge>)}
+                      {d.sourcePath && (<span>Path: {d.sourcePath}{d.page ? ` • Page ${d.page}` : ''}</span>)}
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Link href="#" className="underline">View Source</Link>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-xl">
+                          <DialogHeader>
+                            <DialogTitle>{d.title}</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-2 text-sm text-gray-700">
+                            <div><span className="font-medium">Type:</span> {d.type}</div>
+                            <div><span className="font-medium">Department:</span> {d.department}</div>
+                            {d.regulator && (<div><span className="font-medium">Regulator:</span> {d.regulator}</div>)}
+                            {d.dueDate && (<div><span className="font-medium">Due:</span> {d.dueDate}</div>)}
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {d.sourceChannel && (<Badge className="bg-white text-gray-700 border">Source: {d.sourceChannel}</Badge>)}
+                              {d.sourcePath && (<Badge className="bg-white text-gray-700 border">Path: {d.sourcePath}</Badge>)}
+                              {d.page && (<Badge className="bg-white text-gray-700 border">Page {d.page}</Badge>)}
+                            </div>
+                            <div className="mt-3 p-3 bg-gray-50 border rounded">Preview unavailable in prototype.</div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                      <button
+                        className={`ml-2 px-2 py-1 rounded border text-xs ${acks[d.id] ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
+                        onClick={() => setAcks(prev => ({ ...prev, [d.id]: !prev[d.id] }))}
+                        aria-pressed={!!acks[d.id]}
+                        title="Acknowledge receipt"
+                      >
+                        {acks[d.id] ? 'Acknowledged' : 'Acknowledge'}
+                      </button>
+                      <button
+                        className={`px-2 py-1 rounded border text-xs ${follow[d.id] ? 'bg-yellow-500 text-white border-yellow-500' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
+                        onClick={() => setFollow(prev => ({ ...prev, [d.id]: !prev[d.id] }))}
+                        aria-pressed={!!follow[d.id]}
+                        title="Mark for follow-up"
+                      >
+                        {follow[d.id] ? 'Following' : 'Follow-up'}
+                      </button>
                     </div>
-                    <Badge className="bg-orange-100 text-orange-800">High Priority</Badge>
                   </div>
-                  <p className="text-sm text-gray-700 mt-1">AI Summary: Q4 budget review shows 12% variance in infrastructure spending...</p>
-                </div>
-                
-                <div className="border-l-4 border-green-500 pl-4 py-2 bg-green-50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-gray-900">Compliance Checklist</h4>
-                      <p className="text-sm text-gray-600">HR Department • 1 hour ago</p>
-                    </div>
-                    <Badge className="bg-green-100 text-green-800">Compliance</Badge>
-                  </div>
-                  <p className="text-sm text-gray-700 mt-1">AI Summary: Monthly compliance review completed with 100% adherence...</p>
-                </div>
+                ))}
               </CardContent>
             </Card>
 
-            {/* AI Insights */}
+            {/* Daily Digest (moved here) */}
             <Card className="bg-white shadow-sm">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold flex items-center">
-                  <Bot className="w-5 h-5 text-blue-600 mr-2" />
-                  AI Insights
-                </CardTitle>
+                <CardTitle className="text-lg font-semibold">Daily Digest</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <TrendingUp className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-medium text-gray-900 mb-1">Processing Efficiency</h3>
-                  <p className="text-sm text-gray-600">90% faster than manual processing</p>
-                </div>
-                
-                <div className="border-t pt-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Top Categories Today</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Safety Reports</span>
-                      <span className="font-medium">23</span>
+              <CardContent className="px-6">
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                    <div>
+                      <div className="font-medium text-gray-800 line-clamp-1">CRS Directive – Platform Safety Bulletin 2025-01</div>
+                      <div className="text-gray-600 text-xs">Safety • 2025-02-14</div>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Financial Docs</span>
-                      <span className="font-medium">18</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                    <div>
+                      <div className="font-medium text-gray-800 line-clamp-1">PO 23-9014 – Axle Bearing Assembly (SKF)</div>
+                      <div className="text-gray-600 text-xs">Finance • 2025-02-12</div>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Compliance</span>
-                      <span className="font-medium">12</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                    <div>
+                      <div className="font-medium text-gray-800 line-clamp-1">റാത്രികാല SOP അപ്ഡേറ്റ് (Malayalam) / Night Shift SOP Update</div>
+                      <div className="text-gray-600 text-xs">Operations • 2025-02-10</div>
                     </div>
-                  </div>
-                </div>
+                  </li>
+                </ul>
               </CardContent>
             </Card>
           </div>

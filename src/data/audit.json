@@ -85,5 +85,19 @@
       "size": 72566
     },
     "createdAt": "2025-09-13T07:48:47.787Z"
+  },
+  {
+    "id": "aud_sxkx49bwdal",
+    "documentId": "doc_n4u1yx3k52a",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "rural-health.jpg",
+      "size": 152820
+    },
+    "createdAt": "2025-09-22T11:02:43.217Z"
   }
 ]

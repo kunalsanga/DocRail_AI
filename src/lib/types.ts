@@ -141,4 +141,56 @@ export interface KnowledgeGraph {
   edges: KnowledgeGraphEdge[];
 }
 
+// OCR/NLP Extraction Types
+export interface OcrResult {
+  language: "en" | "ml";
+  text: string;
+  confidence: number; // 0-1
+}
+
+export interface NlpEntity {
+  type:
+    | "safety_warning"
+    | "deadline"
+    | "department"
+    | "amount"
+    | "regulation"
+    | "person"
+    | "location"
+    | "other";
+  value: string;
+  confidence: number; // 0-1
+  start?: number;
+  end?: number;
+}
+
+export interface ExtractedInsight {
+  id: string;
+  documentId: string; // traceability to source document
+  summary: string;
+  entities: NlpEntity[];
+  safetyScore?: number; // 0-100
+  complianceScore?: number; // 0-100
+  overallConfidence: number; // 0-1
+  createdAt: string; // ISO
+}
+
+// Feedback & Adaptive Learning
+export interface FeedbackEntry {
+  id: string;
+  userId?: string;
+  documentId?: string;
+  insightId?: string;
+  rating: number; // 1-5
+  comment?: string;
+  language?: "en" | "ml";
+  createdAt: string; // ISO
+}
+
+export interface ModelMetrics {
+  totalFeedback: number;
+  averageRating: number; // 1-5
+  lastUpdated: string; // ISO
+}
+
 

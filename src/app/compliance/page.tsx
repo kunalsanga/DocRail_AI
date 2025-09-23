@@ -138,7 +138,7 @@ export default function CompliancePage() {
   ];
 
   return (
-    <ProtectedRoute>
+    <ProtectedRoute allowedRoles={["admin", "director", "engineer"]}>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
         <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">

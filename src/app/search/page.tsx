@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,7 +28,10 @@ import {
   Folder
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 import IconBadge from "@/components/ui/IconBadge";
+import docs from "@/data/docs.json";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,6 +40,9 @@ export default function SearchPage() {
   const [selectedDateRange, setSelectedDateRange] = useState("all");
   const { user } = useAuth();
   const router = useRouter();
+  const { t } = useLanguage();
+  const [acks, setAcks] = useState<Record<number, boolean>>({});
+  const [follow, setFollow] = useState<Record<number, boolean>>({});
 
   const departments = [
     "All Departments",
@@ -49,86 +55,7 @@ export default function SearchPage() {
     "IT"
   ];
 
-  const mockSearchResults = [
-    {
-      id: 1,
-      title: "Metro Safety Protocol 2024",
-      content: "Comprehensive safety guidelines for metro operations including emergency procedures, maintenance protocols, and passenger safety measures...",
-      department: "Safety",
-      date: "2024-01-15",
-      author: "Dr. Rajesh Kumar",
-      type: "Policy Document",
-      language: "English",
-      priority: "High",
-      aiSummary: "Key safety protocols for metro operations with focus on emergency response and maintenance procedures.",
-      relevanceScore: 95
-    },
-    {
-      id: 2,
-      title: "Budget Allocation Report Q4",
-      content: "Quarterly budget analysis showing allocation across departments, variance analysis, and recommendations for Q1 2024...",
-      department: "Finance",
-      date: "2024-01-12",
-      author: "Ms. Sunitha Nair",
-      type: "Financial Report",
-      language: "English",
-      priority: "Medium",
-      aiSummary: "Q4 budget review with 12% variance in infrastructure spending and recommendations for optimization.",
-      relevanceScore: 88
-    },
-    {
-      id: 3,
-      title: "മെട്രോ സേവന നിയമങ്ങൾ",
-      content: "കൊച്ചി മെട്രോ റെയിൽ ലിമിറ്റഡിന്റെ സേവന നിയമങ്ങളും നടപടിക്രമങ്ങളും...",
-      department: "Operations",
-      date: "2024-01-10",
-      author: "Mr. Mohan Das",
-      type: "Service Manual",
-      language: "Malayalam",
-      priority: "High",
-      aiSummary: "Metro service regulations and procedures in Malayalam covering operational guidelines and customer service standards.",
-      relevanceScore: 92
-    },
-    {
-      id: 4,
-      title: "CRS Directive – Platform Safety Bulletin 2024-02",
-      content: "Mandatory safety checks and passenger management protocols to be implemented during peak hours across all stations…",
-      department: "Safety",
-      date: "2024-01-16",
-      author: "Commissioner of Metro Rail Safety",
-      type: "Regulatory Directive",
-      language: "English",
-      priority: "High",
-      aiSummary: "CRS mandates immediate adoption of platform safety protocols; includes crowd control and signage updates.",
-      relevanceScore: 97
-    },
-    {
-      id: 5,
-      title: "Infra Upgrade Design Change – Axle Bearing Spec v3.1",
-      content: "Engineering design update affecting rolling stock spare-parts procurement; backward compatibility notes and vendor impacts…",
-      department: "Engineering",
-      date: "2024-01-14",
-      author: "Rolling Stock Engineering",
-      type: "Design Change Note",
-      language: "English",
-      priority: "Medium",
-      aiSummary: "Design change likely impacts current procurement cycle; coordinate with Procurement to avoid duplicate orders.",
-      relevanceScore: 90
-    },
-    {
-      id: 6,
-      title: "രണ്ടുഭാഷാ സുരക്ഷാ അറിയിപ്പ് / Bilingual Safety Notice",
-      content: "ട്രാക്ക്-സൈഡ് പ്രവർത്തനങ്ങൾക്ക് പുതുക്കിയ SOP. Updated SOP for track-side work including night shifts and isolation procedures…",
-      department: "Operations",
-      date: "2024-01-13",
-      author: "Safety Cell",
-      type: "Safety Circular",
-      language: "Bilingual",
-      priority: "High",
-      aiSummary: "Malayalam-English circular with actionable SOP changes for field teams; schedule toolbox talks before implementation.",
-      relevanceScore: 93
-    }
-  ];
+  const mockSearchResults = docs as any[];
 
   const filteredResults = mockSearchResults.filter(result => {
     const matchesQuery = result.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -144,51 +71,40 @@ export default function SearchPage() {
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
         <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">DocRail AI</h1>
-                <p className="text-sm text-gray-600">Document Management System</p>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Navigation */}
           <div className="p-6 overflow-y-auto">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">{t("sidebar.navigation")}</h3>
             <nav className="space-y-2">
               <button 
                 onClick={() => router.push("/dashboard")}
                 className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
               >
                 <FileText className="w-5 h-5" />
-                <span>Dashboard</span>
+                <span>{t("sidebar.dashboard")}</span>
               </button>
               <button 
                 onClick={() => router.push("/upload")}
                 className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
               >
                 <Upload className="w-5 h-5" />
-                <span>Upload Documents</span>
+                <span>{t("sidebar.upload")}</span>
               </button>
               <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
                 <Search className="w-5 h-5" />
-                <span className="font-medium">Search & Filter</span>
+                <span className="font-medium">{t("sidebar.search")}</span>
               </button>
               <button 
                 onClick={() => router.push("/compliance")}
                 className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
               >
                 <Shield className="w-5 h-5" />
-                <span>Compliance</span>
+                <span>{t("sidebar.compliance")}</span>
               </button>
               <button className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
                 <Bell className="w-5 h-5" />
-                <span>Notifications</span>
+                <span>{t("sidebar.notifications")}</span>
                 <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                   3
                 </div>
@@ -198,7 +114,7 @@ export default function SearchPage() {
                 className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
               >
                 <Folder className="w-5 h-5" />
-                <span>Knowledge Hub</span>
+                <span>{t("sidebar.knowledge")}</span>
               </button>
             </nav>
           </div>
@@ -251,8 +167,8 @@ export default function SearchPage() {
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Intelligent Search</h1>
-                <p className="text-gray-600 mt-1">AI-powered search across all documents with natural language processing</p>
+                <h1 className="text-3xl font-bold text-gray-900">{t("search.title")}</h1>
+                <p className="text-gray-600 mt-1">{t("search.subtitle")}</p>
               </div>
             </div>
           </div>
@@ -262,16 +178,16 @@ export default function SearchPage() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <span className="mr-2"><IconBadge color="blue" size="sm"><Bot /></IconBadge></span>
-                <span>AI-Powered Search</span>
+                <span>{t("search.ai")}</span>
               </CardTitle>
-              <CardDescription>Search in English or Malayalam with intelligent understanding</CardDescription>
+              <CardDescription>{t("search.ai.desc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Search Bar */}
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <Input
-                  placeholder="Search documents... (e.g., 'safety protocols', 'budget reports', 'മെട്രോ നിയമങ്ങൾ')"
+                  placeholder={t("search.bar.placeholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 pr-4 py-3 text-lg border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
@@ -281,22 +197,22 @@ export default function SearchPage() {
               {/* Advanced Filters */}
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t("search.filters.language")}</label>
                   <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
                     <SelectTrigger className="border-2 border-gray-200 rounded-xl focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Languages</SelectItem>
-                      <SelectItem value="english">English</SelectItem>
-                      <SelectItem value="malayalam">Malayalam</SelectItem>
-                      <SelectItem value="bilingual">Bilingual</SelectItem>
+                      <SelectItem value="all">{t("search.lang.all")}</SelectItem>
+                      <SelectItem value="english">{t("search.lang.en")}</SelectItem>
+                      <SelectItem value="malayalam">{t("search.lang.ml")}</SelectItem>
+                      <SelectItem value="bilingual">{t("search.lang.bi")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Department</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t("search.filters.department")}</label>
                   <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
                     <SelectTrigger className="border-2 border-gray-200 rounded-xl focus:border-blue-500">
                       <SelectValue />
@@ -312,17 +228,17 @@ export default function SearchPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">{t("search.filters.date")}</label>
                   <Select value={selectedDateRange} onValueChange={setSelectedDateRange}>
                     <SelectTrigger className="border-2 border-gray-200 rounded-xl focus:border-blue-500">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Time</SelectItem>
-                      <SelectItem value="today">Today</SelectItem>
-                      <SelectItem value="week">This Week</SelectItem>
-                      <SelectItem value="month">This Month</SelectItem>
-                      <SelectItem value="quarter">This Quarter</SelectItem>
+                      <SelectItem value="all">{t("search.date.all")}</SelectItem>
+                      <SelectItem value="today">{t("search.date.today")}</SelectItem>
+                      <SelectItem value="week">{t("search.date.week")}</SelectItem>
+                      <SelectItem value="month">{t("search.date.month")}</SelectItem>
+                      <SelectItem value="quarter">{t("search.date.quarter")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -350,11 +266,11 @@ export default function SearchPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold text-gray-900">
-                Search Results ({filteredResults.length})
+                {t("search.results")} ({filteredResults.length})
               </h2>
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <Clock className="w-4 h-4" />
-                <span>Results in 0.3 seconds</span>
+                <span>{t("search.results.time")}</span>
               </div>
             </div>
 
@@ -375,6 +291,7 @@ export default function SearchPage() {
                         <Badge className="bg-blue-100 text-blue-800">
                           {result.language}
                         </Badge>
+                        <Badge className="bg-gray-100 text-gray-800 border">{result.type}</Badge>
                       </div>
                       
                       <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
@@ -394,14 +311,36 @@ export default function SearchPage() {
                           <Building2 className="w-4 h-4" />
                           <span>{result.department}</span>
                         </div>
+                        {result.regulator && (
+                          <div className="flex items-center space-x-1">
+                            <Shield className="w-4 h-4" />
+                            <span>{result.regulator}</span>
+                          </div>
+                        )}
                       </div>
 
-                      <p className="text-gray-700 mb-3">{result.content.substring(0, 200)}...</p>
+                      <div className="flex gap-4 mb-3">
+                        <div className="hidden sm:block w-24 h-32 bg-gray-100 border rounded flex items-center justify-center text-xs text-gray-500">
+                          Thumbnail
+                        </div>
+                        <p className="text-gray-700">{result.content.substring(0, 200)}...</p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-gray-600">
+                        {result.dueDate && (
+                          <Badge className="bg-amber-100 text-amber-800">Due {result.dueDate}</Badge>
+                        )}
+                        {result.sourceChannel && (
+                          <Badge className="bg-white text-gray-700 border">Source: {result.sourceChannel}</Badge>
+                        )}
+                        {result.sourcePath && (
+                          <span>Path: {result.sourcePath}{result.page ? ` • Page ${result.page}` : ""}</span>
+                        )}
+                      </div>
                       
                       <div className="bg-blue-50 p-3 rounded-lg">
                         <div className="flex items-center space-x-2 mb-1">
                           <Bot className="w-4 h-4 text-blue-600" />
-                          <span className="text-sm font-medium text-blue-800">AI Summary</span>
+                          <span className="text-sm font-medium text-blue-800">{t("search.ai.summary")}</span>
                         </div>
                         <p className="text-sm text-blue-700">{result.aiSummary}</p>
                       </div>
@@ -415,18 +354,53 @@ export default function SearchPage() {
                   
                   <div className="flex items-center justify-between">
                     <div className="flex space-x-2">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="outline" size="sm">{t("search.view")}</Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-xl">
+                          <DialogHeader>
+                            <DialogTitle>{result.title}</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-2 text-sm text-gray-700">
+                            <div><span className="font-medium">Type:</span> {result.type}</div>
+                            <div><span className="font-medium">Department:</span> {result.department}</div>
+                            {result.regulator && (<div><span className="font-medium">Regulator:</span> {result.regulator}</div>)}
+                            {result.dueDate && (<div><span className="font-medium">Due:</span> {result.dueDate}</div>)}
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {result.sourceChannel && (<Badge className="bg-white text-gray-700 border">Source: {result.sourceChannel}</Badge>)}
+                              {result.sourcePath && (<Badge className="bg-white text-gray-700 border">Path: {result.sourcePath}</Badge>)}
+                              {result.page && (<Badge className="bg-white text-gray-700 border">Page {result.page}</Badge>)}
+                            </div>
+                            <div className="mt-3 p-3 bg-gray-50 border rounded">Preview unavailable in prototype.</div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                       <Button variant="outline" size="sm">
-                        View Document
+                        {t("search.download")}
                       </Button>
                       <Button variant="outline" size="sm">
-                        Download
+                        {t("search.share")}
                       </Button>
-                      <Button variant="outline" size="sm">
-                        Share
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className={acks[result.id] ? "bg-green-600 text-white border-green-600" : ""}
+                        onClick={() => setAcks(prev => ({ ...prev, [result.id]: !prev[result.id] }))}
+                      >
+                        {acks[result.id] ? 'Acknowledged' : 'Acknowledge'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className={follow[result.id] ? "bg-yellow-500 text-white border-yellow-500" : ""}
+                        onClick={() => setFollow(prev => ({ ...prev, [result.id]: !prev[result.id] }))}
+                      >
+                        {follow[result.id] ? 'Following' : 'Follow-up'}
                       </Button>
                     </div>
                     <div className="text-xs text-gray-500">
-                      Processed by AI • {result.relevanceScore}% match
+                      {t("search.processed")} • {result.relevanceScore}% match
                     </div>
                   </div>
                 </CardContent>
