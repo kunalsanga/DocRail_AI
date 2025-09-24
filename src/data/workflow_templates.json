@@ -1,0 +1,23 @@
+{
+  "incident_report": {
+    "name": "Incident Report",
+    "steps": ["ocr", "classify", "route:Operations", "notify:engineer"],
+    "slaHours": 24
+  },
+  "purchase_order": {
+    "name": "Purchase Order",
+    "steps": ["extract:amount,vendor", "route:Finance", "approve"],
+    "slaHours": 72
+  },
+  "compliance_audit": {
+    "name": "Compliance Audit",
+    "steps": ["check:deadlines", "score:risk", "route:Compliance"],
+    "slaHours": 168
+  },
+  "default": {
+    "name": "Default Workflow",
+    "steps": ["ocr", "classify", "summarize"],
+    "slaHours": 48
+  }
+}
+

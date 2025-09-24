@@ -1,3 +1,12 @@
+{
+  "glossary": [
+    { "en": "compliance", "ml": "നിയമാനുസരണം" },
+    { "en": "deadline", "ml": "അവസാന തീയതി" },
+    { "en": "safety", "ml": "സുരക്ഷ" },
+    { "en": "budget", "ml": "ബജറ്റ്" },
+    { "en": "incident", "ml": "സംഭവം" }
+  ]
+}
 [
   {
     "id": "tr_ao5csd6w1la",
