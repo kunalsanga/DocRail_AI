@@ -142,6 +142,14 @@ export default function Page() {
               </ul>
             </div>
           </div>
+          <div className="mt-4">
+            <button
+              onClick={async () => { await fetch('/api/demo/seed', { method: 'POST' }); alert('Guided demo data seeded. Go to Dashboard to run workflows.'); }}
+              className="w-full border rounded-md bg-white px-4 py-2 hover:bg-slate-50"
+            >
+              Start Guided Demo
+            </button>
+          </div>
         </aside>
       </div>
     </div>
