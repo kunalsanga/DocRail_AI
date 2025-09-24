@@ -4,11 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useNotifications } from "@/contexts/NotificationsContext";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { unreadCount } = useNotifications();
 
   return (
     <header className="w-full shadow-sm bg-white">
@@ -136,6 +138,40 @@ export default function Header() {
             </div>
           </div>
         </div>
+
+      {/* Horizontal primary navigation bar */}
+      <nav className="w-full bg-[#042B6B] text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-6 py-2 overflow-x-auto">
+            <Link prefetch href="/" className="hover:underline whitespace-nowrap">
+              Home
+            </Link>
+            <Link prefetch href="/dashboard" className="hover:underline whitespace-nowrap">
+              Dashboard
+            </Link>
+            <Link prefetch href="/upload" className="hover:underline whitespace-nowrap">
+              Upload Documents
+            </Link>
+            <Link prefetch href="/search" className="hover:underline whitespace-nowrap">
+              Search & Filter
+            </Link>
+            <Link prefetch href="/compliance" className="hover:underline whitespace-nowrap">
+              Compliance
+            </Link>
+            <Link prefetch href="/notifications" className="hover:underline whitespace-nowrap relative">
+              Notifications
+              {unreadCount > 0 && (
+                <span className="ml-2 inline-flex items-center justify-center text-[10px] px-1.5 py-0.5 bg-red-600 rounded-full">
+                  {unreadCount}
+                </span>
+              )}
+            </Link>
+            <Link prefetch href="/knowledge-hub" className="hover:underline whitespace-nowrap">
+              Knowledge Hub
+            </Link>
+          </div>
+        </div>
+      </nav>
 
         {/* Mobile menu */}
         {isMenuOpen && (

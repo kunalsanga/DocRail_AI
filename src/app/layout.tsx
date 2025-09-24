@@ -4,6 +4,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationsProvider } from "@/contexts/NotificationsContext";
 import Header from "@/components/Header";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "DocRail AI - Intelligent Document Management",
@@ -23,6 +24,7 @@ export default function RootLayout({
             <LanguageProvider>
               <Header />
               <main id="main-content">{children}</main>
+              <Footer />
             </LanguageProvider>
           </NotificationsProvider>
         </AuthProvider>

@@ -212,11 +212,13 @@ export default function Dashboard() {
   const [follow, setFollow] = useState<Record<number, boolean>>({});
 
   const greetingText = useMemo(() => {
-    // Compute current time in IST (UTC+5:30)
-    const nowUtc = new Date();
-    const istOffsetMinutes = 5 * 60 + 30;
-    const istTime = new Date(nowUtc.getTime() + (istOffsetMinutes - nowUtc.getTimezoneOffset()) * 60 * 1000);
-    const hour = istTime.getHours();
+    // Compute current hour in IST reliably via Intl API
+    const hourStr = new Intl.DateTimeFormat("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "numeric",
+      hour12: false,
+    }).format(new Date());
+    const hour = Number(hourStr);
     if (hour >= 5 && hour < 12) return t("dash.greet.morning");
     if (hour >= 12 && hour < 17) return t("dash.greet.afternoon");
     if (hour >= 17 && hour < 22) return t("dash.greet.evening");
@@ -225,85 +227,9 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-100 flex">
-        {/* Left Sidebar */}
-        <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          
-
-          {/* Navigation */}
-          <div className="p-6 overflow-y-auto">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">{t("sidebar.navigation")}</h3>
-            <nav className="space-y-2">
-              <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
-                <FileText className="w-5 h-5" />
-                <span className="font-medium">{t("sidebar.dashboard")}</span>
-              </button>
-              <Link prefetch href="/upload" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <Upload className="w-5 h-5" />
-                <span>{t("sidebar.upload")}</span>
-              </Link>
-              <Link prefetch href="/search" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <Search className="w-5 h-5" />
-                <span>{t("sidebar.search")}</span>
-              </Link>
-              <Link prefetch href="/compliance" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <Shield className="w-5 h-5" />
-                <span>{t("sidebar.compliance")}</span>
-              </Link>
-              <Link prefetch href="/notifications" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
-                <Bell className="w-5 h-5" />
-                <span>{t("sidebar.notifications")}</span>
-                {unreadCount > 0 && (
-                  <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {unreadCount}
-                  </div>
-                )}
-              </Link>
-              <Link prefetch href="/knowledge-hub" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <Folder className="w-5 h-5" />
-                <span>{t("sidebar.knowledge")}</span>
-              </Link>
-            </nav>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="p-6 border-t border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">QUICK STATS</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Total Documents</span>
-                <span className="font-semibold text-gray-900">156</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Pending Review</span>
-                <span className="font-semibold text-gray-900">12</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Critical Alerts</span>
-                <span className="font-semibold text-gray-900">3</span>
-              </div>
-            </div>
-          </div>
-
-          {/* User Profile */}
-          <div className="mt-auto p-6 border-t border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-gray-900">KMRL Officer</p>
-                <p className="text-sm text-gray-600">Engineering Department</p>
-              </div>
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
-                <Cog className="w-4 h-4 text-gray-600" />
-              </button>
-            </div>
-          </div>
-        </div>
-
+      <div className="min-h-screen bg-gray-100">
         {/* Main Content */}
-        <div className="flex-1 p-8">
+        <div className="max-w-7xl mx-auto p-8">
           {/* Header */}
           <div className="mb-8">
             <div className="flex justify-between items-start mb-6">
