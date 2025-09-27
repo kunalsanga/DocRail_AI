@@ -64,7 +64,8 @@ export async function POST(_req: NextRequest) {
       id: "ann_1",
       documentId: "doc_safety_protocols_v32",
       author: { id: "u_ops_01", name: "Ops Control" },
-      text: "Update requires platform edge audits each shift.",
+      target: { type: "document" },
+      content: "Update requires platform edge audits each shift.",
       tags: ["#safety", "@Operations"],
       createdAt: now
     },
@@ -72,7 +73,8 @@ export async function POST(_req: NextRequest) {
       id: "ann_2",
       documentId: "doc_station_design_phase2",
       author: { id: "u_eng_02", name: "Design Team" },
-      text: "Canopy reinforcement to align with wind-load spec.",
+      target: { type: "document" },
+      content: "Canopy reinforcement to align with wind-load spec.",
       tags: ["#design", "@Engineering", "#infrastructure"],
       createdAt: now
     },
@@ -80,7 +82,8 @@ export async function POST(_req: NextRequest) {
       id: "ann_3",
       documentId: "doc_compliance_annual",
       author: { id: "u_admin_01", name: "Compliance" },
-      text: "CRS bulletin from Feb incorporated; acknowledgment pending from depots.",
+      target: { type: "document" },
+      content: "CRS bulletin from Feb incorporated; acknowledgment pending from depots.",
       tags: ["#compliance", "@Operations", "@Engineering"],
       createdAt: now
     },
@@ -88,7 +91,8 @@ export async function POST(_req: NextRequest) {
       id: "ann_4",
       documentId: "doc_eia_report_2024",
       author: { id: "u_env_01", name: "Environment" },
-      text: "Noise mitigation barriers near school zone.",
+      target: { type: "document" },
+      content: "Noise mitigation barriers near school zone.",
       tags: ["#environment", "@Environment", "@Architecture & Planning"],
       createdAt: now
     },
@@ -96,7 +100,8 @@ export async function POST(_req: NextRequest) {
       id: "ann_5",
       documentId: "doc_hr_policies",
       author: { id: "u_hr_01", name: "HR" },
-      text: "Refresher training to include last night safety bulletin.",
+      target: { type: "document" },
+      content: "Refresher training to include last night safety bulletin.",
       tags: ["#hr", "#training", "@HR", "@Operations"],
       createdAt: now
     }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readJson, writeJson } from "@/lib/storage";
-import { AppNotification, Department, UserRole } from "@/lib/types";
+import { AppNotification, Department, UserRole, NotificationKind } from "@/lib/types";
 
 const FILE = "notifications.json";
 
@@ -169,7 +169,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   // Allow creating notifications OR saving user notification preferences when body.kind === 'preferences'
-  const body = (await req.json()) as Partial<AppNotification> & { kind?: string } & {
+  const body = (await req.json()) as Partial<AppNotification> & { kind?: "preferences" | NotificationKind } & {
     preferences?: {
       userId: string;
       channels?: ("push" | "email" | "telegram" | "whatsapp")[];
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
   };
   const now = new Date().toISOString();
 
-  if (body.kind === "preferences" && body.preferences?.userId) {
+  if ((body.kind as string) === "preferences" && body.preferences?.userId) {
     try {
       const PREF_FILE = `preferences_${body.preferences.userId}.json`;
       await writeJson(PREF_FILE, body.preferences);
