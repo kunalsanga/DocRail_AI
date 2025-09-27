@@ -1,8 +1,6 @@
-// ML Summarization Service using Hugging Face Transformers
-// Provides real AI-powered document summarization
-
-// Dynamic import for serverless compatibility
-let pipeline: any = null;
+// Lightweight ML Summarization Service
+// Provides document summarization using lightweight extractive methods
+// Optimized for serverless deployment without heavy dependencies
 
 export interface MLSummarizationResult {
   summary: string;
@@ -25,66 +23,19 @@ export interface MLSummarizationOptions {
 }
 
 export class MLSummarizationService {
-  private summarizationPipeline: any = null;
-  private isInitialized = false;
-  private initializationPromise: Promise<void> | null = null;
-  private readonly modelName = 'facebook/bart-large-cnn'; // Pre-trained summarization model
-  private readonly useFastMode = true; // Enable fast mode for better performance
+  private isInitialized = true; // Always initialized for lightweight mode
+  private readonly modelName = 'lightweight-extractive'; // Lightweight extractive model
   private static instance: MLSummarizationService | null = null;
   private lastUsed = Date.now();
 
-  // Initialize the ML model with caching and fast mode
+  // Initialize the lightweight model (always ready)
   async initialize(): Promise<void> {
-    if (this.isInitialized) return;
-    
-    // Prevent multiple simultaneous initializations
-    if (this.initializationPromise) {
-      return this.initializationPromise;
-    }
-
-    this.initializationPromise = this._doInitialize();
-    return this.initializationPromise;
+    // Lightweight mode is always ready
+    console.log('Lightweight summarization service ready');
+    return Promise.resolve();
   }
 
-  private async _doInitialize(): Promise<void> {
-    try {
-      console.log('Initializing ML summarization model...');
-      
-      // Dynamic import for serverless compatibility
-      if (!pipeline) {
-        const transformers = await import('@huggingface/transformers');
-        pipeline = transformers.pipeline;
-      }
-      
-      // Use a smaller, faster model for better performance
-      const modelConfig = this.useFastMode ? {
-        quantized: true,
-        device: 'cpu' as const, // Force CPU for better compatibility
-        revision: 'main'
-      } : {
-        quantized: true
-      };
-
-      this.summarizationPipeline = await pipeline(
-        'summarization',
-        this.modelName,
-        modelConfig
-      );
-      
-      this.isInitialized = true;
-      console.log('ML summarization model initialized successfully');
-    } catch (error) {
-      console.error('Failed to initialize ML summarization model:', error);
-      console.error('This might be due to network issues or model download problems.');
-      console.error('The system will fall back to extractive summarization.');
-      this.isInitialized = false;
-      this.initializationPromise = null;
-      // Don't throw error in serverless environment, just log and continue
-      console.log('Continuing with fallback summarization...');
-    }
-  }
-
-  // Summarize text using ML model with fast fallback
+  // Summarize text using lightweight extractive method
   async summarizeText(
     text: string,
     options: MLSummarizationOptions = {}
@@ -92,36 +43,16 @@ export class MLSummarizationService {
     const startTime = Date.now();
     this.lastUsed = startTime;
 
-    // Try to initialize ML model with timeout
-    try {
-      if (!this.isInitialized) {
-        // Set a timeout for model initialization
-        const initPromise = this.initialize();
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Model initialization timeout')), 5000)
-        );
-        
-        await Promise.race([initPromise, timeoutPromise]);
-      }
-
-      if (this.summarizationPipeline && this.isInitialized) {
-        return await this._runMLSummarization(text, options, startTime);
-      }
-    } catch (error) {
-      console.log('ML model not available, using fast fallback:', error instanceof Error ? error.message : String(error));
-    }
-
-    // Fast fallback - use optimized extractive summarization
-    return this._runFastFallback(text, startTime);
+    // Use lightweight extractive summarization
+    return this._runLightweightSummarization(text, options, startTime);
   }
 
-  // Run ML summarization
-  private async _runMLSummarization(
+  // Run lightweight summarization
+  private async _runLightweightSummarization(
     text: string,
     options: MLSummarizationOptions,
     startTime: number
   ): Promise<MLSummarizationResult> {
-
     try {
       // Clean and prepare text
       const cleanedText = this.preprocessText(text);
@@ -142,11 +73,11 @@ export class MLSummarizationService {
       const documentType = this.detectDocumentType(cleanedText);
       const summarizationOptions = this.getSummarizationOptions(documentType, options);
 
-      console.log(`Running ML summarization for ${documentType} document...`);
+      console.log(`Running lightweight summarization for ${documentType} document...`);
       console.log(`Text length: ${cleanedText.length} characters`);
-      const result = await this.summarizationPipeline!(cleanedText, summarizationOptions);
       
-      const summary = Array.isArray(result) ? result[0]?.summary_text || result[0] : result.summary_text || result;
+      // Use lightweight extractive summarization
+      const summary = await this._extractiveSummarization(cleanedText, summarizationOptions);
       const processingTime = Date.now() - startTime;
       const wordCount = summary.split(' ').length;
       const originalWordCount = cleanedText.split(' ').length;
@@ -154,7 +85,7 @@ export class MLSummarizationService {
 
       return {
         summary: this.postprocessSummary(summary),
-        confidence: 0.9, // High confidence for BART model
+        confidence: 0.85, // Good confidence for extractive method
         processingTime,
         model: this.modelName,
         wordCount,
@@ -163,11 +94,76 @@ export class MLSummarizationService {
       };
 
     } catch (error) {
-      console.error('ML summarization failed:', error);
+      console.error('Lightweight summarization failed:', error);
       
-      // Fallback to extractive summarization
+      // Fallback to basic summarization
       return this.fallbackSummarization(text, startTime);
     }
+  }
+
+  // Lightweight extractive summarization
+  private async _extractiveSummarization(text: string, options: any): Promise<string> {
+    const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 20);
+    
+    if (sentences.length === 0) {
+      return text.substring(0, 200) + '...';
+    }
+
+    // Advanced scoring for better summarization
+    const scoredSentences = sentences.map((sentence, index) => {
+      let score = 0;
+      
+      // Position-based scoring (first and last sentences are important)
+      if (index === 0) score += 10;
+      if (index === sentences.length - 1) score += 8;
+      if (index < 3) score += 5;
+      
+      // Length-based scoring (medium-length sentences are often most informative)
+      const sentenceLength = sentence.split(' ').length;
+      if (sentenceLength >= 10 && sentenceLength <= 30) score += 3;
+      
+      // Keyword-based scoring
+      const lowerSentence = sentence.toLowerCase();
+      const importantKeywords = [
+        'safety', 'important', 'critical', 'urgent', 'compliance',
+        'requirement', 'procedure', 'protocol', 'maintenance',
+        'operation', 'training', 'emergency', 'hazard', 'risk',
+        'conclusion', 'summary', 'key', 'main', 'primary'
+      ];
+      
+      importantKeywords.forEach(keyword => {
+        if (lowerSentence.includes(keyword)) {
+          score += 3;
+        }
+      });
+      
+      // Railway-specific terms boost
+      const railwayTerms = [
+        'locomotive', 'rolling stock', 'infrastructure', 'signal',
+        'platform', 'station', 'track', 'passenger', 'freight'
+      ];
+      
+      railwayTerms.forEach(term => {
+        if (lowerSentence.includes(term)) {
+          score += 2;
+        }
+      });
+      
+      return { sentence: sentence.trim(), score };
+    });
+
+    // Get top sentences based on max_length option
+    const maxLength = options.max_length || 150;
+    const minLength = options.min_length || 30;
+    const targetLength = Math.min(maxLength, Math.max(minLength, Math.floor(text.length * 0.3)));
+    
+    const topSentences = scoredSentences
+      .sort((a, b) => b.score - a.score)
+      .slice(0, Math.min(5, sentences.length))
+      .filter(s => s.sentence.length >= minLength)
+      .map(s => s.sentence);
+
+    return topSentences.join('. ') + '.';
   }
 
   // Fast fallback summarization (optimized for speed)
@@ -448,13 +444,8 @@ export class MLSummarizationService {
 
   // Clean up resources
   async cleanup(): Promise<void> {
-    if (this.summarizationPipeline) {
-      // Clean up pipeline resources
-      this.summarizationPipeline = null;
-      this.isInitialized = false;
-      this.initializationPromise = null;
-      console.log('ML summarization service cleaned up');
-    }
+    // Lightweight service doesn't need cleanup
+    console.log('Lightweight summarization service cleanup completed');
   }
 
   // Auto-cleanup after inactivity
