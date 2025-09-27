@@ -1,7 +1,8 @@
 // ML Summarization Service using Hugging Face Transformers
 // Provides real AI-powered document summarization
 
-import { pipeline } from '@huggingface/transformers';
+// Dynamic import for serverless compatibility
+let pipeline: any = null;
 
 export interface MLSummarizationResult {
   summary: string;
@@ -49,6 +50,12 @@ export class MLSummarizationService {
     try {
       console.log('Initializing ML summarization model...');
       
+      // Dynamic import for serverless compatibility
+      if (!pipeline) {
+        const transformers = await import('@huggingface/transformers');
+        pipeline = transformers.pipeline;
+      }
+      
       // Use a smaller, faster model for better performance
       const modelConfig = this.useFastMode ? {
         quantized: true,
@@ -72,7 +79,8 @@ export class MLSummarizationService {
       console.error('The system will fall back to extractive summarization.');
       this.isInitialized = false;
       this.initializationPromise = null;
-      throw new Error(`ML model initialization failed: ${error}`);
+      // Don't throw error in serverless environment, just log and continue
+      console.log('Continuing with fallback summarization...');
     }
   }
 

@@ -1,0 +1,39 @@
+# Exclude heavy ML dependencies from serverless functions
+node_modules/@huggingface/transformers
+node_modules/onnxruntime-node
+node_modules/@img/sharp-libvips-linuxmusl-x64
+node_modules/@img/sharp-libvips-linux-x64
+
+# Exclude development files
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Exclude build artifacts
+.next/cache
+.next/static/chunks/pages/_error*
+
+# Exclude large test files
+**/*.test.ts
+**/*.spec.ts
+**/__tests__/**
+**/test/**
+**/tests/**
+
+# Exclude documentation
+*.md
+docs/
+documentation/
+
+# Exclude development tools
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Exclude OS files
+.DS_Store
+Thumbs.db

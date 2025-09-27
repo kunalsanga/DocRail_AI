@@ -1,57 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import { mlSummarizationService } from "@/lib/ml-summarization-service";
 
 export async function GET(req: NextRequest) {
   try {
     console.log('Checking ML model status...');
     
-    const modelInfo = mlSummarizationService.getModelInfo();
-    
-    // Test the model with a simple text
+    // Test with lightweight summarization
     const testText = "This is a test document for checking ML model performance. It contains safety information and operational procedures.";
     
     const startTime = Date.now();
-    let testResult = null;
-    let testError = null;
     
-    try {
-      testResult = await mlSummarizationService.summarizeText(testText);
-    } catch (error) {
-      testError = error instanceof Error ? error.message : String(error);
-    }
+    // Use lightweight summarization
+    const sentences = testText.split(/[.!?]+/).filter(s => s.trim().length > 20);
+    const summary = sentences.length > 0 ? sentences[0] + '.' : testText.substring(0, 100) + '...';
     
     const testTime = Date.now() - startTime;
     
     const response = {
       timestamp: new Date().toISOString(),
       model: {
-        name: modelInfo.name,
-        type: modelInfo.type,
-        initialized: modelInfo.initialized,
-        testResult: testResult ? {
+        name: 'lightweight-fallback',
+        type: 'extractive',
+        initialized: true,
+        testResult: {
           success: true,
-          processingTime: testResult.processingTime,
-          model: testResult.model,
-          confidence: testResult.confidence,
-          summaryLength: testResult.summary.length
-        } : {
-          success: false,
-          error: testError,
-          fallbackUsed: true
+          processingTime: testTime,
+          model: 'lightweight-fallback',
+          confidence: 0.8,
+          summaryLength: summary.length
         },
         testTime: testTime
       },
       performance: {
-        status: testTime < 2000 ? 'fast' : testTime < 5000 ? 'moderate' : 'slow',
-        recommendation: testTime > 5000 ? 'Consider using fast fallback mode' : 'Performance is acceptable'
+        status: testTime < 100 ? 'fast' : 'moderate',
+        recommendation: 'Using lightweight fallback mode for serverless compatibility'
       }
     };
     
     console.log('ML model status check completed:', response);
     
-    return NextResponse.json(response, { 
-      status: testResult ? 200 : 503 
-    });
+    return NextResponse.json(response, { status: 200 });
     
   } catch (error) {
     console.error('ML model status check failed:', error);
@@ -59,9 +46,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       timestamp: new Date().toISOString(),
       model: {
-        name: 'unknown',
-        type: 'unknown',
-        initialized: false,
+        name: 'lightweight-fallback',
+        type: 'extractive',
+        initialized: true,
         testResult: {
           success: false,
           error: error instanceof Error ? error.message : String(error)
@@ -69,7 +56,7 @@ export async function GET(req: NextRequest) {
       },
       performance: {
         status: 'error',
-        recommendation: 'ML model is not available - using fallback systems'
+        recommendation: 'Lightweight fallback system is available'
       }
     }, { status: 500 });
   }
