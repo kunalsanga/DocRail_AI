@@ -1,11 +1,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { generateIntelligentSummary } from './intelligent-summary';
+import { generateIntelligentSummary, generateIntelligentTranslation } from './intelligent-summary';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!, {
-  apiVersion: 'v1'
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-export async function generateText(prompt: string, model: string = 'gemini-1.5-flash'): Promise<string> {
+export async function generateText(prompt: string, model: string = 'gemini-1.5-pro'): Promise<string> {
   try {
     const model_instance = genAI.getGenerativeModel({ model });
     const result = await model_instance.generateContent(prompt);
@@ -13,8 +11,8 @@ export async function generateText(prompt: string, model: string = 'gemini-1.5-f
     return response.text();
   } catch (error) {
     console.error('Gemini API Error:', error);
-    // Return fallback response instead of throwing error
-    return `[AI Analysis] ${prompt.substring(0, 100)}... (Gemini API temporarily unavailable)`;
+    // Throw error to be caught by calling functions for proper fallback handling
+    throw error;
   }
 }
 
@@ -68,15 +66,8 @@ export async function translateText(text: string, sourceLang: 'en' | 'ml', targe
 
     return await generateText(prompt);
   } catch (error) {
-    // Fallback translation
-    if (sourceLang === targetLang) {
-      return text;
-    }
-    
-    const fallbackTranslation = targetLang === 'ml' 
-      ? `${text} [മലയാളം വിവർത്തനം - AI സേവനം താൽക്കാലികമായി ലഭ്യമല്ല]`
-      : `${text} [English Translation - AI service temporarily unavailable]`;
-    return fallbackTranslation;
+    // Use intelligent fallback translation
+    return generateIntelligentTranslation(text, sourceLang, targetLang);
   }
 }
 

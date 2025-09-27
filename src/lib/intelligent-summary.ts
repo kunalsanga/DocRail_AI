@@ -198,3 +198,59 @@ function generateMalayalamSummary(data: {
   
   return summary;
 }
+
+// Intelligent translation fallback
+export function generateIntelligentTranslation(text: string, sourceLang: 'en' | 'ml', targetLang: 'en' | 'ml'): string {
+  if (sourceLang === targetLang) {
+    return text;
+  }
+  
+  // Simple fallback translation for common terms
+  if (sourceLang === 'en' && targetLang === 'ml') {
+    const translations: { [key: string]: string } = {
+      'document': 'ഡോക്യുമെന്റ്',
+      'safety': 'സുരക്ഷ',
+      'compliance': 'കമ്പ്ലയൻസ്',
+      'analysis': 'വിശകലനം',
+      'summary': 'സംഗ്രഹം',
+      'important': 'പ്രധാനം',
+      'critical': 'നിർണായകം',
+      'urgent': 'അടിയന്തിരം',
+      'requirement': 'ആവശ്യകത',
+      'procedure': 'നടപടിക്രമം',
+      'protocol': 'പ്രോട്ടോക്കോൾ',
+      'training': 'പരിശീലനം',
+      'equipment': 'ഉപകരണം',
+      'maintenance': 'പരിപാലനം',
+      'inspection': 'പരിശോധന',
+      'audit': 'ഓഡിറ്റ്',
+      'regulation': 'നിയന്ത്രണം',
+      'standard': 'സ്റ്റാൻഡേർഡ്',
+      'policy': 'നയം',
+      'operation': 'പ്രവർത്തനം',
+      'service': 'സേവനം',
+      'schedule': 'ഷെഡ്യൂൾ',
+      'budget': 'ബജറ്റ്',
+      'cost': 'ചെലവ്',
+      'financial': 'ധനകാര്യ',
+      'personnel': 'ഉദ്യോഗസ്ഥർ',
+      'employee': 'ജീവനക്കാരൻ',
+      'department': 'വകുപ്പ്',
+      'station': 'സ്റ്റേഷൻ',
+      'platform': 'പ്ലാറ്റ്ഫോം',
+      'track': 'ട്രാക്ക്',
+      'line': 'ലൈൻ',
+      'route': 'റൂട്ട്'
+    };
+    
+    let translatedText = text;
+    Object.entries(translations).forEach(([en, ml]) => {
+      const regex = new RegExp(`\\b${en}\\b`, 'gi');
+      translatedText = translatedText.replace(regex, ml);
+    });
+    
+    return `${translatedText}\n\n[മലയാളം വിവർത്തനം - AI സേവനം താൽക്കാലികമായി ലഭ്യമല്ല]`;
+  } else {
+    return `${text}\n\n[English Translation - AI service temporarily unavailable]`;
+  }
+}

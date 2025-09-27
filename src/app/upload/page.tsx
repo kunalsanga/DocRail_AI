@@ -11,6 +11,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import AIStatusIndicator from "@/components/AIStatusIndicator";
+import ProcessingProgress from "@/components/processing/ProcessingProgress";
+import { useDocumentProcessing } from "@/hooks/useDocumentProcessing";
+import { progressAwareDocumentProcessor } from "@/lib/progress-aware-document-processor";
 import { 
   Upload, 
   FileText, 
@@ -27,6 +30,123 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import IconBadge from "@/components/ui/IconBadge";
+
+// Function to extract content from uploaded files using local OCR
+async function extractFileContent(file: File): Promise<string> {
+  try {
+    // Use local OCR service for better content extraction (no external API keys required)
+    const { localOCRService } = await import('@/lib/local-ocr-service');
+    const ocrResult = await localOCRService.extractText(file, 'en');
+    return ocrResult.text;
+  } catch (error) {
+    console.error('Error extracting file content with local OCR:', error);
+    
+    // Fallback to basic extraction
+    if (file.type.startsWith('text/')) {
+      return await file.text();
+    } else {
+      return `Document: ${file.name}\n\nThis is a ${file.type || 'unknown type'} document containing important information. The document is ${(file.size / 1024 / 1024).toFixed(2)} MB in size.\n\nPlease analyze this document for:\n- Content and key information\n- Safety and compliance aspects\n- Entity extraction (departments, dates, amounts, locations, people, regulations)\n- Document classification and priority\n- Risk assessment and recommendations\n\nThis document requires thorough analysis to ensure proper handling and compliance with railway operations standards.\n\n[Local OCR Processing - Fallback Mode]`;
+    }
+  }
+}
+
+// Function to process file with progress tracking
+async function processFileWithProgress(
+  file: File,
+  docId: string,
+  processingState: any,
+  startProcessing: any,
+  startStage: any,
+  updateStageProgress: any,
+  completeStage: any,
+  completeProcessing: any,
+  setStageError: any,
+  user: any
+) {
+  try {
+    // Stage 1: File Upload
+    startStage(docId, 'upload');
+    updateStageProgress(docId, 'upload', 50);
+    
+    // Extract file content once
+    const fileContent = await extractFileContent(file);
+    updateStageProgress(docId, 'upload', 100);
+    completeStage(docId, 'upload', Date.now() - processingState.startTime);
+    
+    // Create document version and audit log in parallel
+    await Promise.all([
+      fetch("/api/documents/versions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          documentId: docId,
+          createdBy: { id: user?.id || "1", name: user?.name || "User" },
+          summary: `Initial upload for ${file.name}`,
+          changeNote: "Initial upload",
+        }),
+      }),
+      fetch("/api/audit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          documentId: docId,
+          actor: { id: user?.id || "1", name: user?.name || "User" },
+          action: "upload",
+          details: { fileName: file.name, size: file.size },
+        }),
+      })
+    ]);
+    
+    // Use progress-aware document processor for detailed progress tracking
+    const progressCallback = (event: any) => {
+      if (event.stage === 'ocr') {
+        startStage(docId, 'ocr');
+        updateStageProgress(docId, 'ocr', event.progress);
+        if (event.progress === 100) {
+          completeStage(docId, 'ocr', Date.now() - processingState.startTime);
+        }
+      } else if (event.stage === 'analysis') {
+        startStage(docId, 'analysis');
+        updateStageProgress(docId, 'analysis', event.progress);
+        if (event.progress === 100) {
+          completeStage(docId, 'analysis', Date.now() - processingState.startTime);
+        }
+      } else if (event.stage === 'safety') {
+        startStage(docId, 'safety');
+        updateStageProgress(docId, 'safety', event.progress);
+        if (event.progress === 100) {
+          completeStage(docId, 'safety', Date.now() - processingState.startTime);
+        }
+      } else if (event.stage === 'indexing') {
+        startStage(docId, 'indexing');
+        updateStageProgress(docId, 'indexing', event.progress);
+        if (event.progress === 100) {
+          completeStage(docId, 'indexing', Date.now() - processingState.startTime);
+        }
+      } else if (event.stage === 'complete') {
+        completeProcessing(docId);
+      }
+    };
+
+    // Register progress callback
+    progressAwareDocumentProcessor.onProgress(docId, progressCallback);
+
+    // Process document with progress tracking
+    const result = await progressAwareDocumentProcessor.processDocument(
+      file,
+      docId,
+      file.name.toLowerCase().includes('.ml') ? "ml" : "en"
+    );
+
+    // Clean up progress callback
+    progressAwareDocumentProcessor.cleanup(docId);
+
+    return { id: docId, name: file.name, status: "Uploaded", progress: 100 };
+  } catch (error) {
+    setStageError(docId, 'upload', `Upload failed: ${error}`);
+    return { id: docId, name: file.name, status: "Error", progress: 0 };
+  }
+}
 const BilingualSummary = dynamic(() => import("@/components/translation/BilingualSummary"), { 
   ssr: false, 
   loading: () => <div className="animate-pulse bg-gray-200 h-32 rounded"></div>
@@ -45,6 +165,16 @@ export default function UploadPage() {
   const { user } = useAuth();
   const { t, language, setLanguage } = useLanguage();
   const router = useRouter();
+  const {
+    startProcessing,
+    completeStage,
+    startStage,
+    updateStageProgress,
+    setStageError,
+    completeProcessing,
+    getProcessingState,
+    getAllProcessingStates
+  } = useDocumentProcessing();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
@@ -56,57 +186,23 @@ export default function UploadPage() {
       
       const uploadPromises = selectedFiles.map(async (f): Promise<{ id: string; name: string; status: string; progress: number }> => {
         const docId = `doc_${Math.random().toString(36).slice(2)}`;
-        try {
-          // Create document version and audit log in parallel
-          await Promise.all([
-            fetch("/api/documents/versions", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                documentId: docId,
-                createdBy: { id: user?.id || "1", name: user?.name || "User" },
-                summary: `Initial upload for ${f.name}`,
-                changeNote: "Initial upload",
-              }),
-            }),
-            fetch("/api/audit", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                documentId: docId,
-                actor: { id: user?.id || "1", name: user?.name || "User" },
-                action: "upload",
-                details: { fileName: f.name, size: f.size },
-              }),
-            })
-          ]);
-
-          // Trigger AI processing pipeline in background (non-blocking)
-          fetch("/api/pipeline/extract", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              documentId: docId,
-              text: `Sample extracted text from ${f.name}. This document contains important information that requires analysis and processing.`,
-              language: f.name.toLowerCase().includes('.ml') ? "ml" : "en"
-            }),
-          }).catch(() => {}); // Don't fail upload if AI processing fails
-
-          // Trigger safety detection in background (non-blocking)
-          fetch("/api/safety/detect", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              documentId: docId,
-              text: `Safety analysis for ${f.name}. This document may contain safety-related information that requires review.`,
-              language: f.name.toLowerCase().includes('.ml') ? "ml" : "en"
-            }),
-          }).catch(() => {}); // Don't fail upload if safety detection fails
-
-          return { id: docId, name: f.name, status: "Uploaded", progress: 100 };
-        } catch {
-          return { id: docId, name: f.name, status: "Error", progress: 0 };
-        }
+        
+        // Start progress tracking
+        const processingState = startProcessing(docId, f.name);
+        
+        // Use the progress-aware processing function
+        return await processFileWithProgress(
+          f,
+          docId,
+          processingState,
+          startProcessing,
+          startStage,
+          updateStageProgress,
+          completeStage,
+          completeProcessing,
+          setStageError,
+          user
+        );
       });
       
       // Wait for all uploads to complete
@@ -143,57 +239,23 @@ export default function UploadPage() {
       
       const uploadPromises = droppedFiles.map(async (f): Promise<{ id: string; name: string; status: string; progress: number }> => {
         const docId = `doc_${Math.random().toString(36).slice(2)}`;
-        try {
-          // Create document version and audit log in parallel
-          await Promise.all([
-            fetch("/api/documents/versions", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                documentId: docId,
-                createdBy: { id: user?.id || "1", name: user?.name || "User" },
-                summary: `Initial upload for ${f.name}`,
-                changeNote: "Initial upload",
-              }),
-            }),
-            fetch("/api/audit", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                documentId: docId,
-                actor: { id: user?.id || "1", name: user?.name || "User" },
-                action: "upload",
-                details: { fileName: f.name, size: f.size },
-              }),
-            })
-          ]);
-
-          // Trigger AI processing pipeline in background (non-blocking)
-          fetch("/api/pipeline/extract", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              documentId: docId,
-              text: `Sample extracted text from ${f.name}. This document contains important information that requires analysis and processing.`,
-              language: f.name.toLowerCase().includes('.ml') ? "ml" : "en"
-            }),
-          }).catch(() => {}); // Don't fail upload if AI processing fails
-
-          // Trigger safety detection in background (non-blocking)
-          fetch("/api/safety/detect", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              documentId: docId,
-              text: `Safety analysis for ${f.name}. This document may contain safety-related information that requires review.`,
-              language: f.name.toLowerCase().includes('.ml') ? "ml" : "en"
-            }),
-          }).catch(() => {}); // Don't fail upload if safety detection fails
-
-          return { id: docId, name: f.name, status: "Uploaded", progress: 100 };
-        } catch {
-          return { id: docId, name: f.name, status: "Error", progress: 0 };
-        }
+        
+        // Start progress tracking
+        const processingState = startProcessing(docId, f.name);
+        
+        // Use the progress-aware processing function
+        return await processFileWithProgress(
+          f,
+          docId,
+          processingState,
+          startProcessing,
+          startStage,
+          updateStageProgress,
+          completeStage,
+          completeProcessing,
+          setStageError,
+          user
+        );
       });
 
       // Wait for all uploads to complete
@@ -540,6 +602,32 @@ export default function UploadPage() {
             </div>
           </div>
 
+          {/* Processing Progress */}
+          {getAllProcessingStates().length > 0 && (
+            <div className="mt-8">
+              <div className="flex items-center space-x-2 mb-6">
+                <Bot className="w-5 h-5 text-blue-600" />
+                <h2 className="text-xl font-semibold text-gray-900">Processing Progress</h2>
+              </div>
+              <div className="space-y-4">
+                {getAllProcessingStates().map((state) => (
+                  <ProcessingProgress
+                    key={state.documentId}
+                    documentId={state.documentId}
+                    fileName={state.fileName}
+                    stages={state.stages}
+                    overallProgress={state.overallProgress}
+                    isProcessing={state.isProcessing}
+                    startTime={state.startTime}
+                    onComplete={() => {
+                      // Handle completion if needed
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Recently Uploaded (demo doc ids) */}
           {uploadedDocs.length > 0 && (
             <div className="mt-8">
@@ -569,7 +657,7 @@ export default function UploadPage() {
             <div className="grid grid-cols-2 gap-6 mt-8">
               <BilingualSummary 
                 documentId={uploadedDocs[0].id} 
-                englishSummary={`AI-generated summary for ${uploadedDocs[0].name}: This document has been processed and analyzed. Key insights include safety protocols, compliance requirements, and operational procedures that require immediate attention and implementation across all departments.`} 
+                englishSummary={`Processing summary for ${uploadedDocs[0].name}...`}
               />
               <AnnotationsPanel documentId={uploadedDocs[0].id} />
             </div>

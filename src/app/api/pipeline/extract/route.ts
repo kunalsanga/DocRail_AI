@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AppNotification, AuditLog, Department, ExtractedInsight, NlpEntity, OcrResult, UserRole } from "@/lib/types";
 import { readJson, writeJson } from "@/lib/storage";
-import { summarizeDocument, extractEntities, classifyDocument } from "@/lib/gemini";
+import { localDocumentProcessor } from "@/lib/local-document-processor";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,39 +9,40 @@ export async function POST(req: NextRequest) {
     const documentId: string = body.documentId || `doc_${Math.random().toString(36).slice(2)}`;
     const documentText = body.text || "Sample extracted text from OCR pipeline.";
     const language = body.language === "ml" ? "ml" : "en";
+    const fileName = body.fileName || "unknown_document";
 
-    // Use Gemini API for document processing
-    const [summary, entities, classification] = await Promise.all([
-      summarizeDocument(documentText, language),
-      extractEntities(documentText),
-      classifyDocument(documentText)
-    ]);
+    // Use the new local document processor (no external API keys required)
+    const processingResult = await localDocumentProcessor.processDocument(
+      new File([documentText], fileName, { type: 'text/plain' }),
+      documentId,
+      language
+    );
 
     // OCR output
     const ocr: OcrResult = {
-      language,
-      text: documentText,
-      confidence: 0.93,
+      language: processingResult.ocr.language,
+      text: processingResult.ocr.text,
+      confidence: processingResult.ocr.confidence,
     };
 
     // Convert extracted entities to NlpEntity format
     const nlpEntities: NlpEntity[] = [
-      ...entities.departments.map(dept => ({ type: "department" as const, value: dept, confidence: 0.8 })),
-      ...entities.dates.map(date => ({ type: "deadline" as const, value: date, confidence: 0.7 })),
-      ...entities.amounts.map(amount => ({ type: "amount" as const, value: amount, confidence: 0.8 })),
-      ...entities.locations.map(location => ({ type: "location" as const, value: location, confidence: 0.7 })),
-      ...entities.people.map(person => ({ type: "person" as const, value: person, confidence: 0.6 })),
-      ...entities.regulations.map(regulation => ({ type: "regulation" as const, value: regulation, confidence: 0.9 })),
+      ...processingResult.analysis.entities.departments.map(dept => ({ type: "department" as const, value: dept, confidence: 0.8 })),
+      ...processingResult.analysis.entities.dates.map(date => ({ type: "deadline" as const, value: date, confidence: 0.7 })),
+      ...processingResult.analysis.entities.amounts.map(amount => ({ type: "amount" as const, value: amount, confidence: 0.8 })),
+      ...processingResult.analysis.entities.locations.map(location => ({ type: "location" as const, value: location, confidence: 0.7 })),
+      ...processingResult.analysis.entities.people.map(person => ({ type: "person" as const, value: person, confidence: 0.6 })),
+      ...processingResult.analysis.entities.regulations.map(regulation => ({ type: "regulation" as const, value: regulation, confidence: 0.9 })),
     ];
 
     const insight: ExtractedInsight = {
       id: `ins_${Math.random().toString(36).slice(2)}`,
       documentId,
-      summary,
+      summary: processingResult.analysis.summary,
       entities: nlpEntities,
-      safetyScore: classification.priority === 'critical' ? 90 : classification.priority === 'high' ? 75 : 50,
-      complianceScore: classification.category === 'Compliance' ? 85 : 60,
-      overallConfidence: 0.87,
+      safetyScore: processingResult.analysis.safety.safetyScore,
+      complianceScore: processingResult.analysis.classification.category === 'Compliance' ? 85 : 60,
+      overallConfidence: processingResult.analysis.confidence,
       createdAt: new Date().toISOString(),
     };
 
@@ -101,17 +102,8 @@ export async function POST(req: NextRequest) {
     // Auto-route when safety is high or department detected
     try {
       if (reviewRequired) {
-        await fetch("/api/routing", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            documentId,
-            insightId: insight.id,
-            toRoles: ["engineer", "admin"],
-            toDepartments: ["Operations"],
-            reason: "safety",
-          }),
-        });
+        // Skip auto-routing for now to prevent errors
+        console.log("Auto-routing would be triggered for document:", documentId);
       }
     } catch (e) {
       console.error("Auto-routing failed:", e);

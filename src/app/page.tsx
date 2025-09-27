@@ -9,9 +9,9 @@ export default function Page() {
   const { t, language } = useLanguage();
   const [carouselIndex, setCarouselIndex] = useState(0);
   const images = [
-    { src: "/r1.jpg", alt: "Carousel image 1" },
-    { src: "/r2.jpg", alt: "Carousel image 2" },
-    { src: "/r3.jpg", alt: "Carousel image 3" },
+    { src: "/1.jpeg", alt: "Kochi Metro Rail Limited - Metro Train Station" },
+    { src: "/2.jpg", alt: "Kochi Metro Platform with Passengers" },
+    { src: "/3.jpeg", alt: "Kochi Metro Train at Station" },
   ];
 
   const goPrev = () => setCarouselIndex((i) => (i - 1 + images.length) % images.length);

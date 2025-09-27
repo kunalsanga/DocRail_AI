@@ -184,6 +184,87 @@ export async function POST(_req: NextRequest) {
     },
     {
       id: "ann_9",
+      documentId: "doc_kmrl_safety_manual",
+      author: { id: "u_safety_01", name: "സുരക്ഷാ സെൽ" },
+      target: { type: "document" },
+      content: "കൊച്ചി മെട്രോ റെയിൽ സുരക്ഷാ നിയമാവലി - പ്ലാറ്റ്ഫോം സുരക്ഷ, യാത്രക്കാരുടെ സുരക്ഷ, എമർജൻസി പ്രോട്ടോക്കോൾ എന്നിവയുടെ വിശദ നിർദ്ദേശങ്ങൾ.",
+      tags: ["#സുരക്ഷ", "@Safety", "#പ്ലാറ്റ്ഫോം", "#എമർജൻസി"],
+      createdAt: now
+    },
+    {
+      id: "ann_10",
+      documentId: "doc_train_operations_malayalam",
+      author: { id: "u_ops_02", name: "ഓപ്പറേഷൻസ് ടീം" },
+      target: { type: "document" },
+      content: "ട്രെയിൻ ഓപ്പറേഷൻ പ്രൊസീജർ - സിഗ്നൽ സിസ്റ്റം, ട്രാക്ക് ക്ലിയറൻസ്, യാത്രക്കാരുടെ സുരക്ഷ എന്നിവയുടെ നടപടിക്രമങ്ങൾ.",
+      tags: ["#ട്രെയിൻ", "@Operations", "#സിഗ്നൽ", "#സുരക്ഷ"],
+      createdAt: now
+    },
+    {
+      id: "ann_11",
+      documentId: "doc_maintenance_schedule_malayalam",
+      author: { id: "u_maint_01", name: "മെയിന്റനൻസ് ഡിപ്പാർട്ട്മെന്റ്" },
+      target: { type: "document" },
+      content: "മെയിന്റനൻസ് ഷെഡ്യൂൾ - ട്രാക്ക്, റോളിംഗ് സ്റ്റോക്ക്, സിഗ്നൽ, ഇലക്ട്രിക്കൽ മെയിന്റനൻസ് ഷെഡ്യൂൾ.",
+      tags: ["#മെയിന്റനൻസ്", "@Maintenance", "#ട്രാക്ക്", "#ഇലക്ട്രിക്കൽ"],
+      createdAt: now
+    },
+    {
+      id: "ann_12",
+      documentId: "doc_platform_safety_notice",
+      author: { id: "u_station_01", name: "സ്റ്റേഷൻ മാനേജർ" },
+      target: { type: "document" },
+      content: "യാത്രക്കാരുടെ സുരക്ഷാ അറിയിപ്പ് - പ്ലാറ്റ്ഫോം സുരക്ഷ, ക്രൗഡ് മാനേജ്മെന്റ്, എമർജൻസി എവാക്യുവേഷൻ നിർദ്ദേശങ്ങൾ.",
+      tags: ["#പ്ലാറ്റ്ഫോം", "@Safety", "#ക്രൗഡ്", "#എമർജൻസി"],
+      createdAt: now
+    },
+    {
+      id: "ann_13",
+      documentId: "doc_electrical_maintenance_malayalam",
+      author: { id: "u_elec_01", name: "ഇലക്ട്രിക്കൽ എഞ്ചിനീയറിംഗ്" },
+      target: { type: "document" },
+      content: "ഇലക്ട്രിക്കൽ സിസ്റ്റം മെയിന്റനൻസ് - പവർ സപ്ലൈ, ട്രാക്ഷൻ, സിഗ്നൽ പവർ, ലൈറ്റിംഗ് മെയിന്റനൻസ് നടപടിക്രമങ്ങൾ.",
+      tags: ["#ഇലക്ട്രിക്കൽ", "@Engineering", "#പവർ", "#ട്രാക്ഷൻ"],
+      createdAt: now
+    },
+    {
+      id: "ann_14",
+      documentId: "doc_driver_training_malayalam",
+      author: { id: "u_train_01", name: "ട്രെയിനിംഗ് ഡിപ്പാർട്ട്മെന്റ്" },
+      target: { type: "document" },
+      content: "ട്രെയിൻ ഡ്രൈവർ ട്രെയിനിംഗ് മാനുവൽ - ഓപ്പറേഷൻ, സുരക്ഷ, എമർജൻസി, സിഗ്നൽ സിസ്റ്റം എന്നിവയുടെ സമഗ്ര ട്രെയിനിംഗ്.",
+      tags: ["#ട്രെയിനിംഗ്", "@Training", "#ഡ്രൈവർ", "#സുരക്ഷ"],
+      createdAt: now
+    },
+    {
+      id: "ann_15",
+      documentId: "doc_kmrl_compliance_malayalam",
+      author: { id: "u_legal_01", name: "ലീഗൽ ഡിപ്പാർട്ട്മെന്റ്" },
+      target: { type: "document" },
+      content: "KMRL കമ്പ്ലയൻസ് നിയമാവലി - റെയിൽവേ, പരിസ്ഥിതി, ലേബർ, സുരക്ഷാ നിയമങ്ങളുടെ വിശദ നിർദ്ദേശങ്ങൾ.",
+      tags: ["#കമ്പ്ലയൻസ്", "@Legal", "#റെയിൽവേ", "#നിയമങ്ങൾ"],
+      createdAt: now
+    },
+    {
+      id: "ann_16",
+      documentId: "doc_station_management_malayalam",
+      author: { id: "u_station_02", name: "സ്റ്റേഷൻ മാനേജ്മെന്റ്" },
+      target: { type: "document" },
+      content: "സ്റ്റേഷൻ മാനേജ്മെന്റ് പ്രൊസീജർ - ഓപ്പറേഷൻ, യാത്രക്കാരുടെ സേവനം, ക്രൗഡ് മാനേജ്മെന്റ്, എമർജൻസി നടപടിക്രമങ്ങൾ.",
+      tags: ["#സ്റ്റേഷൻ", "@Operations", "#സേവനം", "#മാനേജ്മെന്റ്"],
+      createdAt: now
+    },
+    {
+      id: "ann_17",
+      documentId: "doc_emergency_response_malayalam",
+      author: { id: "u_emergency_01", name: "എമർജൻസി റെസ്പോൺസ് ടീം" },
+      target: { type: "document" },
+      content: "എമർജൻസി റെസ്പോൺസ് പ്രൊസീജർ - ഫയർ, മെഡിക്കൽ, സെക്യൂരിറ്റി, ട്രെയിൻ ബ്രേക്ക് ഡൗൺ എന്നിവയുടെ നടപടിക്രമങ്ങൾ.",
+      tags: ["#എമർജൻസി", "@Safety", "#ഫയർ", "#മെഡിക്കൽ"],
+      createdAt: now
+    },
+    {
+      id: "ann_18",
       documentId: "doc_procurement_policy",
       author: { id: "u_proc_01", name: "Procurement Team" },
       target: { type: "document" },

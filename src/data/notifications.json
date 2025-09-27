@@ -1,5 +1,233 @@
 [
   {
+    "id": "ntf_4e9j04zy08p",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T13:02:55.549Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_lfjwqpbiuoh",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_1a8jkqeictv",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T12:36:23.717Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_8xcjkrvamnq",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_bg5p1qsuenj",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-27T12:05:54.579Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_jc2v5uyuh5",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_0v9zjizrumr",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T12:05:52.984Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_jc2v5uyuh5",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_yw9jddfw7hm",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T12:02:13.269Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_k8ou455pfum",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_265jw9sm789",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-27T12:02:12.724Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_k8ou455pfum",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_9kwm0usse",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-27T12:00:27.266Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_6t6yq1svu9n",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_a46x09eqmif",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T12:00:25.440Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_6t6yq1svu9n",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_sc1d3hzfn",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T11:50:44.361Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_4ebh75fhmk5",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_jbher47zru",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T11:47:23.247Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_cf4puqm39o9",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_fylyaa1ktgi",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T11:42:11.240Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_gmy515kq54l",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_6ks5k8q5l0l",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T11:39:19.224Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_3yynypn5k7d",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
     "id": "ntf_w1fql5y7x1l",
     "title": "Safety Alert",
     "message": "Safety signals detected in content. Please review.",

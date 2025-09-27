@@ -1,5 +1,275 @@
 [
   {
+    "id": "ins_3ldgoh3k19w",
+    "documentId": "doc_lfjwqpbiuoh",
+    "summary": "📄 Document Analysis: Amazon ML Summer School Previous Year Questions (3).pdf\n\n📋 Type: Safety Document\n⚡ Priority: High\n\n🔑 Key Terms: information, safety, compliance, data, applicable, amazon, summer, school, previous, year\n\n🛡️ Safety Elements: safety, procedure\n\n📋 Compliance Elements: compliance\n\n📝 Key Points:\n1. Key areas for analysis:\n• Document structure and layout\n• Text content and key information\n• Images and diagrams\n• Tables and data\n• Safety and compliance information\n• Operational procedures\n• Financial data (if applicable)\n• Personnel information (if applicable)\n\nPlease process this document for safety compliance, entity extraction, and classification\n2. 82 MB in size and likely contains important information related to railway operations\n3. 📄 PDF Document: Amazon ML Summer School Previous Year Questions (3)\n4. pdf\n\nThis PDF document is 1\n5. [Local OCR Processing - Using Tesseract\n\n🤖 [Local AI Analysis - Advanced NLP processing with railway-specific intelligence]",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "Safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "IT",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "Compliance",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "3",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "1.82",
+        "confidence": 0.8
+      },
+      {
+        "type": "person",
+        "value": "Summer School",
+        "confidence": 0.6
+      },
+      {
+        "type": "person",
+        "value": "Previous Year",
+        "confidence": 0.6
+      },
+      {
+        "type": "person",
+        "value": "Using Tesseract",
+        "confidence": 0.6
+      },
+      {
+        "type": "regulation",
+        "value": "Procedure",
+        "confidence": 0.9
+      },
+      {
+        "type": "regulation",
+        "value": "Act",
+        "confidence": 0.9
+      }
+    ],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.85,
+    "createdAt": "2025-09-27T13:02:53.989Z"
+  },
+  {
+    "id": "ins_4vyzvii9cx6",
+    "documentId": "doc_8xcjkrvamnq",
+    "summary": "📄 Document Analysis: Amazon ML Summer School Previous Year Questions.pdf\n\n📋 Type: Safety Document\n⚡ Priority: High\n\n🔑 Key Terms: information, safety, compliance, data, applicable, amazon, summer, school, previous, year\n\n🛡️ Safety Elements: safety, procedure\n\n📋 Compliance Elements: compliance\n\n📝 Key Points:\n1. Key areas for analysis:\n• Document structure and layout\n• Text content and key information\n• Images and diagrams\n• Tables and data\n• Safety and compliance information\n• Operational procedures\n• Financial data (if applicable)\n• Personnel information (if applicable)\n\nPlease process this document for safety compliance, entity extraction, and classification\n2. 10 MB in size and likely contains important information related to railway operations\n3. 📄 PDF Document: Amazon ML Summer School Previous Year Questions\n4. pdf\n\nThis PDF document is 1\n5. [Local OCR Processing - Using Tesseract\n\n🤖 [Local AI Analysis - Advanced NLP processing with railway-specific intelligence]",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "Safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "IT",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "Compliance",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "1.10",
+        "confidence": 0.8
+      },
+      {
+        "type": "person",
+        "value": "Summer School",
+        "confidence": 0.6
+      },
+      {
+        "type": "person",
+        "value": "Previous Year",
+        "confidence": 0.6
+      },
+      {
+        "type": "person",
+        "value": "Using Tesseract",
+        "confidence": 0.6
+      },
+      {
+        "type": "regulation",
+        "value": "Procedure",
+        "confidence": 0.9
+      },
+      {
+        "type": "regulation",
+        "value": "Act",
+        "confidence": 0.9
+      }
+    ],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.85,
+    "createdAt": "2025-09-27T12:36:23.263Z"
+  },
+  {
+    "id": "ins_gs385rxek3w",
+    "documentId": "doc_jc2v5uyuh5",
+    "summary": "Document Type: Safety Document\nPriority Level: Medium Priority\n\nKey Terms: document, data, information, safety, applicable), document:, amazon, summer\n\nSafety Elements: safety, procedure\n\nCompliance Elements: compliance\n\nKey Points:\n1. pdf\n\nThis is a PDF document containing important information\n2. Key areas to analyze:\n- Document structure and layout\n- Text content and key information\n- Images and diagrams\n- Tables and data\n- Safety and compliance information\n- Operational procedures\n- Financial data (if applicable)\n- Personnel information (if applicable)\n\nPlease process this document for safety compliance, entity extraction, and classification\n\n[Intelligent Analysis - AI services temporarily unavailable]",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "3",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "1.82",
+        "confidence": 0.8
+      },
+      {
+        "type": "person",
+        "value": "Summer School",
+        "confidence": 0.6
+      },
+      {
+        "type": "person",
+        "value": "Previous Year",
+        "confidence": 0.6
+      }
+    ],
+    "safetyScore": 75,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T12:05:54.573Z"
+  },
+  {
+    "id": "ins_l8vvvqtbw6",
+    "documentId": "doc_k8ou455pfum",
+    "summary": "Document Type: Safety Document\nPriority Level: Medium Priority\n\nKey Terms: document, data, information, safety, applicable), document:, statement, purpose.pdf\n\nSafety Elements: safety, procedure\n\nCompliance Elements: compliance\n\nKey Points:\n1. pdf\n\nThis is a PDF document containing important information\n2. Key areas to analyze:\n- Document structure and layout\n- Text content and key information\n- Images and diagrams\n- Tables and data\n- Safety and compliance information\n- Operational procedures\n- Financial data (if applicable)\n- Personnel information (if applicable)\n\nPlease process this document for safety compliance, entity extraction, and classification\n\n[Intelligent Analysis - AI services temporarily unavailable]",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "0.13",
+        "confidence": 0.8
+      }
+    ],
+    "safetyScore": 75,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T12:02:12.718Z"
+  },
+  {
+    "id": "ins_djs9h71de1c",
+    "documentId": "doc_6t6yq1svu9n",
+    "summary": "Document Type: Safety Document\nPriority Level: Medium Priority\n\nKey Terms: document, data, information, safety, applicable), document:, amazon, summer\n\nSafety Elements: safety, procedure\n\nCompliance Elements: compliance\n\nKey Points:\n1. pdf\n\nThis is a PDF document containing important information\n2. Key areas to analyze:\n- Document structure and layout\n- Text content and key information\n- Images and diagrams\n- Tables and data\n- Safety and compliance information\n- Operational procedures\n- Financial data (if applicable)\n- Personnel information (if applicable)\n\nPlease process this document for safety compliance, entity extraction, and classification\n\n[Intelligent Analysis - AI services temporarily unavailable]",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "department",
+        "value": "safety",
+        "confidence": 0.8
+      },
+      {
+        "type": "amount",
+        "value": "1.10",
+        "confidence": 0.8
+      },
+      {
+        "type": "person",
+        "value": "Summer School",
+        "confidence": 0.6
+      },
+      {
+        "type": "person",
+        "value": "Previous Year",
+        "confidence": 0.6
+      }
+    ],
+    "safetyScore": 75,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T12:00:27.259Z"
+  },
+  {
+    "id": "ins_s8divw3ptb",
+    "documentId": "doc_4ebh75fhmk5",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:50:46.022Z"
+  },
+  {
+    "id": "ins_ffwd960xhzv",
+    "documentId": "doc_cf4puqm39o9",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:47:23.154Z"
+  },
+  {
+    "id": "ins_sg9pgalljen",
+    "documentId": "doc_gmy515kq54l",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:42:11.238Z"
+  },
+  {
+    "id": "ins_um4z8dy7nga",
+    "documentId": "doc_3yynypn5k7d",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:39:20.117Z"
+  },
+  {
     "id": "ins_2o95v9uosev",
     "documentId": "doc_ro7pravkfh",
     "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
@@ -15,9 +15,42 @@ export default function BilingualSummary({ documentId, englishSummary }: Props) 
   const [mlText, setMlText] = useState<string>("");
   const [correction, setCorrection] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [actualSummary, setActualSummary] = useState<string>(englishSummary);
   const { user } = useAuth();
 
-  const shown = useMemo(() => (lang === "en" ? englishSummary : mlText || ""), [lang, englishSummary, mlText]);
+  // Fetch the actual summary from document processing result
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const response = await fetch(`/api/documents/summary?documentId=${documentId}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.summary) {
+            // Use the ML-generated summary from document processing
+            setActualSummary(data.summary);
+            console.log('ML Summary loaded:', data.summary.substring(0, 100) + '...');
+          }
+        } else if (response.status === 404) {
+          // Document not processed yet, keep the placeholder
+          console.log('Document not processed yet, keeping placeholder');
+        }
+      } catch (error) {
+        console.error('Error fetching summary:', error);
+      }
+    };
+
+    fetchSummary();
+    
+    // Refresh summary every 3 seconds to get updates during processing
+    const interval = setInterval(fetchSummary, 3000);
+    return () => clearInterval(interval);
+  }, [documentId]);
+
+  const shown = useMemo(() => (lang === "en" ? actualSummary : mlText || ""), [lang, actualSummary, mlText]);
 
   const translate = async () => {
     if (lang === "ml" && !mlText) {
@@ -28,7 +61,7 @@ export default function BilingualSummary({ documentId, englishSummary }: Props) 
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             documentId,
-            text: englishSummary,
+            text: actualSummary,
             sourceLang: "en",
             targetLang: "ml",
             user,
@@ -61,7 +94,22 @@ export default function BilingualSummary({ documentId, englishSummary }: Props) 
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm whitespace-pre-wrap">{shown || (lang === "ml" ? "No Malayalam translation yet." : "No summary.")}</p>
+        {actualSummary === englishSummary && actualSummary.includes('Processing summary for') ? (
+          <div className="flex items-center space-x-2">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+            <p className="text-sm text-gray-600">🤖 ML Processing document analysis...</p>
+          </div>
+        ) : (
+          <div>
+            <p className="text-sm whitespace-pre-wrap">{shown || (lang === "ml" ? "No Malayalam translation yet." : "No summary.")}</p>
+            {actualSummary !== englishSummary && actualSummary.length > 50 && (
+              <div className="mt-2 text-xs text-green-600 flex items-center gap-1">
+                <span>✅</span>
+                <span>ML-Powered Summary Generated</span>
+              </div>
+            )}
+          </div>
+        )}
         {lang === "ml" && (
           <div className="mt-3 flex gap-2">
             <input

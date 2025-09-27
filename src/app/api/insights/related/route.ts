@@ -6,7 +6,8 @@ const ANN = "annotations.json";
 const VER = "versions.json";
 
 export async function POST(req: NextRequest) {
-  const body = (await req.json()) as { documentId: string; text?: string };
+  try {
+    const body = (await req.json()) as { documentId: string; text?: string };
   const [annotations, versions] = await Promise.all([
     readJson<Annotation[]>(ANN, []),
     readJson<DocumentVersion[]>(VER, []),
@@ -52,6 +53,10 @@ export async function POST(req: NextRequest) {
   scores.sort((a, b) => b.score - a.score);
   const related = scores.slice(0, 10);
   return NextResponse.json({ related });
+  } catch (error) {
+    console.error('Insights API error:', error);
+    return NextResponse.json({ related: [] }, { status: 500 });
+  }
 }
 
 
