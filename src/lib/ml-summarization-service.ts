@@ -1,7 +1,7 @@
 // ML Summarization Service using Hugging Face Transformers
 // Provides real AI-powered document summarization
 
-import { pipeline, Pipeline } from '@huggingface/transformers';
+import { pipeline } from '@huggingface/transformers';
 
 export interface MLSummarizationResult {
   summary: string;
@@ -24,7 +24,7 @@ export interface MLSummarizationOptions {
 }
 
 export class MLSummarizationService {
-  private summarizationPipeline: Pipeline | null = null;
+  private summarizationPipeline: any = null;
   private isInitialized = false;
   private initializationPromise: Promise<void> | null = null;
   private readonly modelName = 'facebook/bart-large-cnn'; // Pre-trained summarization model
@@ -52,7 +52,7 @@ export class MLSummarizationService {
       // Use a smaller, faster model for better performance
       const modelConfig = this.useFastMode ? {
         quantized: true,
-        device: 'cpu', // Force CPU for better compatibility
+        device: 'cpu' as const, // Force CPU for better compatibility
         revision: 'main'
       } : {
         quantized: true
@@ -100,7 +100,7 @@ export class MLSummarizationService {
         return await this._runMLSummarization(text, options, startTime);
       }
     } catch (error) {
-      console.log('ML model not available, using fast fallback:', error.message);
+      console.log('ML model not available, using fast fallback:', error instanceof Error ? error.message : String(error));
     }
 
     // Fast fallback - use optimized extractive summarization

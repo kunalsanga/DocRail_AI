@@ -186,7 +186,7 @@ export class AIConfigManager {
     });
 
     Object.entries(this.config.ocr.providers).forEach(([name, provider]) => {
-      if (provider.enabled && name !== 'tesseract' && !provider.apiKey) {
+      if (provider.enabled && name !== 'tesseract' && 'apiKey' in provider && !provider.apiKey) {
         errors.push(`${name} OCR provider is enabled but no API key is configured`);
       }
     });
