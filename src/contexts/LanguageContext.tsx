@@ -168,7 +168,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
 export function useLanguage() {
   const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
+  if (!ctx) {
+    // Fallback to safe defaults if provider is missing
+    return {
+      language: "en",
+      setLanguage: () => {},
+      t: (key: string) => (dictionaries.en[key] ?? key),
+    };
+  }
   return ctx;
 }
 

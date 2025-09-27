@@ -1,0 +1,112 @@
+[
+  {
+    "id": "ins_demo_2",
+    "documentId": "doc_eia_report_2024",
+    "summary": "EIA suggests barrier placement near school zone.",
+    "entities": [
+      {
+        "type": "location",
+        "value": "School Zone",
+        "confidence": 0.8
+      }
+    ],
+    "safetyScore": 40,
+    "complianceScore": 85,
+    "overallConfidence": 0.82,
+    "createdAt": "2025-09-26T13:56:12.487Z"
+  },
+  {
+    "id": "ins_demo_1",
+    "documentId": "doc_safety_protocols_v32",
+    "summary": "Safety SOPs require shift-wise platform audit.",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.92
+      }
+    ],
+    "safetyScore": 80,
+    "complianceScore": 72,
+    "overallConfidence": 0.9,
+    "createdAt": "2025-09-26T13:56:12.487Z"
+  },
+  {
+    "id": "ins_u7jgf59xn9e",
+    "documentId": "doc_5ly661cslg",
+    "summary": "Detected a safety-related notice requiring attention.",
+    "entities": [
+      {
+        "type": "safety_warning",
+        "value": "platform safety",
+        "confidence": 0.88
+      },
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.81
+      },
+      {
+        "type": "deadline",
+        "value": "2025-10-15",
+        "confidence": 0.7
+      }
+    ],
+    "safetyScore": 76,
+    "complianceScore": 68,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-24T11:52:57.131Z"
+  },
+  {
+    "id": "ins_mxpneopk93",
+    "documentId": "doc_9r260c0712",
+    "summary": "Detected a safety-related notice requiring attention.",
+    "entities": [
+      {
+        "type": "safety_warning",
+        "value": "platform safety",
+        "confidence": 0.88
+      },
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.81
+      },
+      {
+        "type": "deadline",
+        "value": "2025-10-15",
+        "confidence": 0.7
+      }
+    ],
+    "safetyScore": 76,
+    "complianceScore": 68,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-24T11:52:57.123Z"
+  },
+  {
+    "id": "ins_4p4kjntf7ws",
+    "documentId": "doc_0gb44634jig7",
+    "summary": "Detected a safety-related notice requiring attention.",
+    "entities": [
+      {
+        "type": "safety_warning",
+        "value": "platform safety",
+        "confidence": 0.88
+      },
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.81
+      },
+      {
+        "type": "deadline",
+        "value": "2025-10-15",
+        "confidence": 0.7
+      }
+    ],
+    "safetyScore": 76,
+    "complianceScore": 68,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-24T10:57:57.661Z"
+  }
+]

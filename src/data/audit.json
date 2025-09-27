@@ -1,103 +1,91 @@
 [
   {
-    "id": "aud_1vpa144kqlf",
-    "documentId": "doc_hhsj5u2zphm",
+    "id": "aud_5",
+    "documentId": "doc_hr_policies",
     "actor": {
-      "id": "1",
-      "name": "kunalsanga197"
+      "id": "u_hr_01",
+      "name": "HR"
+    },
+    "action": "annotate",
+    "details": {
+      "tag": "#training"
+    },
+    "createdAt": "2025-09-26T13:56:12.487Z"
+  },
+  {
+    "id": "aud_4",
+    "documentId": "doc_eia_report_2024",
+    "actor": {
+      "id": "u_env_01",
+      "name": "Environment"
+    },
+    "action": "upload",
+    "details": {},
+    "createdAt": "2025-09-26T13:56:12.487Z"
+  },
+  {
+    "id": "aud_3",
+    "documentId": "doc_compliance_annual",
+    "actor": {
+      "id": "u_admin_01",
+      "name": "Compliance"
+    },
+    "action": "upload",
+    "details": {},
+    "createdAt": "2025-09-26T13:56:12.487Z"
+  },
+  {
+    "id": "aud_2",
+    "documentId": "doc_station_design_phase2",
+    "actor": {
+      "id": "u_eng_02",
+      "name": "Design Team"
     },
     "action": "upload",
     "details": {
-      "fileName": "SIH PPT KOCHI (REAL) .pdf",
-      "size": 796953
+      "file": "dwg"
     },
-    "createdAt": "2025-09-12T18:12:40.258Z"
+    "createdAt": "2025-09-26T13:56:12.487Z"
   },
   {
-    "id": "aud_zamqdxy3yfh",
-    "documentId": "doc_zggikxz109",
+    "id": "aud_1",
+    "documentId": "doc_safety_protocols_v32",
     "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
+      "id": "u_ops_01",
+      "name": "Ops Control"
     },
-    "action": "upload",
+    "action": "update_version",
     "details": {
-      "fileName": "SIH PPT KOCHI (REAL) .pdf",
-      "size": 796953
+      "version": 3
     },
-    "createdAt": "2025-09-13T04:41:55.324Z"
+    "createdAt": "2025-09-26T13:56:12.487Z"
   },
   {
-    "id": "aud_ipgv08qmsoh",
-    "documentId": "doc_fk3ie2nnlyr",
+    "id": "aud_weyadwc7kma",
+    "documentId": "doc_9r260c0712",
     "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
+      "id": "system",
+      "name": "AI Pipeline"
     },
-    "action": "upload",
+    "action": "summarize",
     "details": {
-      "fileName": "0__cgWPP25djXBauNZ.png",
-      "size": 93914
+      "insightId": "ins_mxpneopk93",
+      "overallConfidence": 0.87
     },
-    "createdAt": "2025-09-13T07:46:08.707Z"
+    "createdAt": "2025-09-24T11:52:57.133Z"
   },
   {
-    "id": "aud_csy0qae6f3g",
-    "documentId": "doc_hizmmh0t8pu",
+    "id": "aud_hpdgxfimfeo",
+    "documentId": "doc_5ly661cslg",
     "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
+      "id": "system",
+      "name": "AI Pipeline"
     },
-    "action": "upload",
+    "action": "summarize",
     "details": {
-      "fileName": "image (1) (1).jpg",
-      "size": 155136
+      "insightId": "ins_u7jgf59xn9e",
+      "overallConfidence": 0.87
     },
-    "createdAt": "2025-09-13T07:46:25.647Z"
-  },
-  {
-    "id": "aud_2k8vmqi31gu",
-    "documentId": "demo-doc-1",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer",
-      "email": "officer@docrail.ai",
-      "role": "engineer",
-      "department": "Engineering"
-    },
-    "action": "translate",
-    "details": {
-      "sourceLang": "en",
-      "targetLang": "ml"
-    },
-    "createdAt": "2025-09-13T07:47:02.351Z"
-  },
-  {
-    "id": "aud_muz2ofp4lr",
-    "documentId": "doc_ffail3gvto9",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
-    },
-    "action": "upload",
-    "details": {
-      "fileName": "250-2501985_siks-cbs-datacamp-spark-tutorial-notebook-jupyter-notebook-icon.png",
-      "size": 72566
-    },
-    "createdAt": "2025-09-13T07:48:47.787Z"
-  },
-  {
-    "id": "aud_sxkx49bwdal",
-    "documentId": "doc_n4u1yx3k52a",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
-    },
-    "action": "upload",
-    "details": {
-      "fileName": "rural-health.jpg",
-      "size": 152820
-    },
-    "createdAt": "2025-09-22T11:02:43.217Z"
+    "createdAt": "2025-09-24T11:52:57.136Z"
   }
 ]

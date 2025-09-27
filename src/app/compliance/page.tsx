@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { useAuth } from "@/contexts/AuthContext";
 import { 
   Shield, 
@@ -16,7 +17,6 @@ import {
   Building2,
   Bell,
   Users,
-  Cog,
   FileText,
   TrendingUp,
   Bot,
@@ -138,22 +138,11 @@ export default function CompliancePage() {
   ];
 
   return (
+    <ErrorBoundary>
     <ProtectedRoute allowedRoles={["admin", "director", "engineer"]}>
       <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
         <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">DocRail AI</h1>
-                <p className="text-sm text-gray-600">Document Management System</p>
-              </div>
-            </div>
-          </div>
 
           {/* Navigation */}
           <div className="p-6 overflow-y-auto">
@@ -212,21 +201,7 @@ export default function CompliancePage() {
             </div>
           </div>
 
-          {/* User Profile */}
-          <div className="mt-auto p-6 border-t border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-gray-900">KMRL Officer</p>
-                <p className="text-sm text-gray-600">Engineering Department</p>
-              </div>
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
-                <Cog className="w-4 h-4 text-gray-600" />
-              </button>
-            </div>
-          </div>
+          
         </div>
 
         {/* Main Content */}
@@ -475,5 +450,6 @@ export default function CompliancePage() {
         </div>
       </div>
     </ProtectedRoute>
+    </ErrorBoundary>
   );
 }

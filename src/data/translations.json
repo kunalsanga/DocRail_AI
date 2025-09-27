@@ -1,27 +1,11 @@
-{
-  "glossary": [
-    { "en": "compliance", "ml": "നിയമാനുസരണം" },
-    { "en": "deadline", "ml": "അവസാന തീയതി" },
-    { "en": "safety", "ml": "സുരക്ഷ" },
-    { "en": "budget", "ml": "ബജറ്റ്" },
-    { "en": "incident", "ml": "സംഭവം" }
-  ]
-}
 [
   {
-    "id": "tr_ao5csd6w1la",
-    "documentId": "demo-doc-1",
+    "id": "tr_demo_1",
+    "documentId": "doc_bilingual_safety_notice",
     "sourceLang": "en",
     "targetLang": "ml",
-    "sourceText": "This is an AI-generated summary for the uploaded document.",
-    "translatedText": "This is an AI-generated summary for the uploaded document. [Malayalam]",
-    "createdAt": "2025-09-13T07:47:02.351Z",
-    "createdBy": {
-      "id": "1",
-      "name": "DocRail Officer",
-      "email": "officer@docrail.ai",
-      "role": "engineer",
-      "department": "Engineering"
-    }
+    "sourceText": "Safety briefing for morning shift.",
+    "translatedText": "Safety briefing for morning shift. [Malayalam]",
+    "createdAt": "2025-09-26T13:56:12.487Z"
   }
 ]

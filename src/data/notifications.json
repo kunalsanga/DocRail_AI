@@ -1,14 +1,120 @@
 [
   {
+    "id": "ntf_demo_2",
+    "title": "Design Change – Axle Spec v3.1",
+    "message": "Procurement to align spare-parts contract.",
+    "kind": "department_relevant",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Engineering",
+      "Commercial"
+    ],
+    "documentId": "doc_design_change_axle_v31",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_1",
+    "title": "CRS Bulletin Released",
+    "message": "CRS Platform Safety Bulletin 2024-02 released.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Operations",
+      "Engineering"
+    ],
+    "documentId": "doc_crs_bulletin_2024_02",
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_rif0ocwjrl8",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-24T11:52:57.467Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_5ly661cslg",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_7k3m9uo05",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-24T11:52:57.136Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_9r260c0712",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_4oqltzvu0gs",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-24T10:57:57.668Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_0gb44634jig7",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
     "id": "ntf_001",
     "title": "Document Upload Successful",
     "message": "Safety inspection report for Line 1 has been uploaded and is pending review by Engineering Department.",
     "kind": "department_relevant",
     "createdAt": "2024-01-15T10:30:00Z",
-    "intendedRoles": ["engineer", "admin"],
-    "intendedDepartments": ["Engineering"],
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Engineering"
+    ],
     "documentId": "doc_safety_001",
-    "channels": ["push", "email"],
+    "channels": [
+      "push",
+      "email"
+    ],
     "readByUserIds": []
   },
   {
@@ -17,10 +123,20 @@
     "message": "Annual safety compliance report is due in 5 days. Please ensure all required documents are submitted.",
     "kind": "deadline_approaching",
     "createdAt": "2024-01-14T14:20:00Z",
-    "intendedRoles": ["admin", "director"],
-    "intendedDepartments": ["Operations", "Engineering"],
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Operations",
+      "Engineering"
+    ],
     "documentId": "doc_compliance_annual",
-    "channels": ["push", "email", "whatsapp"],
+    "channels": [
+      "push",
+      "email",
+      "whatsapp"
+    ],
     "readByUserIds": []
   },
   {
@@ -29,10 +145,19 @@
     "message": "Document management system will undergo maintenance on January 20th from 2:00 AM to 4:00 AM IST.",
     "kind": "department_relevant",
     "createdAt": "2024-01-13T09:15:00Z",
-    "intendedRoles": ["admin"],
-    "intendedDepartments": ["IT"],
-    "channels": ["push", "email"],
-    "readByUserIds": ["user_001"]
+    "intendedRoles": [
+      "admin"
+    ],
+    "intendedDepartments": [
+      "IT"
+    ],
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": [
+      "user_001"
+    ]
   },
   {
     "id": "ntf_004",
@@ -40,9 +165,18 @@
     "message": "New Metro Rail Safety Regulations 2024 have been published. Please review and update your procedures accordingly.",
     "kind": "new_directive",
     "createdAt": "2024-01-12T16:45:00Z",
-    "intendedRoles": ["admin", "director"],
-    "intendedDepartments": ["Operations", "Engineering"],
-    "channels": ["push", "email"],
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Operations",
+      "Engineering"
+    ],
+    "channels": [
+      "push",
+      "email"
+    ],
     "readByUserIds": []
   },
   {
@@ -51,10 +185,20 @@
     "message": "Station design drawings for Phase 2 extension require urgent review and approval before construction begins.",
     "kind": "department_relevant",
     "createdAt": "2024-01-11T11:30:00Z",
-    "intendedRoles": ["engineer", "admin"],
-    "intendedDepartments": ["Engineering", "Architecture & Planning"],
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Engineering",
+      "Architecture & Planning"
+    ],
     "documentId": "doc_station_design_phase2",
-    "channels": ["push", "email", "whatsapp"],
+    "channels": [
+      "push",
+      "email",
+      "whatsapp"
+    ],
     "readByUserIds": []
   },
   {
@@ -63,10 +207,19 @@
     "message": "Unusual access pattern detected for confidential project documents. Please verify if this was authorized.",
     "kind": "audit_upcoming",
     "createdAt": "2024-01-10T08:20:00Z",
-    "intendedRoles": ["admin"],
-    "intendedDepartments": ["IT"],
-    "channels": ["push", "email"],
-    "readByUserIds": ["user_002"]
+    "intendedRoles": [
+      "admin"
+    ],
+    "intendedDepartments": [
+      "IT"
+    ],
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": [
+      "user_002"
+    ]
   },
   {
     "id": "ntf_007",
@@ -74,10 +227,19 @@
     "message": "Safety protocols document has been updated to version 3.2. All staff must acknowledge the changes.",
     "kind": "new_directive",
     "createdAt": "2024-01-09T13:15:00Z",
-    "intendedRoles": ["admin", "director"],
-    "intendedDepartments": ["Operations", "Engineering"],
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Operations",
+      "Engineering"
+    ],
     "documentId": "doc_safety_protocols_v32",
-    "channels": ["push", "email"],
+    "channels": [
+      "push",
+      "email"
+    ],
     "readByUserIds": []
   },
   {
@@ -86,10 +248,18 @@
     "message": "New training materials for emergency response procedures are now available in the Knowledge Hub.",
     "kind": "department_relevant",
     "createdAt": "2024-01-08T15:30:00Z",
-    "intendedRoles": ["admin"],
-    "intendedDepartments": ["Operations"],
-    "channels": ["push"],
-    "readByUserIds": ["user_003"]
+    "intendedRoles": [
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": [
+      "user_003"
+    ]
   },
   {
     "id": "ntf_009",
@@ -97,9 +267,18 @@
     "message": "Maintenance service contract with ABC Engineering expires in 30 days. Please initiate renewal process.",
     "kind": "deadline_approaching",
     "createdAt": "2024-01-07T10:00:00Z",
-    "intendedRoles": ["admin", "director"],
-    "intendedDepartments": ["Commercial", "Project Management"],
-    "channels": ["push", "email"],
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Commercial",
+      "Project Management"
+    ],
+    "channels": [
+      "push",
+      "email"
+    ],
     "readByUserIds": []
   },
   {
@@ -108,10 +287,19 @@
     "message": "Environmental impact assessment report is awaiting final approval from the Environmental Officer.",
     "kind": "department_relevant",
     "createdAt": "2024-01-06T14:45:00Z",
-    "intendedRoles": ["admin", "director"],
-    "intendedDepartments": ["Environment", "Architecture & Planning"],
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Environment",
+      "Architecture & Planning"
+    ],
     "documentId": "doc_eia_report_2024",
-    "channels": ["push", "email"],
+    "channels": [
+      "push",
+      "email"
+    ],
     "readByUserIds": []
   }
 ]

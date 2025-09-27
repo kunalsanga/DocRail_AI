@@ -1,5 +1,70 @@
 [
   {
+    "id": "ver_hr_policies",
+    "documentId": "doc_hr_policies",
+    "version": 4,
+    "filePath": "/docs/hr_policies_v4.pdf",
+    "summary": "HR policies update including refresher safety training and on-call allowances",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "createdBy": {
+      "id": "u_hr_01",
+      "name": "HR"
+    },
+    "changeNote": "Training schedule and bilingual forms"
+  },
+  {
+    "id": "ver_eia_2024",
+    "documentId": "doc_eia_report_2024",
+    "version": 1,
+    "filePath": "/docs/eia_2024.pdf",
+    "summary": "Environmental Impact Assessment for line extension and new depots",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "createdBy": {
+      "id": "u_env_01",
+      "name": "Environment"
+    },
+    "changeNote": "Initial EIA"
+  },
+  {
+    "id": "ver_compliance_annual",
+    "documentId": "doc_compliance_annual",
+    "version": 1,
+    "filePath": "/docs/annual_compliance_2024.pdf",
+    "summary": "Annual compliance report covering safety directives and CRMS circulars",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "createdBy": {
+      "id": "u_admin_01",
+      "name": "Compliance"
+    },
+    "changeNote": "Initial release"
+  },
+  {
+    "id": "ver_station_p2",
+    "documentId": "doc_station_design_phase2",
+    "version": 2,
+    "filePath": "/docs/station_design_phase2.dwg",
+    "summary": "Station design phase 2 drawings with accessibility upgrades and photovoltaic layout",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "createdBy": {
+      "id": "u_eng_02",
+      "name": "Design Team"
+    },
+    "changeNote": "Updated canopy and lift shaft positions"
+  },
+  {
+    "id": "ver_safety_v32",
+    "documentId": "doc_safety_protocols_v32",
+    "version": 3,
+    "filePath": "/docs/safety_protocols_v3_2.pdf",
+    "summary": "Safety Protocols updated with platform gap monitoring and emergency drill SOPs",
+    "createdAt": "2025-09-26T13:56:12.487Z",
+    "createdBy": {
+      "id": "u_ops_01",
+      "name": "Ops Control"
+    },
+    "changeNote": "Added platform safety checks and multilingual signage"
+  },
+  {
     "id": "ver_kkvbw5i33",
     "documentId": "doc_hhsj5u2zphm",
     "version": 1,

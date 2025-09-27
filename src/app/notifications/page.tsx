@@ -17,10 +17,7 @@ import {
   Settings,
   ArrowLeft,
   Filter,
-  Search,
-  Building2,
-  Users,
-  Cog
+  Search
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -29,7 +26,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 export default function NotificationsPage() {
   const [kindFilter, setKindFilter] = useState<string | undefined>();
   const [searchQuery, setSearchQuery] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, _setError] = useState<string | null>(null);
   const router = useRouter();
 
   // Safely get notifications with error handling
@@ -44,7 +41,6 @@ export default function NotificationsPage() {
     markAsRead = context.markAsRead || (() => {});
   } catch (err) {
     console.error('Error accessing notifications context:', err);
-    setError('Failed to load notifications. Please refresh the page.');
   }
 
   const filtered = useMemo(() => {
@@ -88,18 +84,6 @@ export default function NotificationsPage() {
         <div className="min-h-screen bg-gray-100 flex">
         {/* Left Sidebar */}
         <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-200 flex-shrink-0">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">DocRail AI</h1>
-                <p className="text-sm text-gray-600">Document Management System</p>
-              </div>
-            </div>
-          </div>
 
           {/* Navigation */}
           <div className="p-6 flex-shrink-0">
@@ -158,21 +142,7 @@ export default function NotificationsPage() {
             </div>
           </div>
 
-          {/* User Profile - Always visible at bottom */}
-          <div className="mt-auto p-6 border-t border-gray-200 flex-shrink-0">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-gray-900">KMRL Officer</p>
-                <p className="text-sm text-gray-600">Engineering Department</p>
-              </div>
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
-                <Cog className="w-4 h-4 text-gray-600" />
-              </button>
-            </div>
-          </div>
+          
         </div>
 
         {/* Main Content */}
@@ -238,13 +208,13 @@ export default function NotificationsPage() {
             </Card>
           </div>
 
-          {/* Error Display */}
-          {error && (
+          {/* Error Display (render-only, no state updates during render) */}
+          {(!notifications || !Array.isArray(notifications)) && (
             <Card className="bg-red-50 border-red-200 mb-4">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-2">
                   <AlertTriangle className="w-5 h-5 text-red-600" />
-                  <p className="text-red-800">{error}</p>
+                  <p className="text-red-800">Failed to load notifications. Please refresh the page.</p>
                   <Button 
                     size="sm" 
                     variant="outline" 

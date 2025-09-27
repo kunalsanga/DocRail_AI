@@ -5,18 +5,19 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { 
   Building2, 
-  Users, 
-  Cog, 
   ArrowLeft, 
   Search, 
   Filter, 
   Network, 
   FileText, 
   Tag, 
-  Eye
+  Eye,
+  RefreshCw
 } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import IconBadge from "@/components/ui/IconBadge";
@@ -47,13 +48,20 @@ export default function KnowledgeHubPage() {
   const [selectedNode, setSelectedNode] = useState<KnowledgeNode | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
+  const [isLoading, setIsLoading] = useState(true);
+  // zoom controls removed for now to keep UI minimal
   const router = useRouter();
+  // Cache computed node positions to avoid recompute and enable accurate clicks
+  const positionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
+  // Throttle redraws
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const load = async () => {
+      setIsLoading(true);
       try {
-      const res = await fetch("/api/knowledge/graph");
-      const data = await res.json();
+        const res = await fetch("/api/knowledge/graph");
+        const data = await res.json();
         setGraph(data.graph);
         drawGraph(data.graph);
       } catch (error) {
@@ -120,19 +128,29 @@ export default function KnowledgeHubPage() {
         setGraph(demoGraph);
         drawGraph(demoGraph);
       }
+      setIsLoading(false);
     };
     load();
 
     // Add resize handler
+    let resizeRaf: number | null = null;
     const handleResize = () => {
-      if (graph) {
-        drawGraph(graph);
-      }
+      if (!graph) return;
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => drawGraph(graph));
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [graph]);
+  }, []);
+
+  // Redraw when selection changes
+  useEffect(() => {
+    if (graph) {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => drawGraph(graph));
+    }
+  }, [selectedNode, graph]);
 
   const drawGraph = (graphData: KnowledgeGraph) => {
     const canvas = canvasRef.current;
@@ -145,17 +163,18 @@ export default function KnowledgeHubPage() {
     const container = canvas.parentElement;
     if (container) {
       const rect = container.getBoundingClientRect();
-      canvas.width = Math.min(700, rect.width - 32); // Account for padding
-      canvas.height = Math.min(450, rect.height - 32);
+      canvas.width = Math.min(1000, rect.width - 32);
+      canvas.height = Math.min(640, rect.height - 32);
     }
 
     // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Create a better layout using force simulation
     const nodes = graphData.nodes.map((node, i) => {
-      const angle = (i / graphData.nodes.length) * 2 * Math.PI;
-      const radius = Math.min(canvas.width, canvas.height) * 0.25;
+      const n = Math.max(1, graphData.nodes.length);
+      const angle = -Math.PI / 2 + (i * (2 * Math.PI / n)); // start at top, place evenly on circle
+      const radius = Math.min(canvas.width, canvas.height) * 0.40;
       return {
         ...node,
         x: canvas.width / 2 + Math.cos(angle) * radius,
@@ -163,15 +182,21 @@ export default function KnowledgeHubPage() {
       };
     });
 
+    // Save positions for click detection without mutating state
+    const pos = new Map<string, { x: number; y: number }>();
+    nodes.forEach(n => pos.set(n.id, { x: n.x!, y: n.y! }));
+    positionsRef.current = pos;
+
     const nodeMap = new Map(nodes.map(n => [n.id, n]));
 
-    // Draw edges
-    ctx.strokeStyle = "#e2e8f0";
-    ctx.lineWidth = 1;
+    // Draw edges with gradient
     graphData.edges.forEach(edge => {
       const source = nodeMap.get(edge.source);
       const target = nodeMap.get(edge.target);
       if (source && target) {
+        ctx.strokeStyle = selectedNode && (selectedNode.id === edge.source || selectedNode.id === edge.target) 
+          ? "#3b82f6" : "#e2e8f0";
+        ctx.lineWidth = selectedNode && (selectedNode.id === edge.source || selectedNode.id === edge.target) ? 2 : 1;
         ctx.beginPath();
         ctx.moveTo(source.x!, source.y!);
         ctx.lineTo(target.x!, target.y!);
@@ -179,22 +204,26 @@ export default function KnowledgeHubPage() {
       }
     });
 
-    // Draw nodes
-    nodes.forEach(node => {
+    // Draw nodes with enhanced styling
+    nodes.forEach((node, i) => {
       const isSelected = selectedNode?.id === node.id;
-      const radius = isSelected ? 12 : 8;
+      const radius = isSelected ? 14 : 10;
       
-      // Node color based on type
-      let color = "#6b7280"; // default
-      if (node.type === "document") color = "#3b82f6";
-      else if (node.type === "department") color = "#10b981";
-      else if (node.type === "category") color = "#f59e0b";
+      // Node color based on type with better colors
+      let color = "#64748b";
+      if (node.type === "document") {
+        color = "#3b82f6";
+      } else if (node.type === "department") {
+        color = "#10b981";
+      } else if (node.type === "category") {
+        color = "#f59e0b";
+      }
 
       // Draw node
-        ctx.beginPath();
+      ctx.beginPath();
       ctx.fillStyle = color;
       ctx.arc(node.x!, node.y!, radius, 0, Math.PI * 2);
-        ctx.fill();
+      ctx.fill();
 
       // Draw border if selected
       if (isSelected) {
@@ -203,13 +232,23 @@ export default function KnowledgeHubPage() {
         ctx.stroke();
       }
 
-      // Draw label
+      // Draw label with better typography
       ctx.fillStyle = "#1f2937";
-        ctx.font = "12px sans-serif";
+      ctx.font = "12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(node.label, node.x!, node.y! + radius + 15);
-      });
-    };
+      const label = node.label.length > 24 ? node.label.substring(0, 24) + "..." : node.label;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const dx = (node.x! - centerX);
+      const dy = (node.y! - centerY);
+      const dist = Math.max(1, Math.hypot(dx, dy));
+      // place label outside the circle along the radial direction
+      const outward = (isSelected ? 26 : 20) + ((i % 2) * 8);
+      const lx = node.x! + (dx / dist) * outward;
+      const ly = node.y! + (dy / dist) * outward;
+      ctx.fillText(label, lx, ly);
+    });
+  };
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -219,15 +258,19 @@ export default function KnowledgeHubPage() {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    // Find clicked node
-    const clickedNode = graph.nodes.find(node => {
-      const nodeX = node.x || 0;
-      const nodeY = node.y || 0;
-      const distance = Math.sqrt((x - nodeX) ** 2 + (y - nodeY) ** 2);
-      return distance <= 12;
-    });
+    // Find clicked node using cached positions
+    let clicked: KnowledgeNode | null = null;
+    for (const node of graph.nodes) {
+      const p = positionsRef.current.get(node.id);
+      if (!p) continue;
+      const distance = Math.sqrt((x - p.x) ** 2 + (y - p.y) ** 2);
+      if (distance <= 14) {
+        clicked = node;
+        break;
+      }
+    }
 
-    setSelectedNode(clickedNode || null);
+    setSelectedNode(clicked || null);
   };
 
   const [searchResults, setSearchResults] = useState<KnowledgeNode[]>([]);
@@ -265,288 +308,228 @@ export default function KnowledgeHubPage() {
 
   const getNodeColor = (type: string) => {
     switch (type) {
-      case "document": return "bg-blue-100 text-blue-800";
-      case "department": return "bg-green-100 text-green-800";
-      case "category": return "bg-orange-100 text-orange-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "document": return "bg-blue-50 text-blue-700 border-blue-200";
+      case "department": return "bg-emerald-50 text-emerald-700 border-emerald-200";
+      case "category": return "bg-amber-50 text-amber-700 border-amber-200";
+      default: return "bg-slate-50 text-slate-700 border-slate-200";
     }
   };
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-100 flex">
-        {/* Left Sidebar */}
-        <div className="w-80 bg-white shadow-lg flex flex-col h-screen sticky top-0">
-          {/* Logo Section */}
-          <div className="p-6 border-b border-gray-200 flex-shrink-0">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-white" />
+      <div className="min-h-screen bg-slate-50">
+        {/* Header */}
+        <div className="bg-white border-b border-slate-200 sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <button 
+                  onClick={() => router.back()}
+                  className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5 text-slate-600" />
+                </button>
+                <div>
+                  <h1 className="text-2xl font-bold text-slate-900">Knowledge Hub</h1>
+                  <p className="text-slate-600 text-sm">Interactive knowledge graph</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">DocRail AI</h1>
-                <p className="text-sm text-gray-600">Document Management System</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <div className="p-6 flex-shrink-0 overflow-y-auto">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
-            <nav className="space-y-2">
-              <Link prefetch href="/dashboard" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FileText className="w-5 h-5" />
-                <span>Dashboard</span>
-              </Link>
-              <Link prefetch href="/upload" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FileText className="w-5 h-5" />
-                <span>Upload Documents</span>
-              </Link>
-              <Link prefetch href="/search" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <Search className="w-5 h-5" />
-                <span>Search & Filter</span>
-              </Link>
-              <Link prefetch href="/compliance" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FileText className="w-5 h-5" />
-                <span>Compliance</span>
-              </Link>
-              <Link prefetch href="/notifications" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
-                <FileText className="w-5 h-5" />
-                <span>Notifications</span>
-              </Link>
-              <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
-                <Network className="w-5 h-5" />
-                <span className="font-medium">Knowledge Hub</span>
-              </button>
-            </nav>
-          </div>
-
-          {/* Knowledge Stats */}
-          <div className="p-6 border-t border-gray-200 flex-shrink-0">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">KNOWLEDGE STATS</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Total Documents</span>
-                <span className="font-semibold text-gray-900">{graph?.nodes.filter(n => n.type === 'document').length || 0}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Departments</span>
-                <span className="font-semibold text-green-600">{graph?.nodes.filter(n => n.type === 'department').length || 0}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Categories</span>
-                <span className="font-semibold text-orange-600">{graph?.nodes.filter(n => n.type === 'category').length || 0}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Connections</span>
-                <span className="font-semibold text-blue-600">{graph?.edges.length || 0}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* User Profile - Always visible at bottom */}
-          <div className="mt-auto p-6 border-t border-gray-200 flex-shrink-0">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Users className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-gray-900">KMRL Officer</p>
-                <p className="text-sm text-gray-600">Engineering Department</p>
-              </div>
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
-                <Cog className="w-4 h-4 text-gray-600" />
-              </button>
+              {/* Right actions intentionally minimal for a cleaner look */}
             </div>
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 p-8 overflow-x-auto">
-          {/* Header */}
-          <div className="mb-8">
-            <div className="flex items-center space-x-4 mb-4">
-              <button 
-                onClick={() => router.back()}
-                className="p-2 hover:bg-gray-100 rounded-lg"
-              >
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
-              </button>
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Knowledge Hub</h1>
-                <p className="text-gray-600 mt-1">Interactive knowledge graph showing relationships between documents, departments, and categories</p>
-              </div>
-            </div>
-          </div>
+        <div className="max-w-7xl mx-auto px-6 py-6">
 
           {/* Controls */}
-          <div className="mb-8">
-            <Card className="bg-white shadow-sm">
-              <CardContent className="p-6">
-                <div className="flex flex-col lg:flex-row gap-4">
-                  {/* Search */}
-                  <div className="flex-1">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                      <input
-                        type="text"
-                        placeholder="Search knowledge nodes..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Filter */}
-                  <div className="flex gap-4">
-                    <select
-                      value={filterType}
-                      onChange={(e) => setFilterType(e.target.value)}
-                      className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="all">All Types</option>
-                      <option value="document">Documents</option>
-                      <option value="department">Departments</option>
-                      <option value="category">Categories</option>
-                    </select>
-
-                    <Button 
-                      onClick={() => {
-                        setSearchQuery("");
-                        setFilterType("all");
-                        setSelectedNode(null);
-                      }}
-                      variant="outline"
-                      className="px-6"
-                    >
-                      Clear Filters
-                    </Button>
-                  </div>
+          <Card className="mb-6 shadow-sm">
+            <CardContent className="p-4">
+              <div className="flex flex-col lg:flex-row gap-4 items-center">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
+                  <Input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-10 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20"
+                  />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
 
-          {/* Knowledge Graph */}
-          <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-            {/* Graph Canvas */}
-            <div className="xl:col-span-3">
-              <Card className="bg-white shadow-sm">
-                <CardHeader>
+                <div className="flex items-center gap-3">
+                  <select
+                    value={filterType}
+                    onChange={(e) => setFilterType(e.target.value)}
+                    className="px-3 py-2 h-10 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white"
+                  >
+                    <option value="all">All</option>
+                    <option value="document">Documents</option>
+                    <option value="department">Departments</option>
+                    <option value="category">Categories</option>
+                  </select>
+
+                  <Button 
+                    onClick={() => {
+                      setSearchQuery("");
+                      setFilterType("all");
+                      setSelectedNode(null);
+                    }}
+                    variant="outline"
+                    className="px-3 h-10"
+                  >
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Reset
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Main Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Enhanced Graph Canvas */}
+            <div className="lg:col-span-3">
+              <Card className="shadow-sm">
+                <CardHeader className="pb-2">
                   <CardTitle className="flex items-center space-x-2">
-                    <IconBadge color="slate" size="sm"><Network /></IconBadge>
-                    <span>Knowledge Graph</span>
+                    <div className="p-2 bg-slate-100 rounded-lg">
+                      <Network className="w-5 h-5 text-slate-600" />
+                    </div>
+                    <span>Graph</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="border rounded-lg bg-gray-50 p-4 overflow-hidden">
-                    <div className="w-full h-[500px] flex items-center justify-center">
-                      <canvas 
-                        ref={canvasRef} 
-                        width={700} 
-                        height={450}
-                        onClick={handleCanvasClick}
-                        className="cursor-pointer border rounded bg-white max-w-full max-h-full"
-                      />
-                    </div>
+                <CardContent className="p-4">
+                  <div className="border border-slate-200 rounded-xl bg-white p-4">
+                    {isLoading ? (
+                      <div className="flex items-center justify-center h-[500px]">
+                        <div className="text-center">
+                          <RefreshCw className="w-8 h-8 text-slate-400 animate-spin mx-auto mb-4" />
+                          <p className="text-slate-600">Loading knowledge graph...</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-full h-[640px] flex items-center justify-center">
+                        <canvas 
+                          ref={canvasRef} 
+                          width={1000} 
+                          height={640}
+                          onClick={handleCanvasClick}
+                          className="cursor-pointer border rounded-lg bg-white shadow-inner max-w-full max-h-full"
+                        />
+                      </div>
+                    )}
                   </div>
-                  <div className="mt-4 flex items-center justify-center space-x-6 text-sm text-gray-500">
-                    <div className="flex items-center space-x-2">
-                      <IconBadge color="blue" size="sm"><FileText className="w-4 h-4" /></IconBadge>
-                      <span>Documents</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <IconBadge color="green" size="sm"><Building2 className="w-4 h-4" /></IconBadge>
-                      <span>Departments</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <IconBadge color="orange" size="sm"><Tag className="w-4 h-4" /></IconBadge>
-                      <span>Categories</span>
-                    </div>
+                   
+                  {/* Legend (condensed) */}
+                  <div className="mt-3 flex items-center justify-center gap-5 text-xs text-slate-600">
+                    <div className="flex items-center gap-2"><span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-500"></span>Docs</div>
+                    <div className="flex items-center gap-2"><span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Depts</div>
+                    <div className="flex items-center gap-2"><span className="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span>Categories</div>
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Node Details */}
-            <div className="xl:col-span-1 space-y-4">
+            {/* Sidebar */}
+            <div className="space-y-6">
               {/* Selected Node Details */}
               {selectedNode ? (
-                <Card className="bg-white shadow-sm">
-                  <CardHeader>
+                <Card className="shadow-sm">
+                  <CardHeader className="pb-2">
                     <CardTitle className="flex items-center space-x-2">
-                      <IconBadge color="blue" size="sm">{getNodeIcon(selectedNode.type)}</IconBadge>
-                      <span>Selected Node</span>
+                      <div className={`p-2 rounded-md ${getNodeColor(selectedNode.type).split(' ')[0]} ${getNodeColor(selectedNode.type).split(' ')[0].replace('50', '100')}`}>
+                        {getNodeIcon(selectedNode.type)}
+                      </div>
+                      <span>Details</span>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{selectedNode.label}</h3>
-                        <Badge className={`mt-1 ${getNodeColor(selectedNode.type)}`}>
-                          {selectedNode.type}
-                        </Badge>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <h4 className="text-sm font-medium text-gray-700">Connected Nodes:</h4>
-                        <div className="space-y-1">
-                          {graph?.edges
-                            .filter(edge => edge.source === selectedNode.id || edge.target === selectedNode.id)
-                            .map(edge => {
-                              const connectedNodeId = edge.source === selectedNode.id ? edge.target : edge.source;
-                              const connectedNode = graph?.nodes.find(n => n.id === connectedNodeId);
-                              return connectedNode ? (
-                                <div key={edge.id} className="flex items-center space-x-2 text-sm">
-                                  <Badge variant="outline" className="text-xs">
-                                    {edge.relation}
-                                  </Badge>
-                                  <span className="text-gray-600">{connectedNode.label}</span>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h3 className="font-semibold text-slate-900 mb-2">{selectedNode.label}</h3>
+                      <Badge variant="outline" className={`${getNodeColor(selectedNode.type)} font-medium`}>
+                        {selectedNode.type.charAt(0).toUpperCase() + selectedNode.type.slice(1)}
+                      </Badge>
+                    </div>
+                     
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-700 mb-2">Connected Nodes</h4>
+                      <div className="space-y-2 max-h-48 overflow-y-auto">
+                        {graph?.edges
+                          .filter(edge => edge.source === selectedNode.id || edge.target === selectedNode.id)
+                          .map(edge => {
+                            const connectedNodeId = edge.source === selectedNode.id ? edge.target : edge.source;
+                            const connectedNode = graph?.nodes.find(n => n.id === connectedNodeId);
+                            return connectedNode ? (
+                              <div key={edge.id} className="flex items-start gap-2 p-2 bg-slate-50 rounded-md">
+                                <Badge variant="outline" className="text-xs bg-white border-slate-300 capitalize">
+                                  {edge.relation.replace('_', ' ')}
+                                </Badge>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-medium text-slate-900 truncate">
+                                    {connectedNode.label}
+                                  </p>
+                                  <p className="text-xs text-slate-500 capitalize">
+                                    {connectedNode.type}
+                                  </p>
                                 </div>
-                              ) : null;
-                            }) || []}
-                        </div>
+                              </div>
+                            ) : null;
+                          }) || []}
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="bg-white shadow-sm">
-                  <CardContent className="p-6 text-center">
-                    <Network className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Select a Node</h3>
-                    <p className="text-gray-600">Click on any node in the graph to see its details and connections.</p>
+                <Card className="shadow-sm">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Network className="w-8 h-8 text-slate-400" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-900 mb-2">Select a Node</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Click on any node in the graph to explore its connections and details.
+                    </p>
                   </CardContent>
                 </Card>
               )}
 
-              {/* Filtered Results */}
-              <Card className="bg-white shadow-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <IconBadge color="slate" size="sm"><Filter /></IconBadge>
-                    <span>Filtered Results ({filteredNodes.length})</span>
+              {/* Search Results */}
+              <Card className="shadow-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className="p-2 bg-slate-100 rounded-lg">
+                        <Filter className="w-4 h-4 text-slate-600" />
+                      </div>
+                      <span>Results</span>
+                    </div>
+                    <Badge variant="outline" className="bg-slate-50 text-xs">
+                      {filteredNodes.length}
+                    </Badge>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2 max-h-64 overflow-y-auto">
-                    {filteredNodes.map(node => (
-                      <div 
-                        key={node.id}
-                        className={`flex items-center space-x-3 p-2 rounded-lg cursor-pointer hover:bg-gray-50 ${
-                          selectedNode?.id === node.id ? 'bg-blue-50 border border-blue-200' : ''
-                        }`}
-                        onClick={() => setSelectedNode(node)}
-                      >
-                        <IconBadge color="slate" size="sm">{getNodeIcon(node.type)}</IconBadge>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">{node.label}</p>
-                          <p className="text-xs text-gray-500">{node.type}</p>
-                        </div>
-                        <Eye className="w-4 h-4 text-gray-400" />
+                  <div className="space-y-2 max-h-80 overflow-y-auto">
+                    {filteredNodes.length > 0 ? (
+                      filteredNodes.map(node => (
+                        <button
+                          key={node.id}
+                          className={`w-full flex items-center justify-between gap-3 p-2 rounded-md text-left transition-colors hover:bg-slate-50 ${
+                            selectedNode?.id === node.id ? 'bg-blue-50 border border-blue-200' : 'border border-transparent'
+                          }`}
+                          onClick={() => setSelectedNode(node)}
+                        >
+                          <span className="text-sm text-slate-900 truncate pr-2">{node.label}</span>
+                          <Badge variant="outline" className={`${getNodeColor(node.type)} capitalize text-xs`}>
+                            {node.type}
+                          </Badge>
+                        </button>
+                      ))
+                    ) : (
+                      <div className="p-8 text-center text-slate-500">
+                        No results found. Try a different search or filter.
                       </div>
-                    ))}
+                    )}
                   </div>
                 </CardContent>
               </Card>
