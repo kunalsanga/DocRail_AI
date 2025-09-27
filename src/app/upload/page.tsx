@@ -34,8 +34,9 @@ const AnnotationsPanel = dynamic(() => import("@/components/annotations/Annotati
 
 export default function UploadPage() {
   const [files, setFiles] = useState<File[]>([]);
-  const [uploadedDocs, setUploadedDocs] = useState<{ id: string; name: string }[]>([]);
+  const [uploadedDocs, setUploadedDocs] = useState<{ id: string; name: string; status: string; progress: number }[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -70,7 +71,7 @@ export default function UploadPage() {
               details: { fileName: f.name, size: f.size },
             }),
           });
-          setUploadedDocs(prev => [{ id: docId, name: f.name }, ...prev]);
+          setUploadedDocs(prev => [{ id: docId, name: f.name, status: "Completed", progress: 100 }, ...prev]);
         } catch {
           // ignore in demo
         }
@@ -126,7 +127,7 @@ export default function UploadPage() {
               details: { fileName: f.name, size: f.size },
             }),
           });
-          setUploadedDocs(prev => [{ id: docId, name: f.name }, ...prev]);
+          setUploadedDocs(prev => [{ id: docId, name: f.name, status: "Completed", progress: 100 }, ...prev]);
         } catch {
           // ignore in demo
         }

@@ -172,7 +172,10 @@ export default function SearchPage() {
   const filteredResults = useMemo(() => {
     const startTime = performance.now();
     
-    const results = mockSearchResults.filter(result => {
+    // Use dynamic search results if there's a query
+    const searchResults = searchQuery ? generateSearchResults(searchQuery) : mockSearchResults;
+    
+    const results = searchResults.filter(result => {
       const matchesQuery = searchQuery === "" || 
         result.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         result.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -206,8 +209,71 @@ export default function SearchPage() {
       setSearchHistory(prev => [query, ...prev.slice(0, 9)]);
     }
     
-    // Simulate search delay
-    setTimeout(() => setIsSearching(false), 500);
+    // Simulate search delay with realistic timing
+    setTimeout(() => setIsSearching(false), 800);
+  };
+
+  // Auto-search as user types (debounced)
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchQuery.length > 2) {
+        handleSearch(searchQuery);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  // Generate realistic search results based on query
+  const generateSearchResults = (query: string) => {
+    const baseResults = mockSearchResults;
+    
+    if (!query) return baseResults;
+    
+    // Simulate AI-powered search with different result types
+    const queryLower = query.toLowerCase();
+    
+    // Add some dynamic results based on search terms
+    const dynamicResults = [
+      {
+        id: `dynamic_${Date.now()}_1`,
+        title: `AI-Generated Result for "${query}"`,
+        content: `This is an AI-generated search result for your query "${query}". The system has analyzed your search intent and found this relevant document that matches your criteria.`,
+        aiSummary: `Based on your search for "${query}", this document contains relevant information about safety protocols, compliance requirements, and operational procedures.`,
+        type: "AI Generated",
+        language: "english",
+        department: "Operations",
+        author: "AI System",
+        date: new Date().toLocaleDateString(),
+        priority: "Medium",
+        relevanceScore: Math.floor(Math.random() * 20) + 80,
+        complianceStatus: "Compliant",
+        safetyLevel: "Medium Risk",
+        tags: ["AI Generated", "Search Result", query],
+        wordCount: Math.floor(Math.random() * 1000) + 500,
+        lastModified: new Date().toLocaleDateString()
+      },
+      {
+        id: `dynamic_${Date.now()}_2`,
+        title: `Related Document: ${query} Analysis`,
+        content: `This document provides detailed analysis and insights related to "${query}". It includes compliance requirements, safety considerations, and operational guidelines.`,
+        aiSummary: `Comprehensive analysis document covering all aspects of "${query}" including regulatory requirements, safety protocols, and implementation guidelines.`,
+        type: "Analysis Report",
+        language: "english",
+        department: "Engineering",
+        author: "Technical Team",
+        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+        priority: "High",
+        relevanceScore: Math.floor(Math.random() * 15) + 75,
+        complianceStatus: "Pending Review",
+        safetyLevel: "High Risk",
+        tags: ["Analysis", "Technical", query, "Compliance"],
+        wordCount: Math.floor(Math.random() * 2000) + 1000,
+        lastModified: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toLocaleDateString()
+      }
+    ];
+
+    return [...dynamicResults, ...baseResults];
   };
 
   return (
@@ -785,11 +851,25 @@ export default function SearchPage() {
                             </div>
                           </DialogContent>
                         </Dialog>
-                        <Button variant="outline" size="sm" className="flex items-center space-x-1">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex items-center space-x-1"
+                          onClick={() => {
+                            alert(`Downloading "${result.title}"...\n\nThis would normally download the document file.`);
+                          }}
+                        >
                           <Download className="w-4 h-4" />
                           <span>Download</span>
                         </Button>
-                        <Button variant="outline" size="sm" className="flex items-center space-x-1">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="flex items-center space-x-1"
+                          onClick={() => {
+                            alert(`Sharing "${result.title}"...\n\nDocument shared successfully! Link copied to clipboard.`);
+                          }}
+                        >
                           <Share2 className="w-4 h-4" />
                           <span>Share</span>
                         </Button>

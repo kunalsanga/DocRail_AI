@@ -244,12 +244,23 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 space-y-2">
             <button
-              onClick={async () => { await fetch('/api/demo/seed', { method: 'POST' }); alert('Guided demo data seeded. Go to Dashboard to run workflows.'); }}
-              className="w-full border rounded-md bg-white px-4 py-2 hover:bg-slate-50"
+              onClick={async () => { 
+                await fetch('/api/demo/seed', { method: 'POST' }); 
+                alert('✅ Demo data seeded successfully!\n\n🎯 You can now:\n• Search for documents\n• View real-time dashboard updates\n• Test workflow processes\n• Explore AI-powered features'); 
+              }}
+              className="w-full border rounded-md bg-white px-4 py-2 hover:bg-slate-50 font-medium"
             >
-              Start Guided Demo
+              🚀 Start Interactive Demo
+            </button>
+            <button
+              onClick={() => {
+                alert('🎬 Demo Mode Activated!\n\n📋 Try these features:\n• Search: Type "safety" or "compliance"\n• Filters: Use advanced filters\n• Dashboard: Watch real-time updates\n• Upload: Test file processing\n• Workflows: Click "Run Workflow" buttons');
+              }}
+              className="w-full border rounded-md bg-blue-50 px-4 py-2 hover:bg-blue-100 text-blue-700 font-medium"
+            >
+              📖 Demo Instructions
             </button>
           </div>
         </aside>
