@@ -1,269 +1,49 @@
 [
   {
-    "id": "aud_10",
-    "documentId": "doc_training_manual",
-    "actor": {
-      "id": "u_training_01",
-      "name": "Training Department"
-    },
-    "action": "annotate",
-    "details": {
-      "tag": "#development"
-    },
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "aud_9",
-    "documentId": "doc_procurement_policy",
-    "actor": {
-      "id": "u_proc_01",
-      "name": "Procurement Team"
-    },
-    "action": "update_version",
-    "details": {
-      "version": 3
-    },
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "aud_8",
-    "documentId": "doc_quality_standards",
-    "actor": {
-      "id": "u_qa_01",
-      "name": "Quality Assurance"
-    },
-    "action": "upload",
-    "details": {},
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "aud_7",
-    "documentId": "doc_it_security",
-    "actor": {
-      "id": "u_it_01",
-      "name": "IT Security Team"
-    },
-    "action": "update_version",
-    "details": {
-      "version": 2
-    },
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "aud_6",
-    "documentId": "doc_financial_q4",
-    "actor": {
-      "id": "u_fin_01",
-      "name": "Finance Team"
-    },
-    "action": "upload",
-    "details": {},
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "aud_5",
-    "documentId": "doc_hr_policies",
-    "actor": {
-      "id": "u_hr_01",
-      "name": "HR"
-    },
-    "action": "annotate",
-    "details": {
-      "tag": "#training"
-    },
-    "createdAt": "2025-09-26T13:56:12.487Z"
-  },
-  {
-    "id": "aud_4",
-    "documentId": "doc_eia_report_2024",
-    "actor": {
-      "id": "u_env_01",
-      "name": "Environment"
-    },
-    "action": "upload",
-    "details": {},
-    "createdAt": "2025-09-26T13:56:12.487Z"
-  },
-  {
-    "id": "aud_3",
-    "documentId": "doc_compliance_annual",
-    "actor": {
-      "id": "u_admin_01",
-      "name": "Compliance"
-    },
-    "action": "upload",
-    "details": {},
-    "createdAt": "2025-09-26T13:56:12.487Z"
-  },
-  {
-    "id": "aud_2",
-    "documentId": "doc_station_design_phase2",
-    "actor": {
-      "id": "u_eng_02",
-      "name": "Design Team"
-    },
-    "action": "upload",
-    "details": {
-      "file": "dwg"
-    },
-    "createdAt": "2025-09-26T13:56:12.487Z"
-  },
-  {
-    "id": "aud_1",
-    "documentId": "doc_safety_protocols_v32",
-    "actor": {
-      "id": "u_ops_01",
-      "name": "Ops Control"
-    },
-    "action": "update_version",
-    "details": {
-      "version": 3
-    },
-    "createdAt": "2025-09-26T13:56:12.487Z"
-  },
-  {
-    "id": "aud_weyadwc7kma",
-    "documentId": "doc_9r260c0712",
-    "actor": {
-      "id": "system",
-      "name": "AI Pipeline"
-    },
-    "action": "summarize",
-    "details": {
-      "insightId": "ins_mxpneopk93",
-      "overallConfidence": 0.87
-    },
-    "createdAt": "2025-09-24T11:52:57.133Z"
-  },
-  {
-    "id": "aud_hpdgxfimfeo",
-    "documentId": "doc_5ly661cslg",
-    "actor": {
-      "id": "system",
-      "name": "AI Pipeline"
-    },
-    "action": "summarize",
-    "details": {
-      "insightId": "ins_u7jgf59xn9e",
-      "overallConfidence": 0.87
-    },
-    "createdAt": "2025-09-24T11:52:57.136Z"
-  },
-  {
-    "id": "aud_flslmike0p",
-    "documentId": "doc_kgu1hr7tgt",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
-    },
-    "action": "upload",
-    "details": {
-      "fileName": "G216G33ApplicationForm.pdf",
-      "size": 295327
-    },
-    "createdAt": "2025-09-27T06:52:14.273Z"
-  },
-  {
-    "id": "aud_wghi5la51ch",
-    "documentId": "doc_j25pl4n9mu",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
-    },
-    "action": "upload",
-    "details": {
-      "fileName": "SIH 73 Software PS 2025.docx",
-      "size": 27591
-    },
-    "createdAt": "2025-09-27T06:52:30.813Z"
-  },
-  {
-    "id": "aud_53adkybl59x",
-    "documentId": "doc_uwfc2uzso1l",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
-    },
-    "action": "upload",
-    "details": {
-      "fileName": "SIH 73 Software PS 2025.docx",
-      "size": 27591
-    },
-    "createdAt": "2025-09-27T07:20:17.610Z"
-  },
-  {
-    "id": "aud_50fvamsbeck",
+    "id": "aud_fmm7973yo1b",
     "documentId": "test",
     "actor": {
-      "id": "test",
-      "name": "Test User"
+      "id": "system",
+      "name": "System"
     },
     "action": "translate",
     "details": {
       "sourceLang": "en",
       "targetLang": "ml"
     },
-    "createdAt": "2025-09-27T07:34:46.089Z"
+    "createdAt": "2025-09-27T11:05:38.731Z"
   },
   {
-    "id": "aud_qsgwyo3vqhi",
-    "documentId": "doc_l0ikkvo0tt",
+    "id": "aud_qm2c09drosb",
+    "documentId": "doc_420tgdqkugi",
     "actor": {
       "id": "1",
       "name": "DocRail Officer"
     },
     "action": "upload",
     "details": {
-      "fileName": "SIH 73 Software PS 2025.docx",
-      "size": 27591
+      "fileName": "introduction.pdf",
+      "size": 19408177
     },
-    "createdAt": "2025-09-27T07:38:14.417Z"
+    "createdAt": "2025-09-27T11:05:45.831Z"
   },
   {
-    "id": "aud_g7q1bk0mqqh",
-    "documentId": "test-doc",
+    "id": "aud_y4d9mrvl66",
+    "documentId": "doc_420tgdqkugi",
     "actor": {
       "id": "system",
       "name": "AI Pipeline"
     },
     "action": "summarize",
     "details": {
-      "insightId": "ins_qrd9vpoun4",
+      "insightId": "ins_u1urdf1r3u",
       "overallConfidence": 0.87
     },
-    "createdAt": "2025-09-27T07:45:24.336Z"
+    "createdAt": "2025-09-27T11:05:49.440Z"
   },
   {
-    "id": "aud_9ucio0rhhe",
-    "documentId": "doc_684sus0jzj",
-    "actor": {
-      "id": "1",
-      "name": "DocRail Officer"
-    },
-    "action": "upload",
-    "details": {
-      "fileName": "SIH 73 Software PS 2025.docx",
-      "size": 27591
-    },
-    "createdAt": "2025-09-27T09:38:05.235Z"
-  },
-  {
-    "id": "aud_w1nzvyol1mr",
-    "documentId": "doc_684sus0jzj",
-    "actor": {
-      "id": "system",
-      "name": "AI Pipeline"
-    },
-    "action": "summarize",
-    "details": {
-      "insightId": "ins_g4ojgltzjyl",
-      "overallConfidence": 0.87
-    },
-    "createdAt": "2025-09-27T09:38:06.452Z"
-  },
-  {
-    "id": "aud_lewynyhpfd",
-    "documentId": "doc_684sus0jzj",
+    "id": "aud_o3a9hm6v1e",
+    "documentId": "doc_420tgdqkugi",
     "actor": {
       "id": "system",
       "name": "Safety Detector"
@@ -271,10 +51,172 @@
     "action": "notify",
     "details": {
       "matched": [
-        "safety"
+        "Safety analysis completed"
       ],
-      "safetyScore": 30
+      "safetyScore": 50,
+      "recommendations": [
+        "Review document for compliance"
+      ]
     },
-    "createdAt": "2025-09-27T09:38:06.980Z"
+    "createdAt": "2025-09-27T11:05:49.533Z"
+  },
+  {
+    "id": "aud_48skmm0cpxg",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:10:37.070Z"
+  },
+  {
+    "id": "aud_jwlsd7pa0k8",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:11:22.936Z"
+  },
+  {
+    "id": "aud_dkhlxc518h7",
+    "documentId": "doc_ro7pravkfh",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "introduction.pdf",
+      "size": 19408177
+    },
+    "createdAt": "2025-09-27T11:11:29.315Z"
+  },
+  {
+    "id": "aud_psystvo2zrp",
+    "documentId": "doc_ro7pravkfh",
+    "actor": {
+      "id": "system",
+      "name": "Safety Detector"
+    },
+    "action": "notify",
+    "details": {
+      "matched": [
+        "Safety analysis completed"
+      ],
+      "safetyScore": 50,
+      "recommendations": [
+        "Review document for compliance"
+      ]
+    },
+    "createdAt": "2025-09-27T11:11:31.176Z"
+  },
+  {
+    "id": "aud_plcu3b2fxv",
+    "documentId": "doc_ro7pravkfh",
+    "actor": {
+      "id": "system",
+      "name": "AI Pipeline"
+    },
+    "action": "summarize",
+    "details": {
+      "insightId": "ins_2o95v9uosev",
+      "overallConfidence": 0.87
+    },
+    "createdAt": "2025-09-27T11:11:31.178Z"
+  },
+  {
+    "id": "aud_p6e6e7bo88",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:16:23.157Z"
+  },
+  {
+    "id": "aud_chl5citp4cf",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:19:40.528Z"
+  },
+  {
+    "id": "aud_axvd7z13xuw",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:21:23.005Z"
+  },
+  {
+    "id": "aud_qpl7f2h68tb",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:24:12.428Z"
+  },
+  {
+    "id": "aud_lj5qjajif5",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:24:12.435Z"
+  },
+  {
+    "id": "aud_nlcpy00xoy8",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T11:26:23.040Z"
   }
 ]

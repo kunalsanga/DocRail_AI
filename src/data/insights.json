@@ -1,5 +1,65 @@
 [
   {
+    "id": "ins_2o95v9uosev",
+    "documentId": "doc_ro7pravkfh",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:11:31.101Z"
+  },
+  {
+    "id": "ins_u1urdf1r3u",
+    "documentId": "doc_420tgdqkugi",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:05:49.432Z"
+  },
+  {
+    "id": "ins_icc2jkgm4g",
+    "documentId": "doc_w29631lhay",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:03:52.781Z"
+  },
+  {
+    "id": "ins_oivhssspq2",
+    "documentId": "doc_vdoumc2micr",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T11:00:19.244Z"
+  },
+  {
+    "id": "ins_593n68zindr",
+    "documentId": "doc_gzbob0phxa",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T10:31:43.738Z"
+  },
+  {
+    "id": "ins_40odcvj3euq",
+    "documentId": "doc_4gs9257xcng",
+    "summary": "[AI Analysis] \n      Analyze the following document and provide a comprehensive summary.\n      Please provide the ... (Gemini API temporarily unavailable)",
+    "entities": [],
+    "safetyScore": 50,
+    "complianceScore": 60,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T10:25:45.042Z"
+  },
+  {
     "id": "ins_g4ojgltzjyl",
     "documentId": "doc_684sus0jzj",
     "summary": "Detected a safety-related notice requiring attention.",

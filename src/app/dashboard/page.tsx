@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface DocumentMetrics {
   totalDocuments: number;
@@ -31,6 +32,7 @@ interface SafetyAlerts {
 }
 
 export default function DashboardPage() {
+  const { t, language } = useLanguage();
   const [ingestStatus, setIngestStatus] = useState<{source: string; lastRun?: string; ok: boolean; documentsProcessed: number}[]>([]);
   const [documentMetrics, setDocumentMetrics] = useState<DocumentMetrics | null>(null);
   const [complianceStatus, setComplianceStatus] = useState<ComplianceStatus | null>(null);
@@ -129,20 +131,24 @@ export default function DashboardPage() {
     <div className="px-4 py-6 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-slate-800">Document Hub Dashboard</h1>
+        <h1 className="text-3xl font-bold text-slate-800">
+          {language === "ml" ? "ഡോക്യുമെന്റ് ഹബ് ഡാഷ്ബോർഡ്" : "Document Hub Dashboard"}
+        </h1>
         <div className="text-sm text-slate-500">
-          Last updated: {new Date().toLocaleString()}
+          {language === "ml" ? "അവസാനം അപ്ഡേറ്റ് ചെയ്തത്" : "Last updated"}: {new Date().toLocaleString()}
         </div>
       </div>
 
       {/* Key Metrics Overview */}
       <section>
-        <h2 className="text-xl font-semibold text-slate-800 mb-4">Key Metrics Overview</h2>
+        <h2 className="text-xl font-semibold text-slate-800 mb-4">
+          {language === "ml" ? "പ്രധാന മെട്രിക്സ് അവലോകനം" : "Key Metrics Overview"}
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-100 text-sm">Total Documents</p>
+                <p className="text-blue-100 text-sm">{t("stats.totalDocs")}</p>
                 <p className="text-3xl font-bold">{documentMetrics?.totalDocuments.toLocaleString()}</p>
               </div>
               <div className="text-blue-200 text-2xl">📄</div>
@@ -152,7 +158,9 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100 text-sm">Processed Today</p>
+                <p className="text-green-100 text-sm">
+                  {language === "ml" ? "ഇന്ന് പ്രോസസ്സുചെയ്തത്" : "Processed Today"}
+                </p>
                 <p className="text-3xl font-bold">{documentMetrics?.processedToday}</p>
               </div>
               <div className="text-green-200 text-2xl">⚡</div>
@@ -162,7 +170,9 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-yellow-100 text-sm">Compliance Rate</p>
+                <p className="text-yellow-100 text-sm">
+                  {language === "ml" ? "കമ്പ്ലയൻസ് നിരക്ക്" : "Compliance Rate"}
+                </p>
                 <p className="text-3xl font-bold">{documentMetrics?.complianceRate}%</p>
               </div>
               <div className="text-yellow-200 text-2xl">✅</div>
@@ -172,7 +182,7 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm">Pending Review</p>
+                <p className="text-purple-100 text-sm">{t("stats.pendingReview")}</p>
                 <p className="text-3xl font-bold">{documentMetrics?.pendingReview}</p>
               </div>
               <div className="text-purple-200 text-2xl">⏳</div>

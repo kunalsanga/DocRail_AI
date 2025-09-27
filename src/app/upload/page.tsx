@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input";
 // Removed unused imports for better performance
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import AIStatusIndicator from "@/components/AIStatusIndicator";
 import { 
   Upload, 
   FileText, 
@@ -40,6 +43,7 @@ export default function UploadPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const { user } = useAuth();
+  const { t, language, setLanguage } = useLanguage();
   const router = useRouter();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,34 +212,34 @@ export default function UploadPage() {
 
           {/* Navigation */}
           <div className="p-6 flex-shrink-0">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">{t("sidebar.navigation")}</h3>
             <nav className="space-y-2">
               <Link prefetch href="/dashboard" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span>Dashboard</span>
+                <span>{t("sidebar.dashboard")}</span>
               </Link>
               <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
                 <Upload className="w-5 h-5" />
-                <span className="font-medium">Upload Documents</span>
+                <span className="font-medium">{t("sidebar.upload")}</span>
               </button>
               <Link prefetch href="/search" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Search className="w-5 h-5" />
-                <span>Search & Filter</span>
+                <span>{t("sidebar.search")}</span>
               </Link>
               <Link prefetch href="/compliance" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <Shield className="w-5 h-5" />
-                <span>Compliance</span>
+                <span>{t("sidebar.compliance")}</span>
               </Link>
               <Link prefetch href="/notifications" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
                 <Bell className="w-5 h-5" />
-                <span>Notifications</span>
+                <span>{t("sidebar.notifications")}</span>
                 <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                   3
                 </div>
               </Link>
               <Link prefetch href="/knowledge-hub" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span>Knowledge Hub</span>
+                <span>{t("sidebar.knowledge")}</span>
               </Link>
             </nav>
           </div>
@@ -245,15 +249,15 @@ export default function UploadPage() {
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">QUICK STATS</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Total Documents</span>
+                <span className="text-sm text-gray-600">{t("stats.totalDocs")}</span>
                 <span className="font-semibold text-gray-900">156</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Pending Review</span>
+                <span className="text-sm text-gray-600">{t("stats.pendingReview")}</span>
                 <span className="font-semibold text-orange-600">12</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Critical Alerts</span>
+                <span className="text-sm text-gray-600">{t("stats.criticalAlerts")}</span>
                 <span className="font-semibold text-red-600">3</span>
               </div>
             </div>
@@ -266,16 +270,24 @@ export default function UploadPage() {
         <div className="flex-1 p-8">
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center space-x-4 mb-4">
-              <button 
-                onClick={() => router.back()}
-                className="p-2 hover:bg-gray-100 rounded-lg"
-              >
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
-              </button>
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">Upload Documents</h1>
-                <p className="text-gray-600 mt-1">Upload documents for automated classification and AI-powered analysis</p>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
+                <button 
+                  onClick={() => router.back()}
+                  className="p-2 hover:bg-gray-100 rounded-lg"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-600" />
+                </button>
+                <div>
+                  <h1 className="text-3xl font-bold text-gray-900">{t("upload.title")}</h1>
+                  <p className="text-gray-600 mt-1">{t("upload.subtitle")}</p>
+                </div>
+              </div>
+              
+              {/* Language Switcher and AI Status */}
+              <div className="flex flex-col items-end space-y-2">
+                <LanguageSwitcher />
+                <AIStatusIndicator />
               </div>
             </div>
           </div>
@@ -284,7 +296,7 @@ export default function UploadPage() {
           <div className="mb-8">
             <div className="flex items-center space-x-2 mb-6">
               <Upload className="w-5 h-5 text-blue-600" />
-              <h2 className="text-xl font-semibold text-gray-900">Document Upload</h2>
+              <h2 className="text-xl font-semibold text-gray-900">{t("upload.dragDrop")}</h2>
             </div>
             
             <Card 
@@ -307,13 +319,13 @@ export default function UploadPage() {
 
                 {/* Main Text */}
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-                  {isDragOver ? 'Drop Files Here!' : 'Upload Documents'}
+                  {isDragOver ? t("upload.dragDropActive") : t("upload.dragDrop")}
                 </h3>
                 
                 <p className="text-base sm:text-lg text-gray-600 mb-6 max-w-md mx-auto">
                   {isDragOver 
-                    ? 'Release to upload your files' 
-                    : 'Drag and drop your files here, or click the button below to browse'
+                    ? t("upload.dragDropActiveDesc")
+                    : t("upload.dragDropDesc")
                   }
                 </p>
 
@@ -334,7 +346,7 @@ export default function UploadPage() {
                     className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 cursor-pointer"
                   >
                     <Upload className="w-5 h-5 mr-3" />
-                    Choose Files
+                    {t("upload.chooseFiles")}
                   </label>
                 </div>
 
@@ -356,7 +368,7 @@ export default function UploadPage() {
 
                 {/* File Size Limit */}
                 <p className="text-sm text-gray-400 mt-4">
-                  Maximum file size: 10MB per file
+                  {t("upload.maxSize")}
                 </p>
               </CardContent>
             </Card>
@@ -371,8 +383,8 @@ export default function UploadPage() {
                     <FileText className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900">Selected Files</h2>
-                    <p className="text-sm text-gray-500">{files.length} file{files.length !== 1 ? 's' : ''} ready for upload</p>
+                    <h2 className="text-xl font-semibold text-gray-900">{t("upload.selectedFiles")}</h2>
+                    <p className="text-sm text-gray-500">{files.length} {t("upload.filesReady")}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -382,7 +394,7 @@ export default function UploadPage() {
                     className="px-4 py-2 text-gray-600 hover:text-gray-800"
                   >
                     <X className="w-4 h-4 mr-2" />
-                    Clear All
+                    {t("upload.clearAll")}
                   </Button>
                 </div>
               </div>
@@ -407,7 +419,7 @@ export default function UploadPage() {
                               </p>
                               <div className="flex items-center space-x-1">
                                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span className="text-xs text-green-600 font-medium">Ready</span>
+                                <span className="text-xs text-green-600 font-medium">{t("upload.ready")}</span>
                               </div>
                             </div>
                           </div>
@@ -429,7 +441,7 @@ export default function UploadPage() {
                   <div className="p-6 bg-gray-50 border-t border-gray-200">
                     <div className="flex items-center justify-between">
                       <div className="text-sm text-gray-600">
-                        Total size: {(files.reduce((acc, file) => acc + file.size, 0) / 1024 / 1024).toFixed(2)} MB
+                        {t("upload.totalSize")} {(files.reduce((acc, file) => acc + file.size, 0) / 1024 / 1024).toFixed(2)} MB
                       </div>
                       <Button
                         className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-3 font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
@@ -440,7 +452,7 @@ export default function UploadPage() {
                         }}
                       >
                         <Upload className="w-5 h-5 mr-2" />
-                        Upload All Files
+                        {t("upload.uploadAll")}
                       </Button>
                     </div>
                   </div>
@@ -457,8 +469,8 @@ export default function UploadPage() {
                   <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <FileText className="w-8 h-8 text-red-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">PDF Documents</h3>
-                  <p className="text-sm text-gray-600">Reports, forms, scanned docs</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t("upload.pdfDocs")}</h3>
+                  <p className="text-sm text-gray-600">{t("upload.pdfDesc")}</p>
                 </CardContent>
               </Card>
 
@@ -467,8 +479,8 @@ export default function UploadPage() {
                   <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <FileType className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Word Documents</h3>
-                  <p className="text-sm text-gray-600">DOC, DOCX files</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t("upload.wordDocs")}</h3>
+                  <p className="text-sm text-gray-600">{t("upload.wordDesc")}</p>
                 </CardContent>
               </Card>
 
@@ -477,8 +489,8 @@ export default function UploadPage() {
                   <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <ImageIcon className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Images</h3>
-                  <p className="text-sm text-gray-600">PNG, JPEG with OCR</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t("upload.images")}</h3>
+                  <p className="text-sm text-gray-600">{t("upload.imagesDesc")}</p>
                 </CardContent>
               </Card>
             </div>
@@ -488,11 +500,11 @@ export default function UploadPage() {
           <div>
             <div className="flex items-center space-x-2 mb-6">
               <Bot className="w-5 h-5 text-blue-600" />
-              <h2 className="text-xl font-semibold text-gray-900">AI Processing Pipeline</h2>
+              <h2 className="text-xl font-semibold text-gray-900">{t("upload.aiPipeline")}</h2>
               {isProcessing && (
                 <div className="ml-4 flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                  <span className="text-sm text-blue-600 font-medium">Processing...</span>
+                  <span className="text-sm text-blue-600 font-medium">{t("upload.processing")}</span>
                 </div>
               )}
             </div>
@@ -502,28 +514,28 @@ export default function UploadPage() {
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">
                   1
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">OCR Text Extraction</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">{t("upload.step1")}</h3>
               </div>
               
               <div className="text-center">
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">
                   2
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">Auto Classification</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">{t("upload.step2")}</h3>
               </div>
               
               <div className="text-center">
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">
                   3
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">AI Summarization</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">{t("upload.step3")}</h3>
               </div>
               
               <div className="text-center">
                 <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">
                   4
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">Smart Routing</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">{t("upload.step4")}</h3>
               </div>
             </div>
           </div>
@@ -533,7 +545,7 @@ export default function UploadPage() {
             <div className="mt-8">
               <div className="flex items-center space-x-2 mb-2">
                 <Bot className="w-5 h-5 text-blue-600" />
-                <h2 className="text-xl font-semibold text-gray-900">Recently Uploaded</h2>
+                <h2 className="text-xl font-semibold text-gray-900">{t("upload.recentlyUploaded")}</h2>
               </div>
               <div className="space-y-2">
                 {uploadedDocs.map((d) => (
@@ -543,8 +555,8 @@ export default function UploadPage() {
                       <div className="text-xs text-gray-500">ID: {d.id}</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button size="sm" variant="outline" onClick={() => router.push("/compliance")}>Audit</Button>
-                      <Button size="sm" variant="outline" onClick={() => router.push("/knowledge-hub")}>Graph</Button>
+                      <Button size="sm" variant="outline" onClick={() => router.push("/compliance")}>{t("upload.audit")}</Button>
+                      <Button size="sm" variant="outline" onClick={() => router.push("/knowledge-hub")}>{t("upload.graph")}</Button>
                     </div>
                   </div>
                 ))}

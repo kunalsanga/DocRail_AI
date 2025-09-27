@@ -1,0 +1,9 @@
+@echo off
+echo Starting KMRL Document Hub Development Server...
+echo.
+echo Cleaning build cache...
+if exist .next rmdir /s /q .next
+if exist node_modules\.cache rmdir /s /q node_modules\.cache
+echo.
+echo Starting development server...
+npm run dev

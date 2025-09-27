@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useNotifications } from "@/contexts/NotificationsContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +25,7 @@ import Link from "next/link";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 export default function NotificationsPage() {
+  const { t, language } = useLanguage();
   const [kindFilter, setKindFilter] = useState<string | undefined>();
   const [searchQuery, setSearchQuery] = useState("");
   const [error, _setError] = useState<string | null>(null);
@@ -123,18 +125,26 @@ export default function NotificationsPage() {
 
           {/* Quick Stats */}
           <div className="p-6 border-t border-gray-200 flex-shrink-0">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NOTIFICATION STATS</h3>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+              {language === "ml" ? "അറിയിപ്പ് സ്ഥിതിവിവരങ്ങൾ" : "NOTIFICATION STATS"}
+            </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Total Notifications</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "മൊത്തം അറിയിപ്പുകൾ" : "Total Notifications"}
+                </span>
                 <span className="font-semibold text-gray-900">{notifications.length}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Unread</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "വായിക്കാത്തത്" : "Unread"}
+                </span>
                 <span className="font-semibold text-red-600">{unreadCount}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Deadline Alerts</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "ഡെഡ്ലൈൻ അലേർട്ടുകൾ" : "Deadline Alerts"}
+                </span>
                 <span className="font-semibold text-orange-600">
                   {notifications.filter(n => n.kind === 'deadline_approaching').length}
                 </span>
@@ -157,8 +167,15 @@ export default function NotificationsPage() {
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Notifications</h1>
-                <p className="text-gray-600 mt-1">Stay updated with important system alerts and document activities</p>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {language === "ml" ? "അറിയിപ്പുകൾ" : "Notifications"}
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  {language === "ml" 
+                    ? "പ്രധാന സിസ്റ്റം അലേർട്ടുകളും ഡോക്യുമെന്റ് പ്രവർത്തനങ്ങളും കൊണ്ട് അപ്ഡേറ്റ് ചെയ്യുക" 
+                    : "Stay updated with important system alerts and document activities"
+                  }
+                </p>
               </div>
             </div>
           </div>
@@ -174,7 +191,7 @@ export default function NotificationsPage() {
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                       <input
                         type="text"
-                        placeholder="Search notifications..."
+                        placeholder={language === "ml" ? "അറിയിപ്പുകൾ തിരയുക..." : "Search notifications..."}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -186,21 +203,21 @@ export default function NotificationsPage() {
                   <div className="flex gap-4">
                     <Select value={kindFilter || undefined} onValueChange={(value) => setKindFilter(value === "all" ? undefined : value)}>
                       <SelectTrigger className="w-40">
-                        <SelectValue placeholder="All Types" />
+                        <SelectValue placeholder={language === "ml" ? "എല്ലാ തരങ്ങൾ" : "All Types"} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Types</SelectItem>
-                        <SelectItem value="new_directive">New Directive</SelectItem>
-                        <SelectItem value="deadline_approaching">Deadline Approaching</SelectItem>
-                        <SelectItem value="department_relevant">Department Relevant</SelectItem>
-                        <SelectItem value="audit_upcoming">Audit Upcoming</SelectItem>
+                        <SelectItem value="all">{language === "ml" ? "എല്ലാ തരങ്ങൾ" : "All Types"}</SelectItem>
+                        <SelectItem value="new_directive">{language === "ml" ? "പുതിയ നിർദേശം" : "New Directive"}</SelectItem>
+                        <SelectItem value="deadline_approaching">{language === "ml" ? "ഡെഡ്ലൈൻ അടുക്കുന്നു" : "Deadline Approaching"}</SelectItem>
+                        <SelectItem value="department_relevant">{language === "ml" ? "വിഭാഗം പ്രസക്തം" : "Department Relevant"}</SelectItem>
+                        <SelectItem value="audit_upcoming">{language === "ml" ? "ഓഡിറ്റ് വരുന്നു" : "Audit Upcoming"}</SelectItem>
                       </SelectContent>
                     </Select>
 
 
                     <Button onClick={markAllRead} variant="outline" className="px-6">
                       <CheckCircle className="w-4 h-4 mr-2" />
-                      Mark All Read
+                      {language === "ml" ? "എല്ലാം വായിച്ചതായി അടയാളപ്പെടുത്തുക" : "Mark All Read"}
                     </Button>
                   </div>
                 </div>

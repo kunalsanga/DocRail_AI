@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   Shield, 
   AlertTriangle, 
@@ -30,6 +31,7 @@ const VersionHistory = dynamic(() => import("@/components/audit/VersionHistory")
 const AuditTrail = dynamic(() => import("@/components/audit/AuditTrail"), { ssr: false, loading: () => null });
 
 export default function CompliancePage() {
+  const { t, language } = useLanguage();
   const [selectedTimeframe, setSelectedTimeframe] = useState("30days");
   const { user } = useAuth();
   const router = useRouter();
@@ -146,56 +148,66 @@ export default function CompliancePage() {
 
           {/* Navigation */}
           <div className="p-6 overflow-y-auto">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">NAVIGATION</h3>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">{t("sidebar.navigation")}</h3>
             <nav className="space-y-2">
               <Link prefetch href="/dashboard" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span>Dashboard</span>
+                <span>{t("sidebar.dashboard")}</span>
               </Link>
               <Link prefetch href="/upload" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span>Upload Documents</span>
+                <span>{t("sidebar.upload")}</span>
               </Link>
               <Link prefetch href="/search" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span>Search & Filter</span>
+                <span>{t("sidebar.search")}</span>
               </Link>
               <button className="w-full flex items-center space-x-3 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg">
                 <Shield className="w-5 h-5" />
-                <span className="font-medium">Compliance</span>
+                <span className="font-medium">{t("sidebar.compliance")}</span>
               </button>
               <Link prefetch href="/notifications" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg relative">
                 <Bell className="w-5 h-5" />
-                <span>Notifications</span>
+                <span>{t("sidebar.notifications")}</span>
                 <div className="absolute right-3 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
                   3
                 </div>
               </Link>
               <Link prefetch href="/knowledge-hub" className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg">
                 <FileText className="w-5 h-5" />
-                <span>Knowledge Hub</span>
+                <span>{t("sidebar.knowledge")}</span>
               </Link>
             </nav>
           </div>
 
           {/* Compliance Stats */}
           <div className="p-6 border-t border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">COMPLIANCE OVERVIEW</h3>
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
+              {language === "ml" ? "കമ്പ്ലയൻസ് അവലോകനം" : "COMPLIANCE OVERVIEW"}
+            </h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Overall Score</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "മൊത്തം സ്കോർ" : "Overall Score"}
+                </span>
                 <span className="font-semibold text-green-600">{complianceMetrics.overallScore}%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Regulatory Docs</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "നിയന്ത്രണ ഡോക്യുമെന്റുകൾ" : "Regulatory Docs"}
+                </span>
                 <span className="font-semibold text-gray-900">{complianceMetrics.regulatoryDocs}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Pending Reviews</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "അവലോകനത്തിനായി കാത്തിരിക്കുന്നു" : "Pending Reviews"}
+                </span>
                 <span className="font-semibold text-orange-600">{complianceMetrics.pendingReviews}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Upcoming Deadlines</span>
+                <span className="text-sm text-gray-600">
+                  {language === "ml" ? "വരാനിരിക്കുന്ന ഡെഡ്ലൈനുകൾ" : "Upcoming Deadlines"}
+                </span>
                 <span className="font-semibold text-blue-600">{complianceMetrics.upcomingDeadlines}</span>
               </div>
             </div>
@@ -216,8 +228,15 @@ export default function CompliancePage() {
                 <ArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">Compliance Monitoring</h1>
-                <p className="text-gray-600 mt-1">AI-powered compliance tracking and regulatory deadline management</p>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {language === "ml" ? "കമ്പ്ലയൻസ് മോണിറ്ററിംഗ്" : "Compliance Monitoring"}
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  {language === "ml" 
+                    ? "AI-സഹായിത കമ്പ്ലയൻസ് ട്രാക്കിംഗും നിയന്ത്രണ ഡെഡ്ലൈൻ മാനേജ്മെന്റും" 
+                    : "AI-powered compliance tracking and regulatory deadline management"
+                  }
+                </p>
               </div>
             </div>
           </div>
@@ -228,11 +247,15 @@ export default function CompliancePage() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Compliance Score</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {language === "ml" ? "കമ്പ്ലയൻസ് സ്കോർ" : "Compliance Score"}
+                    </p>
                     <p className="text-3xl font-bold text-green-600">100%</p>
                     <div className="flex items-center mt-2">
                       <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
-                      <span className="text-sm text-green-600">All systems green</span>
+                      <span className="text-sm text-green-600">
+                        {language === "ml" ? "എല്ലാ സിസ്റ്റങ്ങളും പച്ച" : "All systems green"}
+                      </span>
                     </div>
                   </div>
                   <IconBadge color="green" size="md"><Shield /></IconBadge>
@@ -244,11 +267,15 @@ export default function CompliancePage() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Upcoming Deadlines</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {language === "ml" ? "വരാനിരിക്കുന്ന ഡെഡ്ലൈനുകൾ" : "Upcoming Deadlines"}
+                    </p>
                     <p className="text-3xl font-bold text-blue-600">7</p>
                     <div className="flex items-center mt-2">
                       <Calendar className="w-4 h-4 text-blue-500 mr-1" />
-                      <span className="text-sm text-blue-600">Next 30 days</span>
+                      <span className="text-sm text-blue-600">
+                        {language === "ml" ? "അടുത്ത 30 ദിവസം" : "Next 30 days"}
+                      </span>
                     </div>
                   </div>
                   <IconBadge color="blue" size="md"><Calendar /></IconBadge>
@@ -260,11 +287,15 @@ export default function CompliancePage() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Pending Reviews</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {language === "ml" ? "അവലോകനത്തിനായി കാത്തിരിക്കുന്നു" : "Pending Reviews"}
+                    </p>
                     <p className="text-3xl font-bold text-orange-600">3</p>
                     <div className="flex items-center mt-2">
                       <Clock className="w-4 h-4 text-orange-500 mr-1" />
-                      <span className="text-sm text-orange-600">Requires attention</span>
+                      <span className="text-sm text-orange-600">
+                        {language === "ml" ? "ശ്രദ്ധ ആവശ്യമാണ്" : "Requires attention"}
+                      </span>
                     </div>
                   </div>
                   <IconBadge color="orange" size="md"><Clock /></IconBadge>
@@ -276,11 +307,15 @@ export default function CompliancePage() {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Overdue Items</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {language === "ml" ? "കാലാവധി കഴിഞ്ഞ ഇനങ്ങൾ" : "Overdue Items"}
+                    </p>
                     <p className="text-3xl font-bold text-green-600">0</p>
                     <div className="flex items-center mt-2">
                       <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
-                      <span className="text-sm text-green-600">All on track</span>
+                      <span className="text-sm text-green-600">
+                        {language === "ml" ? "എല്ലാം ട്രാക്കിൽ" : "All on track"}
+                      </span>
                     </div>
                   </div>
                   <IconBadge color="green" size="md"><CheckCircle /></IconBadge>

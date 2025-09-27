@@ -112,8 +112,12 @@ export default function Header() {
             <div className="hidden lg:flex items-center">
               <div className="leading-tight text-slate-800">
                 <div className="text-[18px] font-semibold">DocRail AI</div>
-                <div className="text-[14px] text-slate-700">Indian Railways</div>
-                <div className="text-[12px] text-slate-600">Document Management System</div>
+                <div className="text-[14px] text-slate-700">
+                  {language === "ml" ? "ഇന്ത്യൻ റെയിൽവേ" : "Indian Railways"}
+                </div>
+                <div className="text-[12px] text-slate-600">
+                  {language === "ml" ? "ഡോക്യുമെന്റ് മാനേജ്മെന്റ് സിസ്റ്റം" : "Document Management System"}
+                </div>
               </div>
             </div>
 
@@ -144,22 +148,22 @@ export default function Header() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-6 py-2 overflow-x-auto">
             <Link prefetch href="/" className="hover:underline whitespace-nowrap">
-              Home
+              {t("nav.home")}
             </Link>
             <Link prefetch href="/dashboard" className="hover:underline whitespace-nowrap">
-              Dashboard
+              {t("nav.dashboard")}
             </Link>
             <Link prefetch href="/upload" className="hover:underline whitespace-nowrap">
-              Upload Documents
+              {t("nav.upload")}
             </Link>
             <Link prefetch href="/search" className="hover:underline whitespace-nowrap">
-              Search & Filter
+              {t("nav.search")}
             </Link>
             <Link prefetch href="/compliance" className="hover:underline whitespace-nowrap">
-              Compliance
+              {t("nav.compliance")}
             </Link>
             <Link prefetch href="/notifications" className="hover:underline whitespace-nowrap relative">
-              Notifications
+              {t("nav.notifications")}
               {unreadCount > 0 && (
                 <span className="ml-2 inline-flex items-center justify-center text-[10px] px-1.5 py-0.5 bg-red-600 rounded-full">
                   {unreadCount}
@@ -167,7 +171,7 @@ export default function Header() {
               )}
             </Link>
             <Link prefetch href="/knowledge-hub" className="hover:underline whitespace-nowrap">
-              Knowledge Hub
+              {t("nav.knowledge")}
             </Link>
           </div>
         </div>
@@ -182,7 +186,7 @@ export default function Header() {
                 <form role="search" className="flex items-center rounded-full border border-slate-300 px-3 py-1.5 ml-4 flex-1">
                   <input
                     type="search"
-                    placeholder="Search here..."
+                    placeholder={t("search.placeholder")}
                     className="w-full bg-transparent outline-none text-sm placeholder:text-slate-400"
                     aria-label="Search"
                   />

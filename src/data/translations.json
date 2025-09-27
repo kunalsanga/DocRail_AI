@@ -1,42 +1,56 @@
 [
   {
-    "id": "tr_demo_3",
-    "documentId": "doc_compliance_annual",
-    "sourceLang": "en",
-    "targetLang": "ml",
-    "sourceText": "Compliance report highlights areas requiring immediate attention and corrective action.",
-    "translatedText": "Compliance report highlights areas requiring immediate attention and corrective action. [Malayalam]",
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "tr_demo_2",
-    "documentId": "doc_hr_policies",
-    "sourceLang": "en",
-    "targetLang": "ml",
-    "sourceText": "HR policies updated to reflect new employment regulations and best practices.",
-    "translatedText": "HR policies updated to reflect new employment regulations and best practices. [Malayalam]",
-    "createdAt": "2025-09-27T07:42:42.824Z"
-  },
-  {
-    "id": "tr_demo_1",
-    "documentId": "doc_bilingual_safety_notice",
-    "sourceLang": "en",
-    "targetLang": "ml",
-    "sourceText": "Safety briefing for morning shift.",
-    "translatedText": "Safety briefing for morning shift. [Malayalam]",
-    "createdAt": "2025-09-26T13:56:12.487Z"
-  },
-  {
-    "id": "tr_528a5mu8bgx",
+    "id": "tr_px81dhm1agn",
     "documentId": "test",
     "sourceLang": "en",
     "targetLang": "ml",
-    "sourceText": "Safety briefing for morning shift",
-    "translatedText": "Safety briefing for morning shift [Malayalam]",
-    "createdAt": "2025-09-27T07:34:46.089Z",
-    "createdBy": {
-      "id": "test",
-      "name": "Test User"
-    }
+    "sourceText": "test",
+    "translatedText": "[AI Analysis] \n      Translate the following text from English to Malayalam.\n      Maintain the original meaning, ... (Gemini API temporarily unavailable)",
+    "createdAt": "2025-09-27T11:16:23.157Z"
+  },
+  {
+    "id": "tr_9hal74tuuj6",
+    "documentId": "test",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "test",
+    "translatedText": "[AI Analysis] \n      Translate the following text from English to Malayalam.\n      Maintain the original meaning, ... (Gemini API temporarily unavailable)",
+    "createdAt": "2025-09-27T11:19:40.528Z"
+  },
+  {
+    "id": "tr_4qmj1tf65d",
+    "documentId": "test",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "test",
+    "translatedText": "[AI Analysis] \n      Translate the following text from English to Malayalam.\n      Maintain the original meaning, ... (Gemini API temporarily unavailable)",
+    "createdAt": "2025-09-27T11:21:23.005Z"
+  },
+  {
+    "id": "tr_qmj05oqe9w",
+    "documentId": "test",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "test",
+    "translatedText": "[AI Analysis] \n      Translate the following text from English to Malayalam.\n      Maintain the original meaning, ... (Gemini API temporarily unavailable)",
+    "createdAt": "2025-09-27T11:24:12.428Z"
+  },
+  {
+    "id": "tr_gkjjmgbuq6e",
+    "documentId": "test",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "test",
+    "translatedText": "[AI Analysis] \n      Translate the following text from English to Malayalam.\n      Maintain the original meaning, ... (Gemini API temporarily unavailable)",
+    "createdAt": "2025-09-27T11:24:12.435Z"
+  },
+  {
+    "id": "tr_pxlu2ww5jls",
+    "documentId": "test",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "test",
+    "translatedText": "[AI Analysis] \n      Translate the following text from English to Malayalam.\n      Maintain the original meaning, ... (Gemini API temporarily unavailable)",
+    "createdAt": "2025-09-27T11:26:23.040Z"
   }
 ]
