@@ -18,7 +18,9 @@ export type Department =
   | "Project Management"
   | "Environment"
   | "Commercial"
-  | "IT";
+  | "IT"
+  | "Compliance"
+  | "Quality Assurance";
 
 export type RiskLevel = "low" | "medium" | "high";
 

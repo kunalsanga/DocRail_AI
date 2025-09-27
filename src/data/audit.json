@@ -1,5 +1,66 @@
 [
   {
+    "id": "aud_10",
+    "documentId": "doc_training_manual",
+    "actor": {
+      "id": "u_training_01",
+      "name": "Training Department"
+    },
+    "action": "annotate",
+    "details": {
+      "tag": "#development"
+    },
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "aud_9",
+    "documentId": "doc_procurement_policy",
+    "actor": {
+      "id": "u_proc_01",
+      "name": "Procurement Team"
+    },
+    "action": "update_version",
+    "details": {
+      "version": 3
+    },
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "aud_8",
+    "documentId": "doc_quality_standards",
+    "actor": {
+      "id": "u_qa_01",
+      "name": "Quality Assurance"
+    },
+    "action": "upload",
+    "details": {},
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "aud_7",
+    "documentId": "doc_it_security",
+    "actor": {
+      "id": "u_it_01",
+      "name": "IT Security Team"
+    },
+    "action": "update_version",
+    "details": {
+      "version": 2
+    },
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "aud_6",
+    "documentId": "doc_financial_q4",
+    "actor": {
+      "id": "u_fin_01",
+      "name": "Finance Team"
+    },
+    "action": "upload",
+    "details": {},
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
     "id": "aud_5",
     "documentId": "doc_hr_policies",
     "actor": {
@@ -115,5 +176,105 @@
       "size": 27591
     },
     "createdAt": "2025-09-27T06:52:30.813Z"
+  },
+  {
+    "id": "aud_53adkybl59x",
+    "documentId": "doc_uwfc2uzso1l",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "SIH 73 Software PS 2025.docx",
+      "size": 27591
+    },
+    "createdAt": "2025-09-27T07:20:17.610Z"
+  },
+  {
+    "id": "aud_50fvamsbeck",
+    "documentId": "test",
+    "actor": {
+      "id": "test",
+      "name": "Test User"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-27T07:34:46.089Z"
+  },
+  {
+    "id": "aud_qsgwyo3vqhi",
+    "documentId": "doc_l0ikkvo0tt",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "SIH 73 Software PS 2025.docx",
+      "size": 27591
+    },
+    "createdAt": "2025-09-27T07:38:14.417Z"
+  },
+  {
+    "id": "aud_g7q1bk0mqqh",
+    "documentId": "test-doc",
+    "actor": {
+      "id": "system",
+      "name": "AI Pipeline"
+    },
+    "action": "summarize",
+    "details": {
+      "insightId": "ins_qrd9vpoun4",
+      "overallConfidence": 0.87
+    },
+    "createdAt": "2025-09-27T07:45:24.336Z"
+  },
+  {
+    "id": "aud_9ucio0rhhe",
+    "documentId": "doc_684sus0jzj",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "SIH 73 Software PS 2025.docx",
+      "size": 27591
+    },
+    "createdAt": "2025-09-27T09:38:05.235Z"
+  },
+  {
+    "id": "aud_w1nzvyol1mr",
+    "documentId": "doc_684sus0jzj",
+    "actor": {
+      "id": "system",
+      "name": "AI Pipeline"
+    },
+    "action": "summarize",
+    "details": {
+      "insightId": "ins_g4ojgltzjyl",
+      "overallConfidence": 0.87
+    },
+    "createdAt": "2025-09-27T09:38:06.452Z"
+  },
+  {
+    "id": "aud_lewynyhpfd",
+    "documentId": "doc_684sus0jzj",
+    "actor": {
+      "id": "system",
+      "name": "Safety Detector"
+    },
+    "action": "notify",
+    "details": {
+      "matched": [
+        "safety"
+      ],
+      "safetyScore": 30
+    },
+    "createdAt": "2025-09-27T09:38:06.980Z"
   }
 ]

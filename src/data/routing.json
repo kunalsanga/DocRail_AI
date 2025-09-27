@@ -1,5 +1,44 @@
 [
   {
+    "id": "rt_demo_4",
+    "documentId": "doc_financial_q4",
+    "toRoles": [
+      "admin",
+      "finance"
+    ],
+    "toDepartments": [
+      "Finance"
+    ],
+    "reason": "financial",
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "rt_demo_3",
+    "documentId": "doc_it_security",
+    "toRoles": [
+      "engineer",
+      "admin"
+    ],
+    "toDepartments": [
+      "IT"
+    ],
+    "reason": "security",
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "rt_demo_2",
+    "documentId": "doc_compliance_annual",
+    "toRoles": [
+      "admin",
+      "director"
+    ],
+    "toDepartments": [
+      "Compliance"
+    ],
+    "reason": "compliance",
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
     "id": "rt_demo_1",
     "documentId": "doc_safety_protocols_v32",
     "toRoles": [

@@ -1,5 +1,95 @@
 [
   {
+    "id": "ann_10",
+    "documentId": "doc_training_manual",
+    "author": {
+      "id": "u_training_01",
+      "name": "Training Department"
+    },
+    "target": {
+      "type": "document"
+    },
+    "content": "Training manual updated with new certification programs and skill development pathways.",
+    "tags": [
+      "#training",
+      "@HR",
+      "#development"
+    ],
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "ann_9",
+    "documentId": "doc_procurement_policy",
+    "author": {
+      "id": "u_proc_01",
+      "name": "Procurement Team"
+    },
+    "target": {
+      "type": "document"
+    },
+    "content": "Procurement policies revised to improve vendor selection and contract management processes.",
+    "tags": [
+      "#procurement",
+      "@Procurement",
+      "#vendors"
+    ],
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "ann_8",
+    "documentId": "doc_quality_standards",
+    "author": {
+      "id": "u_qa_01",
+      "name": "Quality Assurance"
+    },
+    "target": {
+      "type": "document"
+    },
+    "content": "Quality standards updated to align with ISO 9001:2015 requirements and industry best practices.",
+    "tags": [
+      "#quality",
+      "@Quality Assurance",
+      "#standards"
+    ],
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "ann_7",
+    "documentId": "doc_it_security",
+    "author": {
+      "id": "u_it_01",
+      "name": "IT Security Team"
+    },
+    "target": {
+      "type": "document"
+    },
+    "content": "Security framework implementation requires immediate attention to address vulnerabilities.",
+    "tags": [
+      "#security",
+      "@IT",
+      "#cybersecurity"
+    ],
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "ann_6",
+    "documentId": "doc_financial_q4",
+    "author": {
+      "id": "u_fin_01",
+      "name": "Finance Team"
+    },
+    "target": {
+      "type": "document"
+    },
+    "content": "Financial performance shows positive trends with recommendations for cost optimization.",
+    "tags": [
+      "#finance",
+      "@Finance",
+      "#budget"
+    ],
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
     "id": "ann_5",
     "documentId": "doc_hr_policies",
     "author": {

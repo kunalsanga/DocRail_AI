@@ -5,57 +5,107 @@ import { Annotation, AppNotification, AuditLog, DocumentVersion, ExtractedInsigh
 export async function POST(_req: NextRequest) {
   const now = new Date().toISOString();
 
-  // Documents and versions (representative KMRL corpus)
+  // Documents and versions (generic corporate documents)
   const versions: DocumentVersion[] = [
     {
       id: "ver_safety_v32",
       documentId: "doc_safety_protocols_v32",
       version: 3,
       filePath: "/docs/safety_protocols_v3_2.pdf",
-      summary: "Safety Protocols updated with platform gap monitoring and emergency drill SOPs",
+      summary: "Comprehensive safety protocols and emergency procedures for workplace operations",
       createdAt: now,
-      createdBy: { id: "u_ops_01", name: "Ops Control" },
-      changeNote: "Added platform safety checks and multilingual signage"
+      createdBy: { id: "u_ops_01", name: "Operations Team" },
+      changeNote: "Updated safety guidelines and emergency response procedures"
     },
     {
-      id: "ver_station_p2",
-      documentId: "doc_station_design_phase2",
+      id: "ver_project_phase2",
+      documentId: "doc_project_phase2",
       version: 2,
-      filePath: "/docs/station_design_phase2.dwg",
-      summary: "Station design phase 2 drawings with accessibility upgrades and photovoltaic layout",
+      filePath: "/docs/project_phase2_specs.pdf",
+      summary: "Project specifications and technical requirements for phase 2 implementation",
       createdAt: now,
-      createdBy: { id: "u_eng_02", name: "Design Team" },
-      changeNote: "Updated canopy and lift shaft positions"
+      createdBy: { id: "u_eng_02", name: "Engineering Team" },
+      changeNote: "Updated technical specifications and design requirements"
     },
     {
       id: "ver_compliance_annual",
       documentId: "doc_compliance_annual",
       version: 1,
       filePath: "/docs/annual_compliance_2024.pdf",
-      summary: "Annual compliance report covering safety directives and CRMS circulars",
+      summary: "Annual compliance report covering regulatory requirements and audit findings",
       createdAt: now,
-      createdBy: { id: "u_admin_01", name: "Compliance" },
-      changeNote: "Initial release"
+      createdBy: { id: "u_admin_01", name: "Compliance Team" },
+      changeNote: "Initial compliance assessment and recommendations"
     },
     {
-      id: "ver_eia_2024",
-      documentId: "doc_eia_report_2024",
+      id: "ver_environmental_2024",
+      documentId: "doc_environmental_2024",
       version: 1,
-      filePath: "/docs/eia_2024.pdf",
-      summary: "Environmental Impact Assessment for line extension and new depots",
+      filePath: "/docs/environmental_assessment_2024.pdf",
+      summary: "Environmental impact assessment and sustainability initiatives report",
       createdAt: now,
-      createdBy: { id: "u_env_01", name: "Environment" },
-      changeNote: "Initial EIA"
+      createdBy: { id: "u_env_01", name: "Environmental Team" },
+      changeNote: "Environmental compliance and sustainability metrics"
     },
     {
       id: "ver_hr_policies",
       documentId: "doc_hr_policies",
       version: 4,
       filePath: "/docs/hr_policies_v4.pdf",
-      summary: "HR policies update including refresher safety training and on-call allowances",
+      summary: "Human resources policies and procedures including training and development programs",
       createdAt: now,
-      createdBy: { id: "u_hr_01", name: "HR" },
-      changeNote: "Training schedule and bilingual forms"
+      createdBy: { id: "u_hr_01", name: "HR Team" },
+      changeNote: "Updated employee handbook and training materials"
+    },
+    {
+      id: "ver_financial_q4",
+      documentId: "doc_financial_q4",
+      version: 1,
+      filePath: "/docs/financial_report_q4_2024.pdf",
+      summary: "Quarterly financial report with budget analysis and cost optimization strategies",
+      createdAt: now,
+      createdBy: { id: "u_fin_01", name: "Finance Team" },
+      changeNote: "Q4 financial performance and budget projections"
+    },
+    {
+      id: "ver_it_security",
+      documentId: "doc_it_security",
+      version: 2,
+      filePath: "/docs/it_security_framework.pdf",
+      summary: "IT security framework and cybersecurity protocols for data protection",
+      createdAt: now,
+      createdBy: { id: "u_it_01", name: "IT Security Team" },
+      changeNote: "Enhanced security measures and data protection protocols"
+    },
+    {
+      id: "ver_quality_standards",
+      documentId: "doc_quality_standards",
+      version: 1,
+      filePath: "/docs/quality_standards_2024.pdf",
+      summary: "Quality assurance standards and process improvement methodologies",
+      createdAt: now,
+      createdBy: { id: "u_qa_01", name: "Quality Assurance" },
+      changeNote: "Quality management system implementation"
+    },
+    {
+      id: "ver_procurement_policy",
+      documentId: "doc_procurement_policy",
+      version: 3,
+      filePath: "/docs/procurement_policy_v3.pdf",
+      summary: "Procurement policies and vendor management procedures",
+      createdAt: now,
+      createdBy: { id: "u_proc_01", name: "Procurement Team" },
+      changeNote: "Updated vendor selection criteria and contract management"
+    },
+    {
+      id: "ver_training_manual",
+      documentId: "doc_training_manual",
+      version: 2,
+      filePath: "/docs/training_manual_2024.pdf",
+      summary: "Employee training manual with onboarding procedures and skill development programs",
+      createdAt: now,
+      createdBy: { id: "u_training_01", name: "Training Department" },
+      changeNote: "Comprehensive training curriculum and certification programs"
     }
   ];
 
@@ -63,71 +113,315 @@ export async function POST(_req: NextRequest) {
     {
       id: "ann_1",
       documentId: "doc_safety_protocols_v32",
-      author: { id: "u_ops_01", name: "Ops Control" },
+      author: { id: "u_ops_01", name: "Operations Team" },
       target: { type: "document" },
-      content: "Update requires platform edge audits each shift.",
-      tags: ["#safety", "@Operations"],
+      content: "Updated safety protocols require immediate review and implementation across all departments.",
+      tags: ["#safety", "@Operations", "#urgent"],
       createdAt: now
     },
     {
       id: "ann_2",
-      documentId: "doc_station_design_phase2",
-      author: { id: "u_eng_02", name: "Design Team" },
+      documentId: "doc_project_phase2",
+      author: { id: "u_eng_02", name: "Engineering Team" },
       target: { type: "document" },
-      content: "Canopy reinforcement to align with wind-load spec.",
-      tags: ["#design", "@Engineering", "#infrastructure"],
+      content: "Technical specifications updated to meet new industry standards and regulatory requirements.",
+      tags: ["#engineering", "@Engineering", "#specifications"],
       createdAt: now
     },
     {
       id: "ann_3",
       documentId: "doc_compliance_annual",
-      author: { id: "u_admin_01", name: "Compliance" },
+      author: { id: "u_admin_01", name: "Compliance Team" },
       target: { type: "document" },
-      content: "CRS bulletin from Feb incorporated; acknowledgment pending from depots.",
-      tags: ["#compliance", "@Operations", "@Engineering"],
+      content: "Compliance report highlights areas requiring immediate attention and corrective action.",
+      tags: ["#compliance", "@Operations", "@Engineering", "#audit"],
       createdAt: now
     },
     {
       id: "ann_4",
-      documentId: "doc_eia_report_2024",
-      author: { id: "u_env_01", name: "Environment" },
+      documentId: "doc_environmental_2024",
+      author: { id: "u_env_01", name: "Environmental Team" },
       target: { type: "document" },
-      content: "Noise mitigation barriers near school zone.",
-      tags: ["#environment", "@Environment", "@Architecture & Planning"],
+      content: "Environmental impact assessment identifies key sustainability initiatives for implementation.",
+      tags: ["#environment", "@Environment", "#sustainability"],
       createdAt: now
     },
     {
       id: "ann_5",
       documentId: "doc_hr_policies",
-      author: { id: "u_hr_01", name: "HR" },
+      author: { id: "u_hr_01", name: "HR Team" },
       target: { type: "document" },
-      content: "Refresher training to include last night safety bulletin.",
-      tags: ["#hr", "#training", "@HR", "@Operations"],
+      content: "HR policies updated to reflect new employment regulations and best practices.",
+      tags: ["#hr", "#training", "@HR", "#policies"],
+      createdAt: now
+    },
+    {
+      id: "ann_6",
+      documentId: "doc_financial_q4",
+      author: { id: "u_fin_01", name: "Finance Team" },
+      target: { type: "document" },
+      content: "Financial performance shows positive trends with recommendations for cost optimization.",
+      tags: ["#finance", "@Finance", "#budget"],
+      createdAt: now
+    },
+    {
+      id: "ann_7",
+      documentId: "doc_it_security",
+      author: { id: "u_it_01", name: "IT Security Team" },
+      target: { type: "document" },
+      content: "Security framework implementation requires immediate attention to address vulnerabilities.",
+      tags: ["#security", "@IT", "#cybersecurity"],
+      createdAt: now
+    },
+    {
+      id: "ann_8",
+      documentId: "doc_quality_standards",
+      author: { id: "u_qa_01", name: "Quality Assurance" },
+      target: { type: "document" },
+      content: "Quality standards updated to align with ISO 9001:2015 requirements and industry best practices.",
+      tags: ["#quality", "@Quality Assurance", "#standards"],
+      createdAt: now
+    },
+    {
+      id: "ann_9",
+      documentId: "doc_procurement_policy",
+      author: { id: "u_proc_01", name: "Procurement Team" },
+      target: { type: "document" },
+      content: "Procurement policies revised to improve vendor selection and contract management processes.",
+      tags: ["#procurement", "@Procurement", "#vendors"],
+      createdAt: now
+    },
+    {
+      id: "ann_10",
+      documentId: "doc_training_manual",
+      author: { id: "u_training_01", name: "Training Department" },
+      target: { type: "document" },
+      content: "Training manual updated with new certification programs and skill development pathways.",
+      tags: ["#training", "@HR", "#development"],
       createdAt: now
     }
   ];
 
   const audit: AuditLog[] = [
-    { id: "aud_1", documentId: "doc_safety_protocols_v32", actor: { id: "u_ops_01", name: "Ops Control" }, action: "update_version", details: { version: 3 }, createdAt: now },
-    { id: "aud_2", documentId: "doc_station_design_phase2", actor: { id: "u_eng_02", name: "Design Team" }, action: "upload", details: { file: "dwg" }, createdAt: now },
-    { id: "aud_3", documentId: "doc_compliance_annual", actor: { id: "u_admin_01", name: "Compliance" }, action: "upload", details: {}, createdAt: now },
-    { id: "aud_4", documentId: "doc_eia_report_2024", actor: { id: "u_env_01", name: "Environment" }, action: "upload", details: {}, createdAt: now },
-    { id: "aud_5", documentId: "doc_hr_policies", actor: { id: "u_hr_01", name: "HR" }, action: "annotate", details: { tag: "#training" }, createdAt: now }
+    { id: "aud_1", documentId: "doc_safety_protocols_v32", actor: { id: "u_ops_01", name: "Operations Team" }, action: "update_version", details: { version: 3 }, createdAt: now },
+    { id: "aud_2", documentId: "doc_project_phase2", actor: { id: "u_eng_02", name: "Engineering Team" }, action: "upload", details: { file: "pdf" }, createdAt: now },
+    { id: "aud_3", documentId: "doc_compliance_annual", actor: { id: "u_admin_01", name: "Compliance Team" }, action: "upload", details: {}, createdAt: now },
+    { id: "aud_4", documentId: "doc_environmental_2024", actor: { id: "u_env_01", name: "Environmental Team" }, action: "upload", details: {}, createdAt: now },
+    { id: "aud_5", documentId: "doc_hr_policies", actor: { id: "u_hr_01", name: "HR Team" }, action: "annotate", details: { tag: "#training" }, createdAt: now },
+    { id: "aud_6", documentId: "doc_financial_q4", actor: { id: "u_fin_01", name: "Finance Team" }, action: "upload", details: {}, createdAt: now },
+    { id: "aud_7", documentId: "doc_it_security", actor: { id: "u_it_01", name: "IT Security Team" }, action: "update_version", details: { version: 2 }, createdAt: now },
+    { id: "aud_8", documentId: "doc_quality_standards", actor: { id: "u_qa_01", name: "Quality Assurance" }, action: "upload", details: {}, createdAt: now },
+    { id: "aud_9", documentId: "doc_procurement_policy", actor: { id: "u_proc_01", name: "Procurement Team" }, action: "update_version", details: { version: 3 }, createdAt: now },
+    { id: "aud_10", documentId: "doc_training_manual", actor: { id: "u_training_01", name: "Training Department" }, action: "annotate", details: { tag: "#development" }, createdAt: now }
   ];
 
   const notifications: AppNotification[] = [
-    { id: "ntf_demo_1", title: "CRS Bulletin Released", message: "CRS Platform Safety Bulletin 2024-02 released.", kind: "new_directive", createdAt: now, intendedRoles: ["admin", "director"], intendedDepartments: ["Operations", "Engineering"], documentId: "doc_crs_bulletin_2024_02", channels: ["push", "email"], readByUserIds: [] },
-    { id: "ntf_demo_2", title: "Design Change – Axle Spec v3.1", message: "Procurement to align spare-parts contract.", kind: "department_relevant", createdAt: now, intendedRoles: ["engineer", "admin"], intendedDepartments: ["Engineering", "Commercial"], documentId: "doc_design_change_axle_v31", channels: ["push"], readByUserIds: [] }
+    { 
+      id: "ntf_demo_1", 
+      title: "Safety Protocol Update Released", 
+      message: "Updated safety protocols and emergency procedures have been published and require immediate review.", 
+      kind: "new_directive", 
+      createdAt: now, 
+      intendedRoles: ["admin", "director"], 
+      intendedDepartments: ["Operations", "Engineering"], 
+      documentId: "doc_safety_protocols_v32", 
+      channels: ["push", "email"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_2", 
+      title: "Project Specifications Updated", 
+      message: "Technical specifications for Phase 2 project have been revised to meet new industry standards.", 
+      kind: "department_relevant", 
+      createdAt: now, 
+      intendedRoles: ["engineer", "admin"], 
+      intendedDepartments: ["Engineering", "Project Management"], 
+      documentId: "doc_project_phase2", 
+      channels: ["push"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_3", 
+      title: "Compliance Deadline Approaching", 
+      message: "Annual compliance report submission deadline is approaching. Please ensure all required documents are reviewed.", 
+      kind: "deadline_approaching", 
+      createdAt: now, 
+      intendedRoles: ["admin", "director"], 
+      intendedDepartments: ["Compliance", "Operations"], 
+      documentId: "doc_compliance_annual", 
+      channels: ["push", "email"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_4", 
+      title: "Environmental Assessment Complete", 
+      message: "Environmental impact assessment has been completed and is ready for review by the environmental team.", 
+      kind: "department_relevant", 
+      createdAt: now, 
+      intendedRoles: ["admin"], 
+      intendedDepartments: ["Environment"], 
+      documentId: "doc_environmental_2024", 
+      channels: ["push", "email"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_5", 
+      title: "HR Policy Updates", 
+      message: "Human resources policies have been updated to reflect new employment regulations and best practices.", 
+      kind: "new_directive", 
+      createdAt: now, 
+      intendedRoles: ["admin", "hr"], 
+      intendedDepartments: ["HR"], 
+      documentId: "doc_hr_policies", 
+      channels: ["push", "email"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_6", 
+      title: "Financial Report Available", 
+      message: "Q4 financial report is now available for review by the finance team and management.", 
+      kind: "department_relevant", 
+      createdAt: now, 
+      intendedRoles: ["admin", "finance"], 
+      intendedDepartments: ["Finance"], 
+      documentId: "doc_financial_q4", 
+      channels: ["push"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_7", 
+      title: "Security Framework Update", 
+      message: "IT security framework has been updated with enhanced cybersecurity protocols and requires implementation.", 
+      kind: "new_directive", 
+      createdAt: now, 
+      intendedRoles: ["admin", "engineer"], 
+      intendedDepartments: ["IT"], 
+      documentId: "doc_it_security", 
+      channels: ["push", "email"], 
+      readByUserIds: [] 
+    },
+    { 
+      id: "ntf_demo_8", 
+      title: "Quality Standards Updated", 
+      message: "Quality assurance standards have been updated to align with ISO 9001:2015 requirements.", 
+      kind: "department_relevant", 
+      createdAt: now, 
+      intendedRoles: ["admin"], 
+      intendedDepartments: ["Quality Assurance"], 
+      documentId: "doc_quality_standards", 
+      channels: ["push"], 
+      readByUserIds: [] 
+    }
   ];
 
   const insights: ExtractedInsight[] = [
-    { id: "ins_demo_1", documentId: "doc_safety_protocols_v32", summary: "Safety SOPs require shift-wise platform audit.", entities: [{ type: "department", value: "Operations", confidence: 0.92 }], safetyScore: 80, complianceScore: 72, overallConfidence: 0.9, createdAt: now },
-    { id: "ins_demo_2", documentId: "doc_eia_report_2024", summary: "EIA suggests barrier placement near school zone.", entities: [{ type: "location", value: "School Zone", confidence: 0.8 }], safetyScore: 40, complianceScore: 85, overallConfidence: 0.82, createdAt: now }
+    { 
+      id: "ins_demo_1", 
+      documentId: "doc_safety_protocols_v32", 
+      summary: "Safety protocols require regular audits and immediate implementation across all departments.", 
+      entities: [{ type: "department", value: "Operations", confidence: 0.92 }], 
+      safetyScore: 85, 
+      complianceScore: 78, 
+      overallConfidence: 0.9, 
+      createdAt: now 
+    },
+    { 
+      id: "ins_demo_2", 
+      documentId: "doc_environmental_2024", 
+      summary: "Environmental assessment identifies key sustainability initiatives requiring immediate attention.", 
+      entities: [{ type: "department", value: "Environment", confidence: 0.88 }], 
+      safetyScore: 60, 
+      complianceScore: 90, 
+      overallConfidence: 0.85, 
+      createdAt: now 
+    },
+    { 
+      id: "ins_demo_3", 
+      documentId: "doc_compliance_annual", 
+      summary: "Compliance report highlights critical areas requiring immediate corrective action and process improvements.", 
+      entities: [{ type: "department", value: "Compliance", confidence: 0.95 }], 
+      safetyScore: 70, 
+      complianceScore: 65, 
+      overallConfidence: 0.88, 
+      createdAt: now 
+    },
+    { 
+      id: "ins_demo_4", 
+      documentId: "doc_it_security", 
+      summary: "Security framework implementation requires immediate attention to address identified vulnerabilities.", 
+      entities: [{ type: "department", value: "IT", confidence: 0.90 }], 
+      safetyScore: 45, 
+      complianceScore: 85, 
+      overallConfidence: 0.82, 
+      createdAt: now 
+    },
+    { 
+      id: "ins_demo_5", 
+      documentId: "doc_financial_q4", 
+      summary: "Financial performance analysis reveals positive trends with recommendations for cost optimization strategies.", 
+      entities: [{ type: "department", value: "Finance", confidence: 0.87 }], 
+      safetyScore: 30, 
+      complianceScore: 95, 
+      overallConfidence: 0.90, 
+      createdAt: now 
+    }
   ];
 
   const feedback: FeedbackEntry[] = [
-    { id: "fb_demo_1", userId: "u_ops_01", documentId: "doc_safety_protocols_v32", rating: 5, comment: "Very useful summary for shift briefing.", language: "en", createdAt: now },
-    { id: "fb_demo_2", userId: "u_hr_01", documentId: "doc_hr_policies", rating: 4, comment: "Add Malayalam version.", language: "en", createdAt: now }
+    { 
+      id: "fb_demo_1", 
+      userId: "u_ops_01", 
+      documentId: "doc_safety_protocols_v32", 
+      rating: 5, 
+      comment: "Excellent safety protocols summary. Very useful for team briefings and training sessions.", 
+      language: "en", 
+      createdAt: now 
+    },
+    { 
+      id: "fb_demo_2", 
+      userId: "u_hr_01", 
+      documentId: "doc_hr_policies", 
+      rating: 4, 
+      comment: "HR policies are comprehensive. Would benefit from multilingual support for better accessibility.", 
+      language: "en", 
+      createdAt: now 
+    },
+    { 
+      id: "fb_demo_3", 
+      userId: "u_eng_02", 
+      documentId: "doc_project_phase2", 
+      rating: 5, 
+      comment: "Technical specifications are detailed and well-structured. Great reference for project implementation.", 
+      language: "en", 
+      createdAt: now 
+    },
+    { 
+      id: "fb_demo_4", 
+      userId: "u_fin_01", 
+      documentId: "doc_financial_q4", 
+      rating: 4, 
+      comment: "Financial report provides clear insights. Charts and graphs are particularly helpful for analysis.", 
+      language: "en", 
+      createdAt: now 
+    },
+    { 
+      id: "fb_demo_5", 
+      userId: "u_it_01", 
+      documentId: "doc_it_security", 
+      rating: 5, 
+      comment: "Security framework is comprehensive and addresses current cybersecurity challenges effectively.", 
+      language: "en", 
+      createdAt: now 
+    },
+    { 
+      id: "fb_demo_6", 
+      userId: "u_qa_01", 
+      documentId: "doc_quality_standards", 
+      rating: 4, 
+      comment: "Quality standards align well with ISO requirements. Implementation guidelines are clear and actionable.", 
+      language: "en", 
+      createdAt: now 
+    }
   ];
 
   const metrics: ModelMetrics = {
@@ -137,11 +431,68 @@ export async function POST(_req: NextRequest) {
   };
 
   const translations: TranslationEntry[] = [
-    { id: "tr_demo_1", documentId: "doc_bilingual_safety_notice", sourceLang: "en", targetLang: "ml", sourceText: "Safety briefing for morning shift.", translatedText: "Safety briefing for morning shift. [Malayalam]", createdAt: now },
+    { 
+      id: "tr_demo_1", 
+      documentId: "doc_safety_protocols_v32", 
+      sourceLang: "en", 
+      targetLang: "ml", 
+      sourceText: "Safety protocols require immediate implementation across all departments.", 
+      translatedText: "Safety protocols require immediate implementation across all departments. [Malayalam]", 
+      createdAt: now 
+    },
+    { 
+      id: "tr_demo_2", 
+      documentId: "doc_hr_policies", 
+      sourceLang: "en", 
+      targetLang: "ml", 
+      sourceText: "HR policies updated to reflect new employment regulations and best practices.", 
+      translatedText: "HR policies updated to reflect new employment regulations and best practices. [Malayalam]", 
+      createdAt: now 
+    },
+    { 
+      id: "tr_demo_3", 
+      documentId: "doc_compliance_annual", 
+      sourceLang: "en", 
+      targetLang: "ml", 
+      sourceText: "Compliance report highlights areas requiring immediate attention and corrective action.", 
+      translatedText: "Compliance report highlights areas requiring immediate attention and corrective action. [Malayalam]", 
+      createdAt: now 
+    }
   ];
 
   const routing = [
-    { id: "rt_demo_1", documentId: "doc_safety_protocols_v32", toRoles: ["engineer", "admin"], toDepartments: ["Operations"], reason: "safety", createdAt: now },
+    { 
+      id: "rt_demo_1", 
+      documentId: "doc_safety_protocols_v32", 
+      toRoles: ["engineer", "admin"], 
+      toDepartments: ["Operations"], 
+      reason: "safety", 
+      createdAt: now 
+    },
+    { 
+      id: "rt_demo_2", 
+      documentId: "doc_compliance_annual", 
+      toRoles: ["admin", "director"], 
+      toDepartments: ["Compliance"], 
+      reason: "compliance", 
+      createdAt: now 
+    },
+    { 
+      id: "rt_demo_3", 
+      documentId: "doc_it_security", 
+      toRoles: ["engineer", "admin"], 
+      toDepartments: ["IT"], 
+      reason: "security", 
+      createdAt: now 
+    },
+    { 
+      id: "rt_demo_4", 
+      documentId: "doc_financial_q4", 
+      toRoles: ["admin", "finance"], 
+      toDepartments: ["Finance"], 
+      reason: "financial", 
+      createdAt: now 
+    }
   ];
 
   // Ensure files exist and then write seed data

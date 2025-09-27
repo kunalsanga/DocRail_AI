@@ -1,5 +1,179 @@
 [
   {
+    "id": "ntf_li2ztsaqsno",
+    "title": "Safety Alert",
+    "message": "Safety signals detected in content. Please review.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T09:38:06.983Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_684sus0jzj",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_6w0y1r1gun7",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-27T09:38:06.458Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "doc_684sus0jzj",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_6iyx8n80yg",
+    "title": "Manual Review Required",
+    "message": "Potential safety/compliance concern detected. Please review the document.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-27T07:45:24.338Z",
+    "intendedRoles": [
+      "engineer",
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Operations"
+    ],
+    "documentId": "test-doc",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_8",
+    "title": "Quality Standards Updated",
+    "message": "Quality assurance standards have been updated to align with ISO 9001:2015 requirements.",
+    "kind": "department_relevant",
+    "createdAt": "2025-09-27T07:42:42.824Z",
+    "intendedRoles": [
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Quality Assurance"
+    ],
+    "documentId": "doc_quality_standards",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_7",
+    "title": "Security Framework Update",
+    "message": "IT security framework has been updated with enhanced cybersecurity protocols and requires implementation.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T07:42:42.824Z",
+    "intendedRoles": [
+      "admin",
+      "engineer"
+    ],
+    "intendedDepartments": [
+      "IT"
+    ],
+    "documentId": "doc_it_security",
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_6",
+    "title": "Financial Report Available",
+    "message": "Q4 financial report is now available for review by the finance team and management.",
+    "kind": "department_relevant",
+    "createdAt": "2025-09-27T07:42:42.824Z",
+    "intendedRoles": [
+      "admin",
+      "finance"
+    ],
+    "intendedDepartments": [
+      "Finance"
+    ],
+    "documentId": "doc_financial_q4",
+    "channels": [
+      "push"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_5",
+    "title": "HR Policy Updates",
+    "message": "Human resources policies have been updated to reflect new employment regulations and best practices.",
+    "kind": "new_directive",
+    "createdAt": "2025-09-27T07:42:42.824Z",
+    "intendedRoles": [
+      "admin",
+      "hr"
+    ],
+    "intendedDepartments": [
+      "HR"
+    ],
+    "documentId": "doc_hr_policies",
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_4",
+    "title": "Environmental Assessment Complete",
+    "message": "Environmental impact assessment has been completed and is ready for review by the environmental team.",
+    "kind": "department_relevant",
+    "createdAt": "2025-09-27T07:42:42.824Z",
+    "intendedRoles": [
+      "admin"
+    ],
+    "intendedDepartments": [
+      "Environment"
+    ],
+    "documentId": "doc_environmental_2024",
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": []
+  },
+  {
+    "id": "ntf_demo_3",
+    "title": "Compliance Deadline Approaching",
+    "message": "Annual compliance report submission deadline is approaching. Please ensure all required documents are reviewed.",
+    "kind": "deadline_approaching",
+    "createdAt": "2025-09-27T07:42:42.824Z",
+    "intendedRoles": [
+      "admin",
+      "director"
+    ],
+    "intendedDepartments": [
+      "Compliance",
+      "Operations"
+    ],
+    "documentId": "doc_compliance_annual",
+    "channels": [
+      "push",
+      "email"
+    ],
+    "readByUserIds": []
+  },
+  {
     "id": "ntf_demo_2",
     "title": "Design Change – Axle Spec v3.1",
     "message": "Procurement to align spare-parts contract.",

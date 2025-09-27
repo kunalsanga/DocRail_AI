@@ -1,5 +1,105 @@
 [
   {
+    "id": "ins_g4ojgltzjyl",
+    "documentId": "doc_684sus0jzj",
+    "summary": "Detected a safety-related notice requiring attention.",
+    "entities": [
+      {
+        "type": "safety_warning",
+        "value": "platform safety",
+        "confidence": 0.88
+      },
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.81
+      },
+      {
+        "type": "deadline",
+        "value": "2025-10-15",
+        "confidence": 0.7
+      }
+    ],
+    "safetyScore": 76,
+    "complianceScore": 68,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T09:38:06.431Z"
+  },
+  {
+    "id": "ins_qrd9vpoun4",
+    "documentId": "test-doc",
+    "summary": "Detected a safety-related notice requiring attention.",
+    "entities": [
+      {
+        "type": "safety_warning",
+        "value": "platform safety",
+        "confidence": 0.88
+      },
+      {
+        "type": "department",
+        "value": "Operations",
+        "confidence": 0.81
+      },
+      {
+        "type": "deadline",
+        "value": "2025-10-15",
+        "confidence": 0.7
+      }
+    ],
+    "safetyScore": 76,
+    "complianceScore": 68,
+    "overallConfidence": 0.87,
+    "createdAt": "2025-09-27T07:45:24.333Z"
+  },
+  {
+    "id": "ins_demo_5",
+    "documentId": "doc_financial_q4",
+    "summary": "Financial performance analysis reveals positive trends with recommendations for cost optimization strategies.",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Finance",
+        "confidence": 0.87
+      }
+    ],
+    "safetyScore": 30,
+    "complianceScore": 95,
+    "overallConfidence": 0.9,
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "ins_demo_4",
+    "documentId": "doc_it_security",
+    "summary": "Security framework implementation requires immediate attention to address identified vulnerabilities.",
+    "entities": [
+      {
+        "type": "department",
+        "value": "IT",
+        "confidence": 0.9
+      }
+    ],
+    "safetyScore": 45,
+    "complianceScore": 85,
+    "overallConfidence": 0.82,
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "ins_demo_3",
+    "documentId": "doc_compliance_annual",
+    "summary": "Compliance report highlights critical areas requiring immediate corrective action and process improvements.",
+    "entities": [
+      {
+        "type": "department",
+        "value": "Compliance",
+        "confidence": 0.95
+      }
+    ],
+    "safetyScore": 70,
+    "complianceScore": 65,
+    "overallConfidence": 0.88,
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
     "id": "ins_demo_2",
     "documentId": "doc_eia_report_2024",
     "summary": "EIA suggests barrier placement near school zone.",

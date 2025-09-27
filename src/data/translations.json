@@ -1,5 +1,23 @@
 [
   {
+    "id": "tr_demo_3",
+    "documentId": "doc_compliance_annual",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "Compliance report highlights areas requiring immediate attention and corrective action.",
+    "translatedText": "Compliance report highlights areas requiring immediate attention and corrective action. [Malayalam]",
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
+    "id": "tr_demo_2",
+    "documentId": "doc_hr_policies",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "HR policies updated to reflect new employment regulations and best practices.",
+    "translatedText": "HR policies updated to reflect new employment regulations and best practices. [Malayalam]",
+    "createdAt": "2025-09-27T07:42:42.824Z"
+  },
+  {
     "id": "tr_demo_1",
     "documentId": "doc_bilingual_safety_notice",
     "sourceLang": "en",
@@ -7,5 +25,18 @@
     "sourceText": "Safety briefing for morning shift.",
     "translatedText": "Safety briefing for morning shift. [Malayalam]",
     "createdAt": "2025-09-26T13:56:12.487Z"
+  },
+  {
+    "id": "tr_528a5mu8bgx",
+    "documentId": "test",
+    "sourceLang": "en",
+    "targetLang": "ml",
+    "sourceText": "Safety briefing for morning shift",
+    "translatedText": "Safety briefing for morning shift [Malayalam]",
+    "createdAt": "2025-09-27T07:34:46.089Z",
+    "createdBy": {
+      "id": "test",
+      "name": "Test User"
+    }
   }
 ]
