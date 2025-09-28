@@ -1,0 +1,124 @@
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Contents 4 0 R
+/Resources <<
+/Font <<
+/F1 5 0 R
+>>
+>>
+>>
+endobj
+
+4 0 obj
+<<
+/Length 2000
+>>
+stream
+BT
+/F1 18 Tf
+50 750 Td
+(RAILWAY SAFETY PROTOCOL DOCUMENT) Tj
+0 -30 Td
+/F1 12 Tf
+(Department: Safety & Compliance) Tj
+0 -20 Td
+(Document ID: RS-2024-001) Tj
+0 -20 Td
+(Date: January 15, 2024) Tj
+0 -30 Td
+/F1 14 Tf
+(CRITICAL SAFETY PROCEDURES) Tj
+0 -25 Td
+/F1 12 Tf
+(1. EMERGENCY PROTOCOLS) Tj
+0 -20 Td
+(All railway personnel must be familiar with emergency evacuation procedures.) Tj
+0 -15 Td
+(Contact emergency services immediately in case of accidents.) Tj
+0 -15 Td
+(Follow the STOP protocol: Stop, Think, Observe, Proceed.) Tj
+0 -25 Td
+(2. MAINTENANCE REQUIREMENTS) Tj
+0 -20 Td
+(Daily inspection of rolling stock is mandatory.) Tj
+0 -15 Td
+(Weekly track inspection must be completed by certified engineers.) Tj
+0 -15 Td
+(Monthly safety audit of all equipment is required.) Tj
+0 -25 Td
+(3. COMPLIANCE STANDARDS) Tj
+0 -20 Td
+(All operations must comply with FRA regulations.) Tj
+0 -15 Td
+(Safety training must be completed annually by all staff.) Tj
+0 -15 Td
+(Documentation of all safety procedures must be maintained.) Tj
+0 -25 Td
+(4. RISK ASSESSMENT) Tj
+0 -20 Td
+(High-risk areas include: platform edges, track crossings, maintenance zones.) Tj
+0 -15 Td
+(Regular risk assessment updates are required quarterly.) Tj
+0 -15 Td
+(Immediate reporting of hazards is mandatory.) Tj
+0 -25 Td
+(5. TRAINING REQUIREMENTS) Tj
+0 -20 Td
+(New employees must complete 40-hour safety training.) Tj
+0 -15 Td
+(Refresher courses required every 6 months.) Tj
+0 -15 Td
+(Certification must be renewed annually.) Tj
+0 -25 Td
+(APPROVED BY: Safety Director) Tj
+0 -20 Td
+(Signature: ________________) Tj
+0 -20 Td
+(Date: January 15, 2024) Tj
+ET
+endstream
+endobj
+
+5 0 obj
+<<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+endobj
+
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000274 00000 n 
+0000002340 00000 n 
+trailer
+<<
+/Size 6
+/Root 1 0 R
+>>
+startxref
+2400
+%%EOF
