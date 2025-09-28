@@ -194,5 +194,61 @@
       "size": 132262
     },
     "createdAt": "2025-09-27T14:27:56.677Z"
+  },
+  {
+    "id": "aud_xngnn3u817m",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-28T16:40:10.665Z"
+  },
+  {
+    "id": "aud_e3knr3ymc5l",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-28T16:40:10.637Z"
+  },
+  {
+    "id": "aud_zyk73aex42g",
+    "documentId": "doc_ubiqx9r89h",
+    "actor": {
+      "id": "1",
+      "name": "DocRail Officer"
+    },
+    "action": "upload",
+    "details": {
+      "fileName": "demo-railway-safety-document.pdf",
+      "size": 2292
+    },
+    "createdAt": "2025-09-28T16:40:40.742Z"
+  },
+  {
+    "id": "aud_724f48auqiw",
+    "documentId": "test",
+    "actor": {
+      "id": "system",
+      "name": "System"
+    },
+    "action": "translate",
+    "details": {
+      "sourceLang": "en",
+      "targetLang": "ml"
+    },
+    "createdAt": "2025-09-28T16:45:10.400Z"
   }
 ]
